@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainViewController = mainStoryboard.instantiateViewController(withIdentifier: "MainVC") as! ViewController
             
             let navi = UINavigationController(rootViewController: mainViewController)
+            navi.isToolbarHidden = true
             
             let window = UIWindow(frame: UIScreen.main.bounds)
             self.window = window

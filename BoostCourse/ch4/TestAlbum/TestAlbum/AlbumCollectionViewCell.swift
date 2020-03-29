@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class AlbumCollectionViewCell: UICollectionViewCell {
     
@@ -14,4 +15,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
     
+    var assetCollection: PHAssetCollection!
+    
+//    var album: 
 }

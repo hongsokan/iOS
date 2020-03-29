@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		43B1D835241DD942009FF1B9 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1D834241DD942009FF1B9 /* PhotoViewController.swift */; };
-		43B1D837241DD956009FF1B9 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1D836241DD956009FF1B9 /* PhotoCollectionViewCell.swift */; };
 		43C0E2AB241205D40063A29B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C0E2AA241205D40063A29B /* AppDelegate.swift */; };
 		43C0E2AD241205D40063A29B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C0E2AC241205D40063A29B /* SceneDelegate.swift */; };
 		43C0E2AF241205D40063A29B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C0E2AE241205D40063A29B /* ViewController.swift */; };
@@ -22,7 +21,6 @@
 
 /* Begin PBXFileReference section */
 		43B1D834241DD942009FF1B9 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
-		43B1D836241DD956009FF1B9 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		43C0E2A7241205D40063A29B /* TestAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C0E2AA241205D40063A29B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43C0E2AC241205D40063A29B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 				43C0E2C42419DFA50063A29B /* SecondViewController.swift */,
 				43C0E2C6241A1A0F0063A29B /* SecondCollectionViewCell.swift */,
 				43B1D834241DD942009FF1B9 /* PhotoViewController.swift */,
-				43B1D836241DD956009FF1B9 /* PhotoCollectionViewCell.swift */,
 				43C0E2B0241205D40063A29B /* Main.storyboard */,
 				43C0E2B3241205D90063A29B /* Assets.xcassets */,
 				43C0E2B5241205D90063A29B /* LaunchScreen.storyboard */,
@@ -154,7 +151,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				43C0E2BF241549E20063A29B /* AlbumCollectionViewCell.swift in Sources */,
-				43B1D837241DD956009FF1B9 /* PhotoCollectionViewCell.swift in Sources */,
 				43C0E2AF241205D40063A29B /* ViewController.swift in Sources */,
 				43C0E2C7241A1A0F0063A29B /* SecondCollectionViewCell.swift in Sources */,
 				43C0E2AB241205D40063A29B /* AppDelegate.swift in Sources */,

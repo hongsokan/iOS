@@ -14,21 +14,25 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     let cellIdentifier: String = "photoCell"
     @IBOutlet weak var secondCollectionView: UICollectionView!
     
-    var albumTitle: String!
-    var albumSelected: PHAssetCollection!
+    var myAlbum: AlbumModel = AlbumModel(name: "", count: 0, collection: PHAssetCollection.init())
     
     var scale: CGFloat!
     var targetX: CGFloat!
-
+    
     var fetchResult: PHFetchResult<PHAsset>!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
+    
+    var fetchOptions: PHFetchOptions {
+        let fetchOptions = PHFetchOptions()
+        return fetchOptions
+    }
     
     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
-        guard let changes = changeInstance.changeDetails(for: fetchResult) else {   return  }
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
         
-        fetchResult = changes.fetchResultAfterChanges
+        self.fetchResult = changes.fetchResultAfterChanges
         
         OperationQueue.main.addOperation {
             self.secondCollectionView?.reloadSections(IndexSet(0...0))
@@ -38,17 +42,14 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func requestCollection() {
         
-        /*
-        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
-        
-        guard let cameraRollCollection = cameraRoll.firstObject else {  return }
-        */
-
-        
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
-//        self.fetchResult = PHAsset.fetchAssets(in: albumSelected, options: fetchOptions)
+        self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
+        
+        OperationQueue.main.addOperation {
+            self.secondCollectionView.reloadData()
+        }
         
     }
     
@@ -96,20 +97,60 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         // PhotoLibrary가 변화될 때마다 델리게이트 메서드가 호출된다
         PHPhotoLibrary.shared().register(self)
         
+        self.navigationItem.title = myAlbum.name
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(selectingPhoto(_:)))
+        
+        self.navigationController?.isToolbarHidden = false
+        
+        let actionItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButton(_:)))
+        
+        let statusItem = UIBarButtonItem(title: "최신순", style: .plain, target: self, action: #selector(sortingStatus(_:)))
+        
+        let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButton(_:)))
+        
+        let spaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        self.setToolbarItems([actionItem, spaceItem, statusItem, spaceItem, deleteItem], animated: false)
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationItem.title = albumTitle
+    @IBAction func selectingPhoto(_ sender: UIBarButtonItem) {
         
     }
     
+    @IBAction func actionButton(_ sender: UIBarButtonItem) {
+        let imageToShare: UIImage = UIImage(named: "default")!
+        let urlToShare: String = "http://edwith.org/boostcourse-ios"
+        let textToShare: String = "부스트코스"
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageToShare, urlToShare, textToShare], applicationActivities: nil)
+        
+        activityViewController.completionWithItemsHandler = { (activity, success, items, error) in
+            if success {
+                
+            } else {
+                
+            }
+        }
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func sortingStatus(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    @IBAction func deleteButton(_ sender: UIBarButtonItem) {
+        
+    }
     
     // MARK: - CollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.fetchResult?.count ?? 0
+        
+        print(myAlbum.count)
+        
+        return self.fetchResult.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -121,7 +162,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: secondCollectionView.frame.width / 3, height: secondCollectionView.frame.width / 3), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             
-            cell.backgroundColor = UIColor.systemBlue
+//            cell.backgroundColor = UIColor.systemBlue
             cell.photoImage?.image = image
         })
         
@@ -133,7 +174,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         targetX = secondCollectionView.frame.width / 3 - 2 // Min Spacing For Cell
         
-//        print("Cell 크기 설정 - targetX = \(String(describing: targetX))")
+        //        print("Cell 크기 설정 - targetX = \(String(describing: targetX))")
         
         return CGSize(width: targetX, height: targetX)
     }
@@ -157,6 +198,13 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        guard let photoViewController: PhotoViewController = segue.destination as? PhotoViewController else { return }
+        
+        let cell: SecondCollectionViewCell = sender as! SecondCollectionViewCell
+        
+        photoViewController.seletedImage = cell.photoImage?.image
+
     }
     
     

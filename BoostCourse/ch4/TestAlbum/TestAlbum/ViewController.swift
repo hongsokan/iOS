@@ -5,9 +5,9 @@ import Foundation
 
 
 class AlbumModel {
-    let name: String
-    let count: Int
-    let collection: PHAssetCollection
+    var name: String
+    var count: Int
+    var collection: PHAssetCollection
     
     init(name: String, count: Int, collection: PHAssetCollection) {
         self.name = name
@@ -18,8 +18,9 @@ class AlbumModel {
 
 var albumList: [AlbumModel] = [AlbumModel]()
 
+
+
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PHPhotoLibraryChangeObserver {
-    
     
     let cellIdentifier: String = "cell"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -27,10 +28,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var fetchResult: PHFetchResult<PHAsset>!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
-    var allPhotos: PHFetchResult<PHAsset>!
-    var smartAlbums: PHFetchResult<PHAssetCollection>!
-    var userCollections: PHFetchResult<PHCollection>!
-    let sectionLocalizedTitles = ["", NSLocalizedString("Smart Albums", comment: ""), NSLocalizedString("Albums", comment: "")]
+    var albumImage: [UIImage] = [UIImage]()
     
     var scale: CGFloat!
     var targetX: CGFloat!
@@ -40,7 +38,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
-        guard let changes = changeInstance.changeDetails(for: fetchResult) else {   return  }
+        
+        guard let changes = changeInstance.changeDetails(for: fetchResult)
+            else {   return  }
         
         fetchResult = changes.fetchResultAfterChanges
         
@@ -50,77 +50,38 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     // iOS 에서 사진 찍으면 저장되는 카메라롤 불러오기
-    // 콜렉션에 있는 사진들 가져와
-    // 최신순 정렬
     // 그 결과를 fetchResult 라는 프로퍼티로 가져온다
     func requestCollection() {
         
-        /*
-         let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
-         
-         guard let cameraRollCollection = cameraRoll.firstObject else {  return }
-         
-         let fetchOptions = PHFetchOptions()
-         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-         
-         self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
-         */
-        
-        
         let fetchOptions = PHFetchOptions()
-//        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        
-        allPhotos = PHAsset.fetchAssets(with: fetchOptions)
-        smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
-        userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+        let cameraRollAlbum = PHAssetCollection.fetchAssetCollections(with:.smartAlbum, subtype: .smartAlbumUserLibrary, options: fetchOptions)
+        let smartAlbumFavorites = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: fetchOptions)
+        let albumRegular = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: fetchOptions)
         
         
-        let cameraRollAlbum = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.smartAlbumUserLibrary, options: fetchOptions)
-        
-        /*
-        let smartAlbumFavorites = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.smartAlbumFavorites, options: fetchOptions)
-        
-        let smartAlbumRecentlyAdded = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.smartAlbumRecentlyAdded, options: fetchOptions)
-        */
-        
-//  cameraRollAlbum, smartAlbumRecentlyAdded, smartAlbumFavorites, smartAlbumPanoramas, smartAlbumSelfPortraits, smartAlbumScreenshots, smartAlbumBursts
-        
-        [smartAlbums].forEach
-            {
-                $0.enumerateObjects { collection, index, stop in
-                    
-//                    guard let album = collection as? PHAssetCollection else { return }
-                    
-                    let album : PHAssetCollection = collection
-                    
-                    // PHAssetCollection 의 localizedTitle 을 이용해 앨범 타이틀 가져오기
-                    let albumTitle : String = album.localizedTitle!
-                    
-                    // 이미지만 가져오도록 옵션 설정
-                    let fetchOptionsForImage = PHFetchOptions()
-                    fetchOptionsForImage.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                    fetchOptionsForImage.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-                    
-                    self.fetchResult = PHAsset.fetchAssets(in: album, options: fetchOptionsForImage)
-                    
-                    // PHFetchResult 의 count 을 이용해 앨범 사진 갯수 가져오기
-                    let albumCount = self.fetchResult.count
-                    
-                    // 저장
-                    let newAlbum = AlbumModel(name: albumTitle, count: albumCount, collection: album)
-                    
-                    print("앨범 이름 : " + newAlbum.name)
-                    print("사진 수 : " + "\(newAlbum.count)" + " 개")
-                    
-                    //앨범 정보 추가
-                    albumList.append(newAlbum)
-                    
-                    print("albumList : \(albumList.description)")
-                    print("fetchResult : \(self.fetchResult.description)")
+        [cameraRollAlbum, smartAlbumFavorites, albumRegular].forEach
+            { $0.enumerateObjects { collection, index, stop in
+                let album: PHAssetCollection = collection
+
+                let fetchOptions2 = PHFetchOptions()
+                fetchOptions2.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                
+                self.fetchResult = PHAsset.fetchAssets(in: album, options: fetchOptions2)
+
+                let albumTitle: String = album.localizedTitle!
+                let albumCount = self.fetchResult.count
+                let newAlbum = AlbumModel(name: albumTitle, count: albumCount, collection: album)
+
+                print()
+                print(newAlbum.name)
+                print(newAlbum.count)
+                
+                albumList.append(newAlbum)
                 }
         }
-        
     }
+    
+    
     
     
     override func viewDidLoad() {
@@ -131,7 +92,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // 화면의 좁은 쪽을 기준으로 2등분한다.
         targetX = (UIScreen.main.bounds.width) * scale / 2
         
-        self.collectionView?.backgroundColor = UIColor.systemYellow
+        //        self.collectionView?.backgroundColor = UIColor.systemYellow
         
         // 사용자가 사진첩 접근을 허용했는지 판단
         // 사용자의 프라이버시에 접근
@@ -170,13 +131,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // PhotoLibrary가 변화될 때마다 델리게이트 메서드가 호출된다
         PHPhotoLibrary.shared().register(self)
         
+        self.navigationController?.isToolbarHidden = true
+        self.navigationItem.title = "앨범"
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationItem.title = "앨범"
-        
+        self.navigationController?.isToolbarHidden = true
     }
     
     
@@ -184,30 +144,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        print("총 앨범 수 : " + "\(albumList.count)" + " 개")
-        
+        print()
+        print("앨범 수:" + "\(albumList.count)")
         return albumList.count
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell: AlbumCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! AlbumCollectionViewCell
+        guard let cell: AlbumCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? AlbumCollectionViewCell else { return AlbumCollectionViewCell() }
+
         
-        for i in indexPath {
+        for i in indexPath{
+ 
+            let asset: PHAsset = self.fetchResult.firstObject!
             
-            // imageManager 를 통해서 request
-            imageManager.requestImage(for: fetchResult.firstObject!, targetSize: CGSize(width: self.collectionView.frame.width / 2, height: self.collectionView.frame.width / 2), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: self.collectionView.frame.width / 2, height: self.collectionView.frame.width / 2), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
                 
-                cell.backgroundColor = UIColor.systemBlue
+                //                cell.backgroundColor = UIColor.systemBlue
                 cell.albumImage?.image = image
                 cell.nameLabel?.text = albumList[i].name
                 cell.countLabel?.text = (String)(albumList[i].count)
-                
-            }
-            )}
-
-        print("\(albumList.first!.collection)")
+                cell.assetCollection = albumList[i].collection
+            })
+        }
+        
         
         return cell
     }
@@ -220,7 +181,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         details = 48
         
-//        print("Cell 크기 설정 - targetX = \(String(describing: targetX))")
+        //        print("Cell 크기 설정 - targetX = \(String(describing: targetX))")
         
         return CGSize(width: targetX, height: targetX + details)
     }
@@ -247,16 +208,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         guard let nextViewController: SecondViewController = segue.destination as? SecondViewController else { return }
         
-        guard let cell: SecondCollectionViewCell = sender as? SecondCollectionViewCell else {
-            return
-        }
+        let cell: AlbumCollectionViewCell = sender as! AlbumCollectionViewCell
         
-        nextViewController.albumTitle = albumList.first!.name
-        nextViewController.albumSelected = albumList.first!.collection
-        
-        print("\(albumList.first!.name)")
-        
-//        nextViewController.photoList = albumList.first?.collection as! PHAssetCollection
+        nextViewController.fetchResult = self.fetchResult
+        nextViewController.myAlbum.name = cell.nameLabel!.text!
+        nextViewController.myAlbum.count = (Int)(cell.countLabel!.text!)!
+        nextViewController.myAlbum.collection = cell.assetCollection
         
     }
     
