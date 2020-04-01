@@ -28,16 +28,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var fetchResult: PHFetchResult<PHAsset>!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     
-    var albumImage: [UIImage] = [UIImage]()
+    var fetchAssets: [PHAsset] = []
     
     var scale: CGFloat!
     var targetX: CGFloat!
     var details: CGFloat!
     
-    
     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
         
         guard let changes = changeInstance.changeDetails(for: fetchResult)
             else {   return  }
@@ -62,16 +60,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         [cameraRollAlbum, smartAlbumFavorites, albumRegular].forEach
             { $0.enumerateObjects { collection, index, stop in
                 let album: PHAssetCollection = collection
-
+                
                 let fetchOptions2 = PHFetchOptions()
                 fetchOptions2.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
                 
                 self.fetchResult = PHAsset.fetchAssets(in: album, options: fetchOptions2)
-
+                self.fetchAssets.append(self.fetchResult.firstObject!)
+                
                 let albumTitle: String = album.localizedTitle!
                 let albumCount = self.fetchResult.count
                 let newAlbum = AlbumModel(name: albumTitle, count: albumCount, collection: album)
-
+                
+                
                 print()
                 print(newAlbum.name)
                 print(newAlbum.count)
@@ -137,15 +137,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isToolbarHidden = true
+        
+        OperationQueue.main.addOperation {
+            self.collectionView?.reloadData()
+        }
     }
     
     
     // MARK: CollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        print()
-        print("앨범 수:" + "\(albumList.count)")
+//        print("앨범 수:" + "\(albumList.count)")
         return albumList.count
         
     }
@@ -154,10 +156,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         guard let cell: AlbumCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? AlbumCollectionViewCell else { return AlbumCollectionViewCell() }
 
-        
         for i in indexPath{
- 
-            let asset: PHAsset = self.fetchResult.firstObject!
+            
+            let asset: PHAsset = self.fetchAssets[i]
             
             imageManager.requestImage(for: asset, targetSize: CGSize(width: self.collectionView.frame.width / 2, height: self.collectionView.frame.width / 2), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
                 
@@ -180,8 +181,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         targetX = collectionView.frame.width / 2 - 2 // Min Spacing For Cell
         
         details = 48
-        
-        //        print("Cell 크기 설정 - targetX = \(String(describing: targetX))")
         
         return CGSize(width: targetX, height: targetX + details)
     }

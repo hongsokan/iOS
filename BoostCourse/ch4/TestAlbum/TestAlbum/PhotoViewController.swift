@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import Foundation
 
 
 class PhotoViewController: UIViewController {
@@ -23,9 +24,11 @@ class PhotoViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        self.navigationItem.title = "날짜"
-        
+        self.navigationItem.title = "yyyy-MM-dd"
+        print("\(image.description)")
         self.navigationController?.isToolbarHidden = false
         
         let actionItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButton(_:)))

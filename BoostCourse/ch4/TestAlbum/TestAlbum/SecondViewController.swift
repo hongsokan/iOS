@@ -13,6 +13,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     let cellIdentifier: String = "photoCell"
     @IBOutlet weak var secondCollectionView: UICollectionView!
+    var selectedCells: [IndexPath]!
     
     var myAlbum: AlbumModel = AlbumModel(name: "", count: 0, collection: PHAssetCollection.init())
     
@@ -26,6 +27,14 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         let fetchOptions = PHFetchOptions()
         return fetchOptions
     }
+    
+    //    var selectedPhotos:
+    
+    @IBOutlet var selectButton: UIBarButtonItem!
+    @IBOutlet var actionButton: UIBarButtonItem!
+    @IBOutlet var sortingButton: UIBarButtonItem!
+    @IBOutlet var deleteButton: UIBarButtonItem!
+    
     
     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
     func photoLibraryDidChange(_ changeInstance: PHChange) {
@@ -97,25 +106,59 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         // PhotoLibrary가 변화될 때마다 델리게이트 메서드가 호출된다
         PHPhotoLibrary.shared().register(self)
         
-        self.navigationItem.title = myAlbum.name
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(selectingPhoto(_:)))
-        
         self.navigationController?.isToolbarHidden = false
         
-        let actionItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButton(_:)))
+        self.navigationItem.title = myAlbum.name
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(selectingPhoto(_:)))
+        selectButton = self.navigationItem.rightBarButtonItem
         
-        let statusItem = UIBarButtonItem(title: "최신순", style: .plain, target: self, action: #selector(sortingStatus(_:)))
+        actionButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButton(_:)))
+        actionButton.isEnabled = false
         
-        let deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButton(_:)))
+        sortingButton = UIBarButtonItem(title: "최신순", style: .plain, target: self, action: #selector(sortingStatus(_:)))
+        
+        deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButton(_:)))
+        deleteButton.isEnabled = false
         
         let spaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
-        self.setToolbarItems([actionItem, spaceItem, statusItem, spaceItem, deleteItem], animated: false)
+        self.setToolbarItems([actionButton, spaceItem, sortingButton, spaceItem, deleteButton], animated: false)
         
     }
     
+    /*
+     override func setEditing(_ editing: Bool, animated: Bool) {
+     super.setEditing(editing, animated: animated)
+     
+     secondCollectionView.allowsMultipleSelection = editing
+     let indexPaths = secondCollectionView.indexPathsForVisibleItems
+     for indexPath in indexPaths {
+     let cell = secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
+     cell.isInEditingMode = editing
+     }
+     }   */
+    
     @IBAction func selectingPhoto(_ sender: UIBarButtonItem) {
-        
+        if sender.title == "선택" {
+            sender.title = "취소"
+            selectedCells = self.secondCollectionView.indexPathsForVisibleItems
+            for indexPath in selectedCells {
+                let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
+                cell.isInEditingMode = true
+                deleteButton.isEnabled = true
+                actionButton.isEnabled = true
+            }
+            
+        } else {
+            sender.title = "선택"
+            selectedCells = self.secondCollectionView.indexPathsForVisibleItems
+            for indexPath in selectedCells {
+                let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
+                cell.isInEditingMode = false
+                deleteButton.isEnabled = false
+                actionButton.isEnabled = false
+            }
+        }
     }
     
     @IBAction func actionButton(_ sender: UIBarButtonItem) {
@@ -138,10 +181,30 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     @IBAction func sortingStatus(_ sender: UIBarButtonItem) {
         
+        let fetchOptions = PHFetchOptions()
+        
+        if sender.title == "최신순" {
+            sender.title = "과거순"
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
+            OperationQueue.main.addOperation {
+                self.secondCollectionView.reloadData()
+            }
+        } else {
+            sender.title = "최신순"
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
+            OperationQueue.main.addOperation {
+                self.secondCollectionView.reloadData()
+            }
+        }
     }
     
     @IBAction func deleteButton(_ sender: UIBarButtonItem) {
-        
+        selectedCells = secondCollectionView.indexPathsForVisibleItems
+        //            let items = selectedCells.map { $0.item }.sorted().reversed()
+        secondCollectionView.deleteItems(at: selectedCells)
+        deleteButton.isEnabled = false
     }
     
     // MARK: - CollectionView
@@ -162,7 +225,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: secondCollectionView.frame.width / 3, height: secondCollectionView.frame.width / 3), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             
-//            cell.backgroundColor = UIColor.systemBlue
+            //            cell.backgroundColor = UIColor.systemBlue
             cell.photoImage?.image = image
         })
         
@@ -204,7 +267,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell: SecondCollectionViewCell = sender as! SecondCollectionViewCell
         
         photoViewController.seletedImage = cell.photoImage?.image
-
+        
     }
     
     

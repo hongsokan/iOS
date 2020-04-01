@@ -12,4 +12,17 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var photoImage: UIImageView!
     
+    var isInEditingMode: Bool = false {
+        didSet {
+            layer.borderWidth = 0
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isInEditingMode {
+                layer.borderWidth = 5
+            }
+        }
+    }
 }
