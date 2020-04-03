@@ -11,11 +11,11 @@ import Photos
 
 class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PHPhotoLibraryChangeObserver {
     
+    var myAlbum: AlbumModel = AlbumModel(name: "", count: 0, collection: PHAssetCollection.init())
+    
     let cellIdentifier: String = "photoCell"
     @IBOutlet weak var secondCollectionView: UICollectionView!
     var selectedCells: [IndexPath]!
-    
-    var myAlbum: AlbumModel = AlbumModel(name: "", count: 0, collection: PHAssetCollection.init())
     
     var scale: CGFloat!
     var targetX: CGFloat!
@@ -28,45 +28,14 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         return fetchOptions
     }
     
-    //    var selectedPhotos:
-    
     @IBOutlet var selectButton: UIBarButtonItem!
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var sortingButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
     
     
-    // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
-        
-        self.fetchResult = changes.fetchResultAfterChanges
-        
-        OperationQueue.main.addOperation {
-            self.secondCollectionView?.reloadSections(IndexSet(0...0))
-        }
-    }
-    
-    
-    func requestCollection() {
-        
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        
-        self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
-        
-        OperationQueue.main.addOperation {
-            self.secondCollectionView.reloadData()
-        }
-        
-    }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // 사용자가 사진첩 접근을 허용했는지 판단
         // 사용자의 프라이버시에 접근
@@ -102,7 +71,6 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             fatalError()
         }
         
-        
         // PhotoLibrary가 변화될 때마다 델리게이트 메서드가 호출된다
         PHPhotoLibrary.shared().register(self)
         
@@ -111,6 +79,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.navigationItem.title = myAlbum.name
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(selectingPhoto(_:)))
         selectButton = self.navigationItem.rightBarButtonItem
+        self.secondCollectionView?.allowsMultipleSelection = true
         
         actionButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButton(_:)))
         actionButton.isEnabled = false
@@ -126,6 +95,37 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        
+        self.fetchResult = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.secondCollectionView?.reloadSections(IndexSet(0...0))
+        }
+    }
+    
+    
+    func requestCollection() {
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
+        
+        OperationQueue.main.addOperation {
+            self.secondCollectionView.reloadData()
+        }
+        
+    }
+    
     /*
      override func setEditing(_ editing: Bool, animated: Bool) {
      super.setEditing(editing, animated: animated)
@@ -138,20 +138,26 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
      }
      }   */
     
+    
     @IBAction func selectingPhoto(_ sender: UIBarButtonItem) {
         if sender.title == "선택" {
             sender.title = "취소"
-            selectedCells = self.secondCollectionView.indexPathsForVisibleItems
+            self.navigationItem.title = "항목 선택"
+            self.secondCollectionView.allowsMultipleSelection = true
+            selectedCells = self.secondCollectionView?.indexPathsForSelectedItems
             for indexPath in selectedCells {
                 let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
                 cell.isInEditingMode = true
+                if cell.isSelected {
+                    //                    selectedCells.append(cell)
+                }
                 deleteButton.isEnabled = true
                 actionButton.isEnabled = true
             }
-            
         } else {
             sender.title = "선택"
-            selectedCells = self.secondCollectionView.indexPathsForVisibleItems
+            self.navigationItem.title = myAlbum.name
+            selectedCells = self.secondCollectionView?.indexPathsForSelectedItems
             for indexPath in selectedCells {
                 let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
                 cell.isInEditingMode = false
@@ -201,17 +207,15 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     @IBAction func deleteButton(_ sender: UIBarButtonItem) {
-        selectedCells = secondCollectionView.indexPathsForVisibleItems
-        //            let items = selectedCells.map { $0.item }.sorted().reversed()
-        secondCollectionView.deleteItems(at: selectedCells)
-        deleteButton.isEnabled = false
+        
+        
     }
     
     // MARK: - CollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        print(myAlbum.count)
+        //        print(myAlbum.count)
         
         return self.fetchResult.count
     }
@@ -226,6 +230,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         imageManager.requestImage(for: asset, targetSize: CGSize(width: secondCollectionView.frame.width / 3, height: secondCollectionView.frame.width / 3), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             
             //            cell.backgroundColor = UIColor.systemBlue
+            cell.imageDate = asset.creationDate
             cell.photoImage?.image = image
         })
         
@@ -254,6 +259,17 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         return 2 as CGFloat
     }
     
+    // cell 다중 선택
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.secondCollectionView?.allowsMultipleSelection = true
+    }
+    
+    //
+    
+    //    func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
+    //        <#code#>
+    //    }
+    
     
     // MARK: - Navigation
     
@@ -263,12 +279,38 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         // Pass the selected object to the new view controller.
         
         guard let photoViewController: PhotoViewController = segue.destination as? PhotoViewController else { return }
-        
         let cell: SecondCollectionViewCell = sender as! SecondCollectionViewCell
+        let indexPath = secondCollectionView.indexPath(for: cell)!
+        
+        photoViewController.asset = fetchResult.object(at: indexPath.item)
+        photoViewController.assetCollection = myAlbum.collection
         
         photoViewController.seletedImage = cell.photoImage?.image
-        
+        photoViewController.dateInfo = cell.imageDate
     }
     
     
+}
+
+
+// MARK: PHPhotoLibraryChangeObserver
+extension PhotoViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
+        DispatchQueue.main.sync {
+            // Check if there are changes to the displayed asset.
+            guard let details = changeInstance.changeDetails(for: asset) else { return }
+            
+            // Get the updated asset.
+            asset = details.objectAfterChanges
+            
+            // If the asset's content changes, update the image and stop any video playback.
+            if details.assetContentChanged {
+                //                updateImage()
+                
+                //                playerLayer?.removeFromSuperlayer()
+                //                playerLayer = nil
+            }
+        }
+    }
 }

@@ -11,6 +11,7 @@ import UIKit
 class SecondCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var photoImage: UIImageView!
+    var imageDate: Date!
     
     var isInEditingMode: Bool = false {
         didSet {
