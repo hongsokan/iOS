@@ -291,26 +291,3 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
 }
-
-
-// MARK: PHPhotoLibraryChangeObserver
-extension PhotoViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
-        DispatchQueue.main.sync {
-            // Check if there are changes to the displayed asset.
-            guard let details = changeInstance.changeDetails(for: asset) else { return }
-            
-            // Get the updated asset.
-            asset = details.objectAfterChanges
-            
-            // If the asset's content changes, update the image and stop any video playback.
-            if details.assetContentChanged {
-                //                updateImage()
-                
-                //                playerLayer?.removeFromSuperlayer()
-                //                playerLayer = nil
-            }
-        }
-    }
-}
