@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PHPhotoLibraryChangeObserver {
+class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var myAlbum: AlbumModel = AlbumModel(name: "", count: 0, collection: PHAssetCollection.init())
     
@@ -100,6 +100,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
+    /*
     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
@@ -110,7 +111,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         OperationQueue.main.addOperation {
             self.secondCollectionView?.reloadSections(IndexSet(0...0))
         }
-    }
+    }   */
     
     
     func requestCollection() {
@@ -290,4 +291,39 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     
+}
+
+
+
+// MARK: PHPhotoLibraryChangeObserver
+extension SecondViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        /*
+        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
+        DispatchQueue.main.sync {
+            // Check if there are changes to the displayed asset.
+            guard let details = changeInstance.changeDetails(for: asset) else { return }
+            
+            // Get the updated asset.
+            asset = details.objectAfterChanges
+            
+            // If the asset's content changes, update the image and stop any video playback.
+            if details.assetContentChanged {
+                updateImage()
+                
+//                playerLayer?.removeFromSuperlayer()
+//                playerLayer = nil
+            }
+        }
+        */
+        
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        
+        self.fetchResult = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.secondCollectionView?.reloadSections(IndexSet(0...0))
+        }
+    }
 }

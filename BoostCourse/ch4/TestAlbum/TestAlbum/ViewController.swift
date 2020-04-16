@@ -20,7 +20,7 @@ var albumList: [AlbumModel] = [AlbumModel]()
 
 
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PHPhotoLibraryChangeObserver {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let cellIdentifier: String = "cell"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -34,6 +34,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var targetX: CGFloat!
     var details: CGFloat!
     
+    
+    /*
     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
@@ -46,6 +48,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.collectionView?.reloadSections(IndexSet(0...0))
         }
     }
+    */
     
     // iOS 에서 사진 찍으면 저장되는 카메라롤 불러오기
     // 그 결과를 fetchResult 라는 프로퍼티로 가져온다
@@ -216,4 +219,38 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+}
+
+
+// MARK: PHPhotoLibraryChangeObserver
+extension ViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        /*
+        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
+        DispatchQueue.main.sync {
+            // Check if there are changes to the displayed asset.
+            guard let details = changeInstance.changeDetails(for: asset) else { return }
+            
+            // Get the updated asset.
+            asset = details.objectAfterChanges
+            
+            // If the asset's content changes, update the image and stop any video playback.
+            if details.assetContentChanged {
+                updateImage()
+                
+//                playerLayer?.removeFromSuperlayer()
+//                playerLayer = nil
+            }
+        }
+        */
+        
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        
+        self.fetchResult = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.collectionView?.reloadSections(IndexSet(0...0))
+        }
+    }
 }

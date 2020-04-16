@@ -119,7 +119,28 @@ class PhotoViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
-        
+        let completion = { (success: Bool, error: Error?) -> Void in
+            if success {
+                PHPhotoLibrary.shared().unregisterChangeObserver(self)
+                DispatchQueue.main.sync {
+                    _ = self.navigationController!.popViewController(animated: true)
+                }
+            } else {
+                print("Can't remove the asset: \(String(describing: error))")
+            }
+        }
+        if assetCollection != nil {
+            // Remove the asset from the selected album.
+            PHPhotoLibrary.shared().performChanges({
+                let request = PHAssetCollectionChangeRequest(for: self.assetCollection)!
+                request.removeAssets([self.asset] as NSArray)
+            }, completionHandler: completion)
+        } else {
+            // Delete the asset from the photo library.
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.deleteAssets([self.asset] as NSArray)
+            }, completionHandler: completion)
+        }
     }
     
     func addImage() {
@@ -138,6 +159,44 @@ class PhotoViewController: UIViewController, UIGestureRecognizerDelegate {
         self.image = image
     }
     
+    var targetSize: CGSize {
+        let scale = UIScreen.main.scale
+        return CGSize(width: self.image.bounds.width * scale, height: self.image.bounds.height * scale)
+    }
+    
+    func updateImage() {
+        if asset.mediaSubtypes.contains(.photoLive) {
+            updateStaticImage()
+        }
+    }
+    
+    func updateStaticImage() {
+        // Prepare the options to pass when fetching the (photo, or video preview) image.
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        options.progressHandler = { progress, _, _, _ in
+            // The handler may originate on a background queue, so
+            // re-dispatch to the main queue for UI work.
+            DispatchQueue.main.sync {
+//                self.progressView.progress = Float(progress)
+            }
+        }
+        
+        PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options,
+                                              resultHandler: { image, _ in
+                                                // PhotoKit finished the request, so hide the progress view.
+//                                                self.progressView.isHidden = true
+                                                
+                                                // If the request succeeded, show the image view.
+                                                guard let image = image else { return }
+                                                
+                                                // Show the image.
+//                                                self.livePhotoView.isHidden = true
+                                                self.image.isHidden = false
+                                                self.image.image = image
+        })
+    }
     
     /*
      // MARK: - Navigation
@@ -165,7 +224,7 @@ extension PhotoViewController: PHPhotoLibraryChangeObserver {
             
             // If the asset's content changes, update the image and stop any video playback.
             if details.assetContentChanged {
-//                updateImage()
+                updateImage()
                 
 //                playerLayer?.removeFromSuperlayer()
 //                playerLayer = nil
@@ -173,3 +232,19 @@ extension PhotoViewController: PHPhotoLibraryChangeObserver {
         }
     }
 }
+
+/*
+// MARK: PHPhotoLibraryChangeObserver
+extension PhotoViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        
+        self.fetchResult = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.secondCollectionView?.reloadSections(IndexSet(0...0))
+        }
+    }
+}
+*/
