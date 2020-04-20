@@ -149,9 +149,9 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             for indexPath in selectedCells {
                 let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
                 cell.isInEditingMode = true
-                if cell.isSelected {
-                    //                    selectedCells.append(cell)
-                }
+//                if cell.isSelected {
+                
+//                }
                 deleteButton.isEnabled = true
                 actionButton.isEnabled = true
             }
