@@ -15,4 +15,11 @@ pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'GoogleSignIn'
 
+# Facebook
+pod 'FBSDKCoreKit'  
+pod 'FBSDKLoginKit'
+pod 'FBSDKShareKit'
+pod 'FBSDKPlacesKit'
+
+
 end

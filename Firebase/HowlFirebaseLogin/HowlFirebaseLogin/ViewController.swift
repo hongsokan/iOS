@@ -9,9 +9,47 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKLoginKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, LoginButtonDelegate {
     
+    // Facebook login button delegate
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        //        print(result?.token?.tokenString as Any)
+        if(result?.token == nil) {
+            return
+        }
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+        
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                // ...
+                return
+            }
+            // User is signed in
+            // ...
+        }
+        
+        LoginManager().logOut()
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        
+        //        loginButton.delegate = self
+        //        let firebaseAuth = Auth.auth()
+        //        do {
+        //            try firebaseAuth.signOut()
+        //        } catch let signOutError as NSError {
+        //            print ("Error signing out: %@", signOutError)
+        //        }
+    }
+    
+    @IBOutlet weak var facebookLoginButton: FBLoginButton!
+    
+    
+    // Email & Password
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     
@@ -20,12 +58,17 @@ class ViewController: UIViewController {
         Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (user, error) in
             // ...
             
-            if(error != nil) { return }
-            
-            let alert = UIAlertController(title: "알림", message: "회원가입완료", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: .default, handler:    nil))
-            
-            self.present(alert, animated: true, completion: nil)
+            if(error != nil) {
+                
+                Auth.auth().signIn(withEmail: self.email.text!, password: self.password.text!) { (user, error) in
+                    
+                }
+            } else {
+                let alert = UIAlertController(title: "알림", message: "회원가입완료", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default, handler:    nil))
+                
+                self.present(alert, animated: true, completion: nil)
+            }
             
         }
     }
@@ -42,8 +85,15 @@ class ViewController: UIViewController {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().signIn()
         
-        // TODO(developer) Configure the sign-in button look/feel
-        // ...
+        facebookLoginButton.delegate = self
+        facebookLoginButton.permissions = ["public_profile", "email"]
+        
+        Auth.auth().addStateDidChangeListener({ (user, err) in
+            if user != nil {
+                
+                self.performSegue(withIdentifier: "Home", sender: nil)
+            }
+        })
     }
     
     

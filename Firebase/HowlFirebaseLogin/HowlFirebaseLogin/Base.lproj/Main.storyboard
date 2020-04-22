@@ -64,14 +64,25 @@
                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IMh-w6-3rH"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6G-vF-H0i" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="92" y="564" width="230" height="48"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="LbS-4A-yaM"/>
+                                    <constraint firstAttribute="width" constant="230" id="gJM-hq-5ue"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="YhM-5I-Uz4" firstAttribute="leading" secondItem="wVk-Q0-Qu4" secondAttribute="leading" id="7Wz-T1-QVg"/>
                             <constraint firstItem="YhM-5I-Uz4" firstAttribute="top" secondItem="Tuf-1D-SJH" secondAttribute="bottom" constant="8" id="CYu-oc-MO7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y6G-vF-H0i" secondAttribute="trailing" constant="92" id="CcJ-ws-qQw"/>
                             <constraint firstItem="wVk-Q0-Qu4" firstAttribute="top" secondItem="YhM-5I-Uz4" secondAttribute="bottom" constant="8" id="Vfi-MO-Z7a"/>
+                            <constraint firstItem="Y6G-vF-H0i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="92" id="ZAn-BS-QQj"/>
                             <constraint firstItem="Tuf-1D-SJH" firstAttribute="leading" secondItem="YhM-5I-Uz4" secondAttribute="leading" id="e3P-xm-SLu"/>
                             <constraint firstItem="awJ-Au-Olw" firstAttribute="top" secondItem="wVk-Q0-Qu4" secondAttribute="bottom" constant="8" id="eMj-n6-UxY"/>
+                            <constraint firstItem="Y6G-vF-H0i" firstAttribute="top" secondItem="awJ-Au-Olw" secondAttribute="bottom" constant="8" id="eeC-rG-Wlh"/>
                             <constraint firstItem="wVk-Q0-Qu4" firstAttribute="leading" secondItem="awJ-Au-Olw" secondAttribute="leading" id="f7I-rr-kYr"/>
                             <constraint firstItem="Tuf-1D-SJH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="296" id="hNI-Hs-mWe"/>
                             <constraint firstItem="Tuf-1D-SJH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rna-zq-fp1"/>
@@ -80,12 +91,99 @@
                     </view>
                     <connections>
                         <outlet property="email" destination="Tuf-1D-SJH" id="OJI-69-uHi"/>
+                        <outlet property="facebookLoginButton" destination="Y6G-vF-H0i" id="ThM-8m-zQX"/>
                         <outlet property="password" destination="YhM-5I-Uz4" id="eab-1K-sfS"/>
+                        <segue destination="NP5-hc-hw0" kind="show" identifier="Home" id="oTe-sk-G8u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="103.79464285714285"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="hPS-PV-eXf">
+            <objects>
+                <viewController id="AGq-lK-Bmj" customClass="HomeViewController" customModule="HowlFirebaseLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2yF-sb-oTf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kr-KV-vN5">
+                                <rect key="frame" x="186" y="410.5" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3kr-KV-vN5" firstAttribute="centerX" secondItem="2yF-sb-oTf" secondAttribute="centerX" id="rbS-Jq-Y6t"/>
+                            <constraint firstItem="3kr-KV-vN5" firstAttribute="centerY" secondItem="2yF-sb-oTf" secondAttribute="centerY" id="wtT-fe-bHG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KiD-Of-Q60"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="outline_home_black_48pt" selectedImage="outline_home_black_48pt" id="SGC-CH-Qgp"/>
+                    <navigationItem key="navigationItem" id="8Dh-tT-JU1"/>
+                    <connections>
+                        <outlet property="userLabel" destination="3kr-KV-vN5" id="zoX-Ci-fe0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mHd-90-Lnb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1950.7246376811595" y="-206.25"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="YMe-eh-qS0">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="NP5-hc-hw0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="TqA-nh-2yR"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2N4-Y6-ilU">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="AGq-lK-Bmj" kind="relationship" relationship="viewControllers" id="6J3-6n-Obs"/>
+                        <segue destination="IuQ-bM-l8q" kind="relationship" relationship="viewControllers" id="hD3-VJ-zrD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bUL-5X-CwA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="103.79464285714285"/>
+        </scene>
+        <!--User-->
+        <scene sceneID="WaS-9c-FXR">
+            <objects>
+                <viewController id="IuQ-bM-l8q" customClass="UserViewController" customModule="HowlFirebaseLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="701-m2-gJi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSy-gG-IVM">
+                                <rect key="frame" x="183" y="406" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logout:" destination="IuQ-bM-l8q" eventType="touchUpInside" id="RCQ-sh-Llq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="pSy-gG-IVM" firstAttribute="centerX" secondItem="701-m2-gJi" secondAttribute="centerX" id="dJc-YS-Qqg"/>
+                            <constraint firstItem="pSy-gG-IVM" firstAttribute="centerY" secondItem="701-m2-gJi" secondAttribute="centerY" id="fhO-5X-K0M"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uya-hb-l4w"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="User" image="outline_person_black_48pt" selectedImage="outline_person_black_48pt" id="HFV-bk-HxK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qz0-vx-EI9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1951" y="500"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="outline_home_black_48pt" width="48" height="48"/>
+        <image name="outline_person_black_48pt" width="48" height="48"/>
+    </resources>
 </document>

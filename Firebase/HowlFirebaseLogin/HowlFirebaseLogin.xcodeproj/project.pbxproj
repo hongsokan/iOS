@@ -14,6 +14,8 @@
 		43D4BE23244D7B7300145AE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D4BE22244D7B7300145AE9 /* Assets.xcassets */; };
 		43D4BE26244D7B7300145AE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D4BE24244D7B7300145AE9 /* LaunchScreen.storyboard */; };
 		43D4BE2E244D882700145AE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43D4BE2D244D882700145AE9 /* GoogleService-Info.plist */; };
+		43D4BE30245017DA00145AE9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D4BE2F245017DA00145AE9 /* HomeViewController.swift */; };
+		43D4BE32245017FB00145AE9 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D4BE31245017FB00145AE9 /* UserViewController.swift */; };
 		E2AC1C15377D4DBFADB1763B /* Pods_HowlFirebaseLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA50BF3A9A29F21E653219E /* Pods_HowlFirebaseLogin.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 		43D4BE25244D7B7300145AE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43D4BE27244D7B7300145AE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43D4BE2D244D882700145AE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		43D4BE2F245017DA00145AE9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		43D4BE31245017FB00145AE9 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		65E0770FF212B5DFB6A22FFA /* Pods-HowlFirebaseLogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HowlFirebaseLogin.debug.xcconfig"; path = "Target Support Files/Pods-HowlFirebaseLogin/Pods-HowlFirebaseLogin.debug.xcconfig"; sourceTree = "<group>"; };
 		CCD520DCA4887C5BB36BB454 /* Pods-HowlFirebaseLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HowlFirebaseLogin.release.xcconfig"; path = "Target Support Files/Pods-HowlFirebaseLogin/Pods-HowlFirebaseLogin.release.xcconfig"; sourceTree = "<group>"; };
 		EEA50BF3A9A29F21E653219E /* Pods_HowlFirebaseLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HowlFirebaseLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +72,8 @@
 				43D4BE19244D7B7200145AE9 /* AppDelegate.swift */,
 				43D4BE1B244D7B7200145AE9 /* SceneDelegate.swift */,
 				43D4BE1D244D7B7200145AE9 /* ViewController.swift */,
+				43D4BE2F245017DA00145AE9 /* HomeViewController.swift */,
+				43D4BE31245017FB00145AE9 /* UserViewController.swift */,
 				43D4BE1F244D7B7200145AE9 /* Main.storyboard */,
 				43D4BE22244D7B7300145AE9 /* Assets.xcassets */,
 				43D4BE24244D7B7300145AE9 /* LaunchScreen.storyboard */,
@@ -229,8 +235,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				43D4BE1E244D7B7200145AE9 /* ViewController.swift in Sources */,
+				43D4BE32245017FB00145AE9 /* UserViewController.swift in Sources */,
 				43D4BE1A244D7B7200145AE9 /* AppDelegate.swift in Sources */,
 				43D4BE1C244D7B7200145AE9 /* SceneDelegate.swift in Sources */,
+				43D4BE30245017DA00145AE9 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
