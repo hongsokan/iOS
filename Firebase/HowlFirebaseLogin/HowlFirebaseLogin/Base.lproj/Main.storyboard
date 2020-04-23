@@ -167,9 +167,18 @@
                                     <action selector="logout:" destination="IuQ-bM-l8q" eventType="touchUpInside" id="RCQ-sh-Llq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTY-De-dmg">
+                                <rect key="frame" x="151" y="368" width="112" height="30"/>
+                                <state key="normal" title="프로필 사진 업로드"/>
+                                <connections>
+                                    <action selector="profileUpload:" destination="IuQ-bM-l8q" eventType="touchUpInside" id="U4d-JU-i06"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="pSy-gG-IVM" firstAttribute="top" secondItem="VTY-De-dmg" secondAttribute="bottom" constant="8" id="NXO-f8-EnA"/>
+                            <constraint firstItem="VTY-De-dmg" firstAttribute="centerX" secondItem="701-m2-gJi" secondAttribute="centerX" id="Xsq-le-9qL"/>
                             <constraint firstItem="pSy-gG-IVM" firstAttribute="centerX" secondItem="701-m2-gJi" secondAttribute="centerX" id="dJc-YS-Qqg"/>
                             <constraint firstItem="pSy-gG-IVM" firstAttribute="centerY" secondItem="701-m2-gJi" secondAttribute="centerY" id="fhO-5X-K0M"/>
                         </constraints>
