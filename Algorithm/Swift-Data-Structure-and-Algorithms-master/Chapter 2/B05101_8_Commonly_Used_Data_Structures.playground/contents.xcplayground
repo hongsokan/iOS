@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='osx' display-mode='rendered'>
+    <pages>
+        <page name='Arrays'/>
+        <page name='Dictionaries'/>
+        <page name='Sets'/>
+        <page name='Tuples'/>
+        <page name='Subscripting'/>
+        <page name='Mutability'/>
+        <page name='Interoperability'/>
+        <page name='Bridging Collection Classes'/>
+        <page name='Protocols'/>
+        <page name='License'/>
+    </pages>
+</playground>

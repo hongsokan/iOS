@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 import GoogleSignIn
-import FBSDKLoginKit
+//import FBSDKLoginKit
+//import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -17,20 +18,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
         
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+//        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        let homeVC = HomeViewController()
+        let mapVC = MapViewController()
+        let poolVC = PoolViewController()
+        let mypageVC = UserViewController()
+        
+        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+        mapVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        poolVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
+        mypageVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 3)
+
+        homeVC.view.backgroundColor = UIColor.white
+        mapVC.view.backgroundColor = UIColor.white
+        poolVC.view.backgroundColor = UIColor.white
+        mypageVC.view.backgroundColor = UIColor.white
+        
+        let tb = UITabBarController()
+        tb.setViewControllers([homeVC, mapVC, poolVC, mypageVC], animated: true)
+        tb.tabBar.backgroundColor = UIColor.black
+        
+        window!.rootViewController = tb
+        window!.makeKeyAndVisible()
         
         return true
     }
     
+}
+
+
+extension AppDelegate {
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         // ...
-        if let error = error {
+        if error != nil {
             // ...
             return
         }
@@ -41,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                                        accessToken: authentication.accessToken)
         // ...
         Auth.auth().signIn(with: credential) { (authResult, error) in
-          if let error = error {
+            if error != nil {
             // ...
             return
           }
@@ -59,36 +88,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         -> Bool {
             let google = GIDSignIn.sharedInstance().handle(url)
             
-            let facebook = ApplicationDelegate.shared.application(application, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+//            let facebook = ApplicationDelegate.shared.application(application, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
             
-            return google || facebook
+//            return google || facebook
+            
+            return google
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         let google = GIDSignIn.sharedInstance().handle(url)
         
-        let facebook = ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+//        let facebook = ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         
-        return google || facebook
+//        return google || facebook
+        
+        return google
     }
-    
-    
-    
-    /*
-     // MARK: UISceneSession Lifecycle
-     
-     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-     // Called when a new scene session is being created.
-     // Use this method to select a configuration to create the new scene with.
-     return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-     }
-     
-     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-     // Called when the user discards a scene session.
-     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-     }   */
-    
-    
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class UserViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UserViewController: UIViewController {
 
     @IBAction func logout(_ sender: Any) {
         do {
@@ -20,15 +20,6 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func profileUpload(_ sender: Any) {
-        let imagePick = UIImagePickerController()
-        imagePick.delegate = self
-        imagePick.allowsEditing = true
-        imagePick.sourceType = UIImagePickerController.SourceType.photoLibrary
-        
-        self.present(imagePick, animated: true, completion: nil)
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +27,19 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Do any additional setup after loading the view.
     }
     
+    
+    
+    
+    
+/*
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+
         let image = (info[UIImagePickerController.InfoKey.originalImage] as! UIImage).pngData()
-        
+
         let imageName = Auth.auth().currentUser!.uid + "\(Int(NSDate.timeIntervalSinceReferenceDate * 1000)).jpg"
-        
+
         let riversRef =  Storage.storage().reference().child("ios_images").child(imageName)
-        
+
 //        riversRef.putData(image!, metadata: nil) { metadata, error in
 //            if (error != nil) {
 //
@@ -51,7 +47,7 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //                let downloadURL = metadata!.downloadURL
 //            }
 //        }
-        
+
         let uploadTask = riversRef.putData(image!, metadata: nil) { (metadata, error) in
           guard let metadata = metadata else {
             // Uh-oh, an error occurred!
@@ -67,10 +63,13 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
           }
         }
-        
+
         dismiss(animated: true, completion: nil)
     }
-
+*/
+    
+    
+    
     /*
     // MARK: - Navigation
 

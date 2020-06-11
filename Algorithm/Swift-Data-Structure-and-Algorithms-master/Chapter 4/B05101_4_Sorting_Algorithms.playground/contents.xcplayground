@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='osx' display-mode='rendered' last-migration='0800'>
+    <pages>
+        <page name='Insertion Sort'/>
+        <page name='Merge Sort - Array'/>
+        <page name='Merge Sort - Linked List'/>
+        <page name='Quick Sort Lomuto Partioning Scheme'/>
+        <page name='Quick Sort Hoare Partitioning Scheme'/>
+        <page name='Quick Sort Hoare with Median of Three'/>
+        <page name='License'/>
+    </pages>
+</playground>

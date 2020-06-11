@@ -3,12 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		432E18842492119700D96561 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432E18832492119700D96561 /* MapViewController.swift */; };
+		432E1886249211B400D96561 /* PoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432E1885249211B400D96561 /* PoolViewController.swift */; };
+		432E1888249211E900D96561 /* PoolCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432E1887249211E900D96561 /* PoolCollectionViewCell.swift */; };
+		432E188B2492190A00D96561 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 432E188A2492190A00D96561 /* FacebookCore */; };
+		432E188D2492190A00D96561 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 432E188C2492190A00D96561 /* FacebookLogin */; };
+		432E188F2492190A00D96561 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 432E188E2492190A00D96561 /* FacebookShare */; };
+		43D1E1D6246D4DEE0066EA21 /* UploadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1E1D5246D4DEE0066EA21 /* UploadController.swift */; };
 		43D4BE1A244D7B7200145AE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D4BE19244D7B7200145AE9 /* AppDelegate.swift */; };
-		43D4BE1C244D7B7200145AE9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D4BE1B244D7B7200145AE9 /* SceneDelegate.swift */; };
 		43D4BE1E244D7B7200145AE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D4BE1D244D7B7200145AE9 /* ViewController.swift */; };
 		43D4BE21244D7B7200145AE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D4BE1F244D7B7200145AE9 /* Main.storyboard */; };
 		43D4BE23244D7B7300145AE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D4BE22244D7B7300145AE9 /* Assets.xcassets */; };
@@ -20,9 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		432E18832492119700D96561 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		432E1885249211B400D96561 /* PoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolViewController.swift; sourceTree = "<group>"; };
+		432E1887249211E900D96561 /* PoolCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCollectionViewCell.swift; sourceTree = "<group>"; };
+		43D1E1D5246D4DEE0066EA21 /* UploadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadController.swift; sourceTree = "<group>"; };
 		43D4BE16244D7B7200145AE9 /* HowlFirebaseLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowlFirebaseLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D4BE19244D7B7200145AE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		43D4BE1B244D7B7200145AE9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		43D4BE1D244D7B7200145AE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		43D4BE20244D7B7200145AE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43D4BE22244D7B7300145AE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,6 +51,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2AC1C15377D4DBFADB1763B /* Pods_HowlFirebaseLogin.framework in Frameworks */,
+				432E188B2492190A00D96561 /* FacebookCore in Frameworks */,
+				432E188F2492190A00D96561 /* FacebookShare in Frameworks */,
+				432E188D2492190A00D96561 /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,10 +82,13 @@
 			isa = PBXGroup;
 			children = (
 				43D4BE19244D7B7200145AE9 /* AppDelegate.swift */,
-				43D4BE1B244D7B7200145AE9 /* SceneDelegate.swift */,
 				43D4BE1D244D7B7200145AE9 /* ViewController.swift */,
 				43D4BE2F245017DA00145AE9 /* HomeViewController.swift */,
 				43D4BE31245017FB00145AE9 /* UserViewController.swift */,
+				43D1E1D5246D4DEE0066EA21 /* UploadController.swift */,
+				432E18832492119700D96561 /* MapViewController.swift */,
+				432E1885249211B400D96561 /* PoolViewController.swift */,
+				432E1887249211E900D96561 /* PoolCollectionViewCell.swift */,
 				43D4BE1F244D7B7200145AE9 /* Main.storyboard */,
 				43D4BE22244D7B7300145AE9 /* Assets.xcassets */,
 				43D4BE24244D7B7300145AE9 /* LaunchScreen.storyboard */,
@@ -119,6 +134,11 @@
 			dependencies = (
 			);
 			name = HowlFirebaseLogin;
+			packageProductDependencies = (
+				432E188A2492190A00D96561 /* FacebookCore */,
+				432E188C2492190A00D96561 /* FacebookLogin */,
+				432E188E2492190A00D96561 /* FacebookShare */,
+			);
 			productName = HowlFirebaseLogin;
 			productReference = 43D4BE16244D7B7200145AE9 /* HowlFirebaseLogin.app */;
 			productType = "com.apple.product-type.application";
@@ -147,6 +167,9 @@
 				Base,
 			);
 			mainGroup = 43D4BE0D244D7B7200145AE9;
+			packageReferences = (
+				432E18892492190A00D96561 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
 			productRefGroup = 43D4BE17244D7B7200145AE9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -234,10 +257,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				432E1888249211E900D96561 /* PoolCollectionViewCell.swift in Sources */,
 				43D4BE1E244D7B7200145AE9 /* ViewController.swift in Sources */,
+				432E18842492119700D96561 /* MapViewController.swift in Sources */,
 				43D4BE32245017FB00145AE9 /* UserViewController.swift in Sources */,
+				432E1886249211B400D96561 /* PoolViewController.swift in Sources */,
+				43D1E1D6246D4DEE0066EA21 /* UploadController.swift in Sources */,
 				43D4BE1A244D7B7200145AE9 /* AppDelegate.swift in Sources */,
-				43D4BE1C244D7B7200145AE9 /* SceneDelegate.swift in Sources */,
 				43D4BE30245017DA00145AE9 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,6 +466,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		432E18892492190A00D96561 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		432E188A2492190A00D96561 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 432E18892492190A00D96561 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		432E188C2492190A00D96561 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 432E18892492190A00D96561 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+		432E188E2492190A00D96561 /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 432E18892492190A00D96561 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 43D4BE0E244D7B7200145AE9 /* Project object */;
 }
