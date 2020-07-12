@@ -1,6 +1,6 @@
 
 # iOS 개념 정리
-- [노션](https://www.notion.so/iOS-1c4204851c8746f7b28a20d78982a29d)
+- [노션](https://www.notion.so/iOS-97a99d629bf24005bd99497333e30526)
 
 # 강의 정리
 - Algorithm : [Lets Build That App](https://www.youtube.com/watch?v=yxORFL_UipQ&list=PL0dzCUj1L5JFJlR7dpBfBtEJB84pCZJ3R)
