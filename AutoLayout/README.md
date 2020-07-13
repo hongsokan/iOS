@@ -43,3 +43,16 @@ Basic_7_Align
 
 Basic_8_Multiplier_1
 - 상단 status bar 간격 20
+- iPhoneX 는 landscape 은 safe area 고려하여 좌우, 아래 부분 간격 필요
+- multiplier 는 비율 (좌표 0 에서 시작하는 값을 multipier 하여도 그대로 0)
+- 상수 값을 부여하고 multiplier 하면 : 상수값 * multiplier (ex. Leading 시작하는 위치 * multiplier) 
+- Trailing, Bottom 같은 경우 끝나는 지점. multiplier 값을 나누면 끝나는 위치의 좌표. 
+
+Basic_9_Multiplier_2
+- 2개의 뷰 Equal Height 에 multiplier 를 지정하여 2:1, 10:1 비율로 지정할 수 있다
+- centerX * multiplier = x 위치
+- 비율에 맞춰 화면 구성 가능 (centerX * 0.5 multiplier)
+
+Basic_10_Multiplier_3
+- 배경 이미지 화면에 꽉 채우려면? Safe area 기준이 아닌 superview 기준으로 화면 채우면 된다
+- Content Mode : 이미지 같은 경우 Scale to Fit 보다 Aspect Fill 로 설정하면 비율이 유지가 된다
