@@ -1,4 +1,4 @@
-- [노션 바로가기](https://www.notion.so/Calculator-b27a96a3d7a54b448923b6219325a53c)
+# [노션 바로가기](https://www.notion.so/Calculator-b27a96a3d7a54b448923b6219325a53c)
 
 ## Calculator - 계산기 앱을 활용한 스택뷰 마스터
 
