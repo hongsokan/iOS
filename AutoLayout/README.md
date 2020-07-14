@@ -1,5 +1,7 @@
 ## iOS AutoLayout 완벽 가이드 - 실무 프로젝트를 위한 실전강의 (인프런 강의)
 
+### Basic - 오토레이아웃 핵심기능 완벽정리
+
 Basic_1_Constraints_1
 - Xcode 사용법
 - 스토리보드에서 Constraints 주기
@@ -120,7 +122,7 @@ Basic_22_AutoLayout_Code_Anchor_2
 - iPhoneX 이후 safeAreaLayoutGuide 기준으로 constraint 설정해야 된다
 
 
-Calculator - 계산기 앱을 활용한 스택뷰 마스터
+### Calculator - 계산기 앱을 활용한 스택뷰 마스터
 
 Calc_StackView_1
 - 계산기 Layout 구성
