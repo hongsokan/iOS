@@ -1,6 +1,8 @@
-## iOS AutoLayout 완벽 가이드 - 실무 프로젝트를 위한 실전강의 (인프런 강의)
+## iOS AutoLayout 완벽 가이드 - 실무 프로젝트를 위한 실전강의 
+[인프런 강의](https://www.inflearn.com/course/autolayout/)
 
-### Basic - 오토레이아웃 핵심기능 완벽정리
+
+### 섹션1. Basic - 오토레이아웃 핵심기능 완벽정리
 
 Basic_1_Constraints_1
 - Xcode 사용법
@@ -122,7 +124,8 @@ Basic_22_AutoLayout_Code_Anchor_2
 - iPhoneX 이후 safeAreaLayoutGuide 기준으로 constraint 설정해야 된다
 
 
-### Calculator - 계산기 앱을 활용한 스택뷰 마스터
+
+### 섹션2. Calculator - 계산기 앱을 활용한 스택뷰 마스터
 
 Calc_StackView_1
 - 계산기 Layout 구성
@@ -154,3 +157,30 @@ Calc_StackView_4_Error_Solution
 - resultLabel도 priority를 낮춰서 가변적으로(기종마다 다르게) 화면에 보여줄 수 있다
 - Hugging, Resistance까지 추가하면 좀 더 안정적으로 오브젝트들을 화면에 나타낼 수 있다
 
+
+
+### 섹션3. Dynamic Font - 올레 인증서를 통한 동적 텍스트 변환
+
+Cert_1_Dynamic_Font
+- 실습 자료에 있는 Cert_Sample 기준으로 텍스트의 동적 크기 및 위치 변환이 어떻게 구현되는지 알아본다
+- Cert_BG 이미지는 1009 x 1438 픽셀 크기, 2x, 3x 파일이 따로 있는 것도 아님
+- 먼저 imageview 스토리보드에 하나 올리고, Scale To Fill, 좌우 간격 20, Vertically in container 정렬
+- Scale To Fill 은 비율이 달라져도 원본 크기 유지, 좌우 간격을 20으로 주어 폭은 좁아졌지만 높이는 그대로
+- Aspect Fit 해당하는 크기를 넘어서지 않으면서, Constraint 값도 유지, 비율도 유지
+- 여기에 Aspect Ratio 제약을 새로 추가하여, 비율을 1009 x 1438로 바꾸면 원본 비율과 같게 유지하게 된다
+
+- 기종마다 텍스트 위치가 다르게 위치
+- 다시 이미지와 레이블 추가하여 뷰로 감싸준다
+- 이미지를 뷰에 꽉 차게, 뷰의 비율을 이미지 원본인 1009 x 1438로 설정
+- 추가한 레이블을 top, bottom 을 뷰에 딱 맞게, vertically 정렬까지, 그리고 bottom multiplier 0.35 쯤이 원하는 위치
+- 텍스트 위치를 잡으려면 부모뷰로 감싸준 다음, 비율로 위치를 조절하면 (여기선 multiplier 0.35) 된다
+
+Cert_2_Dynamic_Font
+- Autoshrink : Minimum Font Scale(비율), Minimum Font Size(크기) 지정할 수 있음
+- “공인인증서” 레이블을 “Cert_BG” 이미지뷰와 Equal Widths 설정 이후, 비율을 0.35 정도로 맞춤
+- “홍길동” 이름이 들어가는 레이블도 이미지뷰와 같이 선택하여 top, bottom, vertical 을 맞춘다, bottom 비율은 0.71 정도
+- 이름 레이블도 Minimum Font Size 20 정도, 이미지뷰와 Equal Widths 설정 이후 비율은 0.28 정도
+- 동일한 방식으로 “발급자” 레이블 추가 (“발급자” 레이블은 이미지뷰와 bottom 비율이 0.9 , “종류”는 1.0, “만료일”은 1.1, 수직 정렬)
+- “종류” 레이블 같은 경우 중앙에 위치하는 것이 아닌 바로 위에 위치한 “발급자” 레이블 왼쪽에 맞춰 정렬 
+* 순서 : 하나의 뷰로 이미지와 레이블을 감싼다 -> 이미지에 맞춰 레이블 정렬 (top, bottom, vertical) -> 이미지뷰와 Equal Widths
+-> 핵심은 이미지뷰와 안에 포함될 레이블 모두 하나의 뷰로 감싸주고, 레이블은 이미지뷰에 맞춰서 위치를 조절
