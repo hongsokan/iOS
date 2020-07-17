@@ -183,3 +183,25 @@ Cert_2_Dynamic_Font
 - “종류” 레이블 같은 경우 중앙에 위치하는 것이 아닌 바로 위에 위치한 “발급자” 레이블 왼쪽에 맞춰 정렬 
 * 순서 : 하나의 뷰로 이미지와 레이블을 감싼다 -> 이미지에 맞춰 레이블 정렬 (top, bottom, vertical) -> 이미지뷰와 Equal Widths
 -> 핵심은 이미지뷰와 안에 포함될 레이블 모두 하나의 뷰로 감싸주고, 레이블은 이미지뷰에 맞춰서 위치를 조절
+
+
+
+### 섹션4. Custom Keyboard - 나만의 보안 키보드 만들기
+
+Custom_Keyboard_1
+- 시스템에서 제공하는 키보드 말고 커스텀 키보드 만들어보기 (은행 앱, 계산기 등에서 많이 사용)
+- xib 활용
+
+Custom_Keyboard_2
+- CustomKeyboard UIView 추가, 새로운 Storyboard는 Controller만 추가 가능하기 때문에 View 파일 추가 (xib파일)
+- xib는 Controller가 아닌 버튼 등의 오브젝트들을 추가하고 싶을 때 사용
+- 커스텀 키보드를 위한 버튼 추가, 스택뷰로 구성
+- 화면 구성 이후 class 연결 (class CustomKeyboard: UIView)
+- Bundle.main.loadNibNamed() 로 xib파일 불러온 뒤에, 배열 형태로 저장되어 있는 것들 중 원하는 오브젝트 불러온다
+- 스택뷰로 구성하여 중간에 추가로 비어있는 버튼을 추가하면 보안 키보드와 같은 모습 (user interactions enabled 체크 해제)
+- firstTextField.inputView =  myKeyboardView (여기서 inputView로 들어갔기 때문에 크기가 어떻든 기본 키보드 크기)
+
+Custom_Keyboard_3
+- CustomKeyboard 클래스에서 키보드 입력 받는 이벤트 추가
+- Delegate 패턴 사용. (delegate를 위한 프로토콜 -> delegate 변수를 통해 데이터 전송 -> VC에서 위임 받고 데이터 받으면 끝) 
+- firstTextField.text = str , 이제 버튼을 누르면 TextField에 표시
