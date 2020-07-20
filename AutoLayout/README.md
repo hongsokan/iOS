@@ -229,9 +229,11 @@ Expand_Cell_3_Performance
 2. tableView.reloadData() // 어느 정도 해결
 3. tableView.estimatedSectionHeaderHeight = 0 , tableView.estimatedSectionFooterHeight = 0 // 어느 정도 해결
 4. 애니메이션 효과 없게, 확실히 해결
-'''
+<pre>
+<code>
         UIView.setAnimationsEnabled(false)
         // 선택한 row의 데이터만 갱신
         tableView.reloadRows(at: [indexPath], with: .automatic)
         UIView.setAnimationsEnabled(true)
-'''
+</code>
+</pre>
