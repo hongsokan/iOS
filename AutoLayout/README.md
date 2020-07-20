@@ -205,3 +205,33 @@ Custom_Keyboard_3
 - CustomKeyboard 클래스에서 키보드 입력 받는 이벤트 추가
 - Delegate 패턴 사용. (delegate를 위한 프로토콜 -> delegate 변수를 통해 데이터 전송 -> VC에서 위임 받고 데이터 받으면 끝) 
 - firstTextField.text = str , 이제 버튼을 누르면 TextField에 표시
+
+
+
+### 섹션5. Expand Cell - 테이블뷰 셀의 동적 높이 변환 이해
+
+Expand_Cell_1
+- 스토리보드 테이블뷰, 테이블셀 추가, 셀 구성 (이미지뷰, title Label, description Label)
+- 이미지뷰 크기 및 위치 조정, 타이틀은 이미지뷰에 Vertical Centers 정렬, description 위치 모두 고정
+- Cell Identifier 지정 (expandCell_ID), class ExpandCell 추가하여 스토리보드와 연결
+- Cell 내부 IBOutlet descriptionLabel 스토리보드에 연결
+- 테이블뷰 프로토콜 DataSource, Delegate 추가, 스토리보드에 연결, 세부 구현까지
+
+Expand_Cell_2
+- 간단한 Model 작성
+- 모델 배열로 추가
+- didSelectRowAt으로 선택한 row 커지는 효과 추가
+
+Expand_Cell_3_Performance
+- Cell 이 커질 때 효과가 튀는 현상
+- 테이블뷰 셀에서 Autolayout Performance 문제 해결 방안 4가지
+1. heightForRowAt 에서 정확한 높이 지정
+2. tableView.reloadData() // 어느 정도 해결
+3. tableView.estimatedSectionHeaderHeight = 0 , tableView.estimatedSectionFooterHeight = 0 // 어느 정도 해결
+4. 애니메이션 효과 없게, 확실히 해결
+“
+        UIView.setAnimationsEnabled(false)
+        // 선택한 row의 데이터만 갱신
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        UIView.setAnimationsEnabled(true)
+“
