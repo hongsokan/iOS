@@ -2,6 +2,9 @@ import UIKit
 import Foundation
 
 
+var string = "Hello"
+string.count
+type(of: string.count)
 
 
 /*
