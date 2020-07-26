@@ -2,10 +2,21 @@ import UIKit
 import Foundation
 
 
+var vertex = [[1, 4], [3, 4], [3, 10]]
+var ans = [0, 0]
+
+for i in 0..<vertex.count {
+    ans[0] ^= vertex[i][0]
+    ans[1] ^= vertex[i][1]
+}
+print(ans)
+
+
+/*
 var string = "Hello"
 string.count
 type(of: string.count)
-
+*/
 
 /*
 import Foundation
