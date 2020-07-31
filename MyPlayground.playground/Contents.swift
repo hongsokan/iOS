@@ -2,10 +2,33 @@ import UIKit
 import Foundation
 import PlaygroundSupport
 
+var dp : [Int] = Array(repeating: 0, count: 1001)
 
+func dp(_ x: Int) -> Int {
+//    if (x == 1) { return 1 }
+//    if (x == 2) { return 2 }
+//    if (d[x] != 0) { return d[x] }
+    
+    dp[0] = 1
+    dp[1] = 1
+    
+//    d[x] = (dp(x - 1) + dp(x - 2)) % 10007
+    dp[x] = (dp[x - 1] + dp[x - 2]) % 10007
+    
+    return dp[x]
+}
 
+func divide(_ r: Int) {
+    
+}
 
+// 2xn 크기의 직사각형을 1x2, 2x1 타일로 채우는 방법의 수
+dp(2) // 2x2 크기, 방법 : 2가지
 
+dp(8) // 2x8, 171
+dp(12) // 2x12, 2731
+
+//print(dp(8))
 
 /*
 public class Node<Value> { // Node 클래스를 <Value> 라는 Generics 타입으로, public 으로 모든 모듈에서 접근 가능하도록 정의합니다.
