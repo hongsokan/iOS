@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KgN-aq-ZAG">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KgN-aq-ZAG">
                                 <rect key="frame" x="0.0" y="44" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -26,6 +26,9 @@
                                         <rect key="frame" x="348" y="0.0" width="66" height="48"/>
                                         <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                         <state key="normal" title="전송"/>
+                                        <connections>
+                                            <action selector="sendString:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zrr-hY-ur1"/>
+                                        </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RRA-jk-7HD">
                                         <rect key="frame" x="4" y="4" width="340" height="40"/>
@@ -62,6 +65,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="chatTableView" destination="KgN-aq-ZAG" id="SQK-Hu-6Am"/>
+                        <outlet property="inputTextView" destination="RRA-jk-7HD" id="OfF-Ff-zuN"/>
+                        <outlet property="inputTextViewHeight" destination="2ax-px-khE" id="xXQ-sr-nra"/>
+                        <outlet property="inputViewBottomMargin" destination="HkV-GF-cVU" id="mkY-as-JT0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,16 +1,16 @@
 //
-//  TableViewCell.swift
+//  YourCell.swift
 //  Chat_App
 //
-//  Created by 안홍석 on 2020/08/06.
+//  Created by 안홍석 on 2020/08/07.
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
 import UIKit
 
-class MyCell: UITableViewCell {
-
-    @IBOutlet weak var myTextView: UITextView!
+class YourCell: UITableViewCell {
+    
+    @IBOutlet weak var yourTextView: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
