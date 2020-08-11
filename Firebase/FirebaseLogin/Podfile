@@ -1,0 +1,15 @@
+platform :ios, '13.0'
+
+target 'FirebaseLogin' do
+use_frameworks!
+
+  # Pods for FirebaseLogin
+
+# add pods for desired Firebase products
+# https://firebase.google.com/docs/ios/setup#available-pods
+
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+pod 'GoogleSignIn'
+
+end
