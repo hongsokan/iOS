@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class FacebookViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
     }
     
 
