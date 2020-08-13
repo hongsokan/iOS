@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		438E513F24E57C6200E6BC9C /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438E513D24E57C6200E6BC9C /* EmailViewController.swift */; };
+		438E514224E57C8B00E6BC9C /* EmailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438E514124E57C8B00E6BC9C /* EmailStoryboard.storyboard */; };
+		438E514424E57CA000E6BC9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438E514324E57CA000E6BC9C /* ViewController.swift */; };
+		438E514624E57CB400E6BC9C /* GoogleStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438E514524E57CB400E6BC9C /* GoogleStoryboard.storyboard */; };
+		438E514824E57D0700E6BC9C /* FacebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438E514724E57D0700E6BC9C /* FacebookViewController.swift */; };
+		438E514A24E57D1B00E6BC9C /* FacebookStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438E514924E57D1B00E6BC9C /* FacebookStoryboard.storyboard */; };
 		43D822B124E17F3E00CB8C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D822B024E17F3E00CB8C37 /* AppDelegate.swift */; };
 		43D822B324E17F3E00CB8C37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D822B224E17F3E00CB8C37 /* SceneDelegate.swift */; };
-		43D822B524E17F3E00CB8C37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D822B424E17F3E00CB8C37 /* ViewController.swift */; };
+		43D822B524E17F3E00CB8C37 /* GoogleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D822B424E17F3E00CB8C37 /* GoogleViewController.swift */; };
 		43D822B824E17F3E00CB8C37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D822B624E17F3E00CB8C37 /* Main.storyboard */; };
 		43D822BA24E17F4100CB8C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D822B924E17F4100CB8C37 /* Assets.xcassets */; };
 		43D822BD24E17F4100CB8C37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D822BB24E17F4100CB8C37 /* LaunchScreen.storyboard */; };
@@ -18,10 +24,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		438E513D24E57C6200E6BC9C /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		438E514124E57C8B00E6BC9C /* EmailStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EmailStoryboard.storyboard; sourceTree = "<group>"; };
+		438E514324E57CA000E6BC9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		438E514524E57CB400E6BC9C /* GoogleStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GoogleStoryboard.storyboard; sourceTree = "<group>"; };
+		438E514724E57D0700E6BC9C /* FacebookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookViewController.swift; sourceTree = "<group>"; };
+		438E514924E57D1B00E6BC9C /* FacebookStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FacebookStoryboard.storyboard; sourceTree = "<group>"; };
 		43D822AD24E17F3E00CB8C37 /* FirebaseLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D822B024E17F3E00CB8C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43D822B224E17F3E00CB8C37 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		43D822B424E17F3E00CB8C37 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		43D822B424E17F3E00CB8C37 /* GoogleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleViewController.swift; sourceTree = "<group>"; };
 		43D822B724E17F3E00CB8C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43D822B924E17F4100CB8C37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43D822BC24E17F4100CB8C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,8 +79,14 @@
 			children = (
 				43D822B024E17F3E00CB8C37 /* AppDelegate.swift */,
 				43D822B224E17F3E00CB8C37 /* SceneDelegate.swift */,
-				43D822B424E17F3E00CB8C37 /* ViewController.swift */,
+				438E514324E57CA000E6BC9C /* ViewController.swift */,
 				43D822B624E17F3E00CB8C37 /* Main.storyboard */,
+				43D822B424E17F3E00CB8C37 /* GoogleViewController.swift */,
+				438E514524E57CB400E6BC9C /* GoogleStoryboard.storyboard */,
+				438E513D24E57C6200E6BC9C /* EmailViewController.swift */,
+				438E514124E57C8B00E6BC9C /* EmailStoryboard.storyboard */,
+				438E514724E57D0700E6BC9C /* FacebookViewController.swift */,
+				438E514924E57D1B00E6BC9C /* FacebookStoryboard.storyboard */,
 				43D822B924E17F4100CB8C37 /* Assets.xcassets */,
 				43D822BB24E17F4100CB8C37 /* LaunchScreen.storyboard */,
 				43D822BE24E17F4100CB8C37 /* Info.plist */,
@@ -155,9 +173,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				438E514624E57CB400E6BC9C /* GoogleStoryboard.storyboard in Resources */,
 				43D822BD24E17F4100CB8C37 /* LaunchScreen.storyboard in Resources */,
 				43D822C524E1805200CB8C37 /* GoogleService-Info.plist in Resources */,
 				43D822BA24E17F4100CB8C37 /* Assets.xcassets in Resources */,
+				438E514A24E57D1B00E6BC9C /* FacebookStoryboard.storyboard in Resources */,
+				438E514224E57C8B00E6BC9C /* EmailStoryboard.storyboard in Resources */,
 				43D822B824E17F3E00CB8C37 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,9 +249,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43D822B524E17F3E00CB8C37 /* ViewController.swift in Sources */,
+				438E514424E57CA000E6BC9C /* ViewController.swift in Sources */,
+				43D822B524E17F3E00CB8C37 /* GoogleViewController.swift in Sources */,
+				438E514824E57D0700E6BC9C /* FacebookViewController.swift in Sources */,
 				43D822B124E17F3E00CB8C37 /* AppDelegate.swift in Sources */,
 				43D822B324E17F3E00CB8C37 /* SceneDelegate.swift in Sources */,
+				438E513F24E57C6200E6BC9C /* EmailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
