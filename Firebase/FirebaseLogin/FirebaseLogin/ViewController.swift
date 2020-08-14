@@ -37,7 +37,9 @@ class ViewController: UIViewController {
     
     @IBAction func facebookLogin(_ sender: Any) {
         
-        let facebookVC = FacebookViewController()
+        let facebookStoryboard = UIStoryboard(name: "FacebookStoryboard", bundle: nil)
+        
+        let facebookVC = facebookStoryboard.instantiateViewController(withIdentifier: "facebookVC")
         
         self.present(facebookVC, animated: true, completion: nil)
     }
