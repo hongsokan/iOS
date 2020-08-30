@@ -37,8 +37,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.idField.text = UserModel.userShared.id
-        self.pwField.text = UserModel.userShared.pw
+        if UserModel.userShared.id != nil || UserModel.userShared.pw != nil {
+            self.idField.text = UserModel.userShared.id!
+            self.pwField.text = UserModel.userShared.pw!
+        }
+        
     }
     
     
