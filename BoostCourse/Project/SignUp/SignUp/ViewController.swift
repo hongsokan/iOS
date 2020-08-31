@@ -31,16 +31,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         self.addViews()
-        
-        if let id = UserModel.userShared.id {
-            print("userShared.id : " + "\(UserModel.userShared.id)")
-            self.idField.text = id
-        }
-        
-        if let pw = UserModel.userShared.pw {
-            print("userShared.pw : " + "\(UserModel.userShared.pw)")
-            self.pwField.text = pw
-        }
     }
     
     
