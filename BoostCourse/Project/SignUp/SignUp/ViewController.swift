@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController {
+    
     
     var userModel = UserModel()
     
@@ -26,13 +27,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         self.addViews()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,11 +42,93 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.idField.text = UserModel.userShared.id!
             self.pwField.text = UserModel.userShared.pw!
         }
-        
+    }
+}
+
+
+
+
+// MARK: ViewController Methods
+extension ViewController {
+    
+    @IBAction func touchUpImage(_ sender: UIButton) {
+        self.present(self.imagePicker, animated: true, completion: nil)
     }
     
     
+    @IBAction func touchUpSignInButton(_ sender: UIButton) {
+        // id, pw 두 필드가 빈문자열이 아니고, nil 이 아닐 때
+        guard let idInput = idField.text, !idInput.isEmpty else { return }
+        guard let pwInput = pwField.text, !pwInput.isEmpty else { return }
+        
+        // UserInfo Model 이 해당 유저를 가지고 있는지 검사
+        let loginSuccess: Bool = userModel.isUser(id: idInput, pw: pwInput)
+        
+        if loginSuccess == true {
+            print("로그인 성공")
+            
+            // 로그인 성공 시 다음 화면으로
+            let musicStoryboard: UIStoryboard = UIStoryboard(name: "MusicViewController", bundle: nil)
+            let music = musicStoryboard.instantiateViewController(withIdentifier: "musicVC") as! MusicViewController
+            
+            // 네비게이션 추가
+            let naviController = UINavigationController(rootViewController: music)
+            
+            self.present(naviController, animated: true, completion: nil)
+            
+            
+        } else {
+            // print("실패")
+            // 실패 시 애니메이션 효과 추가
+            UIView.animate(withDuration: 0.2, animations: {
+                self.idField.frame.origin.x -= 10
+                self.pwField.frame.origin.x -= 10
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.idField.frame.origin.x += 20
+                    self.pwField.frame.origin.x += 20
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.idField.frame.origin.x -= 10
+                        self.pwField.frame.origin.x -= 10
+                    })
+                })
+            })
+        }
+    }
     
+    
+    @IBAction func touchUpSignUpButton(_ sender: UIButton) {
+        
+        let secondStoryboard = UIStoryboard(name: "SecondViewController", bundle: nil)
+        
+        let secondVC = secondStoryboard.instantiateViewController(withIdentifier: "secondVC")
+        
+        
+        let navigationController = UINavigationController(rootViewController: secondVC)
+        navigationController.setNavigationBarHidden(true, animated: true)
+        
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        self.view.endEditing(true)
+    }
+    
+    
+    @objc func didEndOnExit(_ sender: UITextField) {
+        if idField.isFirstResponder {
+            pwField.becomeFirstResponder()
+        }
+    }
+}
+
+
+
+
+// MARK: imagePicker 델리데이트
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // 취소하면 모달 dismiss
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
@@ -63,8 +146,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+}
+
+
+
+
+// MARK: ViewController Views
+extension ViewController {
     
     func addViews() {
         self.addImageView()
@@ -83,8 +171,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         image.backgroundColor = .systemGray
         
-        image.isUserInteractionEnabled = true
         let clickImageView = UITapGestureRecognizer(target: self, action: #selector(self.touchUpImage(_:)))
+        image.isUserInteractionEnabled = true
         image.addGestureRecognizer(clickImageView)
         
         let centerX: NSLayoutConstraint
@@ -185,80 +273,4 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.signupButton = signup
     }
-    
-    
-    
-    @IBAction func touchUpImage(_ sender: UIButton) {
-        self.present(self.imagePicker, animated: true, completion: nil)
-    }
-    
-    
-    @IBAction func touchUpSignInButton(_ sender: UIButton) {
-        // id, pw 두 필드가 빈문자열이 아니고, nil 이 아닐 때
-        guard let idInput = idField.text, !idInput.isEmpty else { return }
-        guard let pwInput = pwField.text, !pwInput.isEmpty else { return }
-        
-        // UserInfo Model 이 해당 유저를 가지고 있는지 검사
-        let loginSuccess: Bool = userModel.isUser(id: idInput, pw: pwInput)
-        
-        if loginSuccess == true {
-            print("로그인 성공")
-            
-            // 로그인 성공 시 다음 화면으로
-            let musicStoryboard: UIStoryboard = UIStoryboard(name: "MusicViewController", bundle: nil)
-            let music = musicStoryboard.instantiateViewController(withIdentifier: "musicVC") as! MusicViewController
-            
-            // 네비게이션 추가
-            let naviController = UINavigationController(rootViewController: music)
-            
-            self.present(naviController, animated: true, completion: nil)
-            
-            
-        } else {
-            // print("실패")
-            // 실패 시 애니메이션 효과 추가
-            UIView.animate(withDuration: 0.2, animations: {
-                self.idField.frame.origin.x -= 10
-                self.pwField.frame.origin.x -= 10
-            }, completion: { _ in
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.idField.frame.origin.x += 20
-                    self.pwField.frame.origin.x += 20
-                }, completion: { _ in
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.idField.frame.origin.x -= 10
-                        self.pwField.frame.origin.x -= 10
-                    })
-                })
-            })
-        }
-    }
-    
-    
-    @IBAction func touchUpSignUpButton(_ sender: UIButton) {
-        
-        let secondStoryboard = UIStoryboard(name: "SecondViewController", bundle: nil)
-        
-        let secondVC = secondStoryboard.instantiateViewController(withIdentifier: "secondVC")
-        
-        
-        let navigationController = UINavigationController(rootViewController: secondVC)
-        navigationController.setNavigationBarHidden(true, animated: true)
-        
-        self.present(navigationController, animated: true, completion: nil)
-    }
-    
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-        self.view.endEditing(true)
-    }
-    
-    
-    @objc func didEndOnExit(_ sender: UITextField) {
-        if idField.isFirstResponder {
-            pwField.becomeFirstResponder()
-        }
-    }
-    
-    
 }
