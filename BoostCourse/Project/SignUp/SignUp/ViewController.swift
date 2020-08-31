@@ -47,13 +47,14 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print("userShared.id : " + "\(UserModel.userShared.id)")
+        print("userShared.pw : " + "\(UserModel.userShared.pw)")
+        
         if let id = UserModel.userShared.id {
-            print("userShared.id : " + "\(UserModel.userShared.id)")
             self.idField.text = id
         }
         
         if let pw = UserModel.userShared.pw {
-            print("userShared.pw : " + "\(UserModel.userShared.pw)")
             self.pwField.text = pw
         }
         
