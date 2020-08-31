@@ -31,16 +31,38 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         self.addViews()
+        
+        if let id = UserModel.userShared.id {
+            print("userShared.id : " + "\(UserModel.userShared.id)")
+            self.idField.text = id
+        }
+        
+        if let pw = UserModel.userShared.pw {
+            print("userShared.pw : " + "\(UserModel.userShared.pw)")
+            self.pwField.text = pw
+        }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if UserModel.userShared.id != nil || UserModel.userShared.pw != nil {
-            self.idField.text = UserModel.userShared.id!
-            self.pwField.text = UserModel.userShared.pw!
+        if let id = UserModel.userShared.id {
+            print("userShared.id : " + "\(UserModel.userShared.id)")
+            self.idField.text = id
         }
+        
+        if let pw = UserModel.userShared.pw {
+            print("userShared.pw : " + "\(UserModel.userShared.pw)")
+            self.pwField.text = pw
+        }
+        
+        /*
+        print("userShared.id : " + "\(UserModel.userShared.id)")
+        print("userShared.pw : " + "\(UserModel.userShared.pw)")
+        self.idField.text = UserModel.userShared.id
+        self.pwField.text = UserModel.userShared.pw
+        */
     }
 }
 
@@ -107,6 +129,7 @@ extension ViewController {
         let navigationController = UINavigationController(rootViewController: secondVC)
         navigationController.setNavigationBarHidden(true, animated: true)
         
+        print("MainVC -> SecondVC")
         self.present(navigationController, animated: true, completion: nil)
     }
     
