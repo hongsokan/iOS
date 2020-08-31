@@ -118,7 +118,7 @@ extension ViewController {
         
         
         let navigationController = UINavigationController(rootViewController: secondVC)
-        navigationController.setNavigationBarHidden(true, animated: true)
+        navigationController.setNavigationBarHidden(false, animated: true)
         
         print("MainVC -> SecondVC")
         self.present(navigationController, animated: true, completion: nil)
