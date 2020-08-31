@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
     var userModel = UserModel()
     
     @IBOutlet weak var idField: UITextField!
