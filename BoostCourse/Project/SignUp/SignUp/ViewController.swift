@@ -175,22 +175,27 @@ extension ViewController {
         image.isUserInteractionEnabled = true
         image.addGestureRecognizer(clickImageView)
         
-        let centerX: NSLayoutConstraint
-        centerX = image.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        image.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        image.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -80).isActive = true
+        image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
+        image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
-        let centerY: NSLayoutConstraint
-        centerY = NSLayoutConstraint(item: image, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.7, constant: 0)
+        // let centerX: NSLayoutConstraint
+        // centerX = image.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         
-        let width: NSLayoutConstraint
-        width = image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
+        // let centerY: NSLayoutConstraint
+        // centerY = NSLayoutConstraint(item: image, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.7, constant: 0)
         
-        let ratio: NSLayoutConstraint
-        ratio = image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1)
+        // let width: NSLayoutConstraint
+        // width = image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
         
-        centerX.isActive = true
-        centerY.isActive = true
-        width.isActive = true
-        ratio.isActive = true
+        // let ratio: NSLayoutConstraint
+        // ratio = image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1)
+        
+        // centerX.isActive = true
+        // centerY.isActive = true
+        // width.isActive = true
+        // ratio.isActive = true
         
         self.imageView = image
     }
@@ -249,9 +254,14 @@ extension ViewController {
         signin.addTarget(self, action: #selector(self.touchUpSignInButton(_:)), for: UIControl.Event.touchUpInside)
         
         signin.backgroundColor = .systemBlue
-        signin.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80.0).isActive = true
-        signin.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        
+        signin.leadingAnchor.constraint(equalTo: pwField.leadingAnchor).isActive = true
         signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
+        
+        
+        // signin.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80.0).isActive = true
+        // signin.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        // signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
         
         self.signinButton = signin
     }
@@ -269,9 +279,13 @@ extension ViewController {
         signup.addTarget(self, action: #selector(self.touchUpSignUpButton(_:)), for: UIControl.Event.touchUpInside)
         
         signup.backgroundColor = .systemBlue
-        signup.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80.0).isActive = true
-        signup.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        
+        signup.trailingAnchor.constraint(equalTo: pwField.trailingAnchor).isActive = true
         signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
+        
+        // signup.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80.0).isActive = true
+        // signup.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        // signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
         
         self.signupButton = signup
     }
