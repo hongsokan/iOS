@@ -10,8 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var userModel = UserModel()
-    
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var pwField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
@@ -37,9 +35,6 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("userShared.id : " + "\(UserModel.userShared.id)")
-        print("userShared.pw : " + "\(UserModel.userShared.pw)")
-        
         if let id = UserModel.userShared.id {
             self.idField.text = id
         }
@@ -48,12 +43,6 @@ class ViewController: UIViewController {
             self.pwField.text = pw
         }
         
-        /*
-        print("userShared.id : " + "\(UserModel.userShared.id)")
-        print("userShared.pw : " + "\(UserModel.userShared.pw)")
-        self.idField.text = UserModel.userShared.id
-        self.pwField.text = UserModel.userShared.pw
-        */
     }
 }
 
@@ -73,10 +62,15 @@ extension ViewController {
         guard let idInput = idField.text, !idInput.isEmpty else { return }
         guard let pwInput = pwField.text, !pwInput.isEmpty else { return }
         
+        /*
         // UserInfo Model 이 해당 유저를 가지고 있는지 검사
         let loginSuccess: Bool = userModel.isUser(id: idInput, pw: pwInput)
+        */
+ 
+        // if loginSuccess == true {
         
-        if loginSuccess == true {
+        if (idField.text == UserModel.userShared.id) && (pwField.text == UserModel.userShared.pw) {
+ 
             print("로그인 성공")
             
             // 로그인 성공 시 다음 화면으로
