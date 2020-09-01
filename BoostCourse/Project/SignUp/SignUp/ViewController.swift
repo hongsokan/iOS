@@ -35,14 +35,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let id = UserModel.userShared.id {
-            self.idField.text = id
-        }
-        
-        if let pw = UserModel.userShared.pw {
-            self.pwField.text = pw
-        }
-        
+        idField.text = UserModel.userShared.id
+        pwField.text = UserModel.userShared.pw
     }
 }
 
@@ -109,7 +103,6 @@ extension ViewController {
         let secondStoryboard = UIStoryboard(name: "SecondViewController", bundle: nil)
         
         let secondVC = secondStoryboard.instantiateViewController(withIdentifier: "secondVC")
-        
         
         let navigationController = UINavigationController(rootViewController: secondVC)
         navigationController.setNavigationBarHidden(true, animated: true)
@@ -211,6 +204,7 @@ extension ViewController {
         
         id.borderStyle = UITextField.BorderStyle.roundedRect
         id.placeholder = "id"
+        id.text = UserModel.userShared.id
         
         id.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
@@ -231,6 +225,7 @@ extension ViewController {
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "pw"
+        pw.text = UserModel.userShared.pw
         
         pw.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
