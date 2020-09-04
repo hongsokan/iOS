@@ -35,8 +35,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        idField.text = UserModel.userShared.id
-        pwField.text = UserModel.userShared.pw
+        idField.text = UserInformation.shared.id
+        // pwField.text = UserInformation.shared.pw
     }
 }
 
@@ -63,7 +63,7 @@ extension ViewController {
  
         // if loginSuccess == true {
         
-        if (idField.text == UserModel.userShared.id) && (pwField.text == UserModel.userShared.pw) {
+        if (idField.text == UserInformation.shared.id) && (pwField.text == UserInformation.shared.pw) {
  
             print("로그인 성공")
             
@@ -209,7 +209,7 @@ extension ViewController {
         
         id.borderStyle = UITextField.BorderStyle.roundedRect
         id.placeholder = "id"
-        id.text = UserModel.userShared.id
+        id.text = UserInformation.shared.id
         
         id.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
@@ -230,7 +230,7 @@ extension ViewController {
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "pw"
-        pw.text = UserModel.userShared.pw
+        pw.text = UserInformation.shared.pw
         
         pw.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
