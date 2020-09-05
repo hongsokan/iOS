@@ -176,7 +176,7 @@ extension ViewController {
         image.addGestureRecognizer(clickImageView)
         
         image.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        image.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -80).isActive = true
+        image.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -120).isActive = true
         image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
