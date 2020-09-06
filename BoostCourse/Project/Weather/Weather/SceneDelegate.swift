@@ -26,7 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let mainVC = mainStoryboard.instantiateViewController(withIdentifier: "MainVC")
             
-            window.rootViewController = mainVC
+            let navi = UINavigationController(rootViewController: mainVC)
+            
+            window.rootViewController = navi
             self.window = window
             window.makeKeyAndVisible()
         }
