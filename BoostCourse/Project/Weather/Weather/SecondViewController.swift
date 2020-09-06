@@ -10,15 +10,14 @@ import UIKit
 
 class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    let cellIdentifier = "cityCell"
+    
     var countryKorean: String?
     var countryInitial: String?
     
-    @IBOutlet weak var tableView: UITableView!
-    let cellIdentifier = "cityCell"
-    
     var cities: [City] = []
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +52,12 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("\(countryInitial!)")
         //        print("\(countryInitial!)")
     }
-    
-    
-    
-    // MARK: - TABLE
+}
+
+
+
+// MARK: - TableView Delegate
+extension SecondViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -104,11 +105,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell
     }
-    
-    
-    
-    
-    // MARK: - Navigation
+}
+
+
+
+
+// MARK: - Navigation
+extension SecondViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -130,7 +133,5 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         nextViewController.cityState = cell.stateForCity
         nextViewController.cityTemp = cell.cityTemperature?.text
         nextViewController.cityRain = cell.cityRain?.text
-         
     }
-    
 }

@@ -180,23 +180,6 @@ extension ViewController {
         image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
-        // let centerX: NSLayoutConstraint
-        // centerX = image.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
-        
-        // let centerY: NSLayoutConstraint
-        // centerY = NSLayoutConstraint(item: image, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.7, constant: 0)
-        
-        // let width: NSLayoutConstraint
-        // width = image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
-        
-        // let ratio: NSLayoutConstraint
-        // ratio = image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1)
-        
-        // centerX.isActive = true
-        // centerY.isActive = true
-        // width.isActive = true
-        // ratio.isActive = true
-        
         self.imageView = image
     }
     
@@ -255,13 +238,9 @@ extension ViewController {
         
         signin.backgroundColor = .systemBlue
         
-        signin.leadingAnchor.constraint(equalTo: pwField.leadingAnchor).isActive = true
         signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
-        
-        
-        // signin.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80.0).isActive = true
-        // signin.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
-        // signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
+        signin.leadingAnchor.constraint(equalTo: pwField.leadingAnchor, constant: 16).isActive = true
+        signin.trailingAnchor.constraint(equalTo: pwField.centerXAnchor, constant: -16).isActive = true
         
         self.signinButton = signin
     }
@@ -280,12 +259,9 @@ extension ViewController {
         
         signup.backgroundColor = .systemBlue
         
-        signup.trailingAnchor.constraint(equalTo: pwField.trailingAnchor).isActive = true
         signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
-        
-        // signup.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80.0).isActive = true
-        // signup.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
-        // signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
+        signup.trailingAnchor.constraint(equalTo: pwField.trailingAnchor, constant: -16).isActive = true
+        signup.leadingAnchor.constraint(equalTo: pwField.centerXAnchor, constant: 16).isActive = true
         
         self.signupButton = signup
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43484EA62503C11400691F0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43484EA52503C11400691F0D /* SceneDelegate.swift */; };
 		439CE12C23F3B6EE00E6A97C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CE12B23F3B6EE00E6A97C /* AppDelegate.swift */; };
 		439CE13023F3B6EE00E6A97C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CE12F23F3B6EE00E6A97C /* MainViewController.swift */; };
 		439CE13323F3B6EE00E6A97C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439CE13123F3B6EE00E6A97C /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43484EA52503C11400691F0D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		439CE12823F3B6EE00E6A97C /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439CE12B23F3B6EE00E6A97C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439CE12F23F3B6EE00E6A97C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				439CE12B23F3B6EE00E6A97C /* AppDelegate.swift */,
+				43484EA52503C11400691F0D /* SceneDelegate.swift */,
 				43A7F50F23FADD1F00DF8824 /* Country.swift */,
 				439CE12F23F3B6EE00E6A97C /* MainViewController.swift */,
 				43C6AFDB23F555890091D8CB /* CustomTableViewCell.swift */,
@@ -155,6 +158,7 @@
 			files = (
 				43A7F51623FBDC2300DF8824 /* SecondCustomCell.swift in Sources */,
 				43C6AFDA23F555710091D8CB /* SecondViewController.swift in Sources */,
+				43484EA62503C11400691F0D /* SceneDelegate.swift in Sources */,
 				43C6AFDC23F555890091D8CB /* CustomTableViewCell.swift in Sources */,
 				439CE13023F3B6EE00E6A97C /* MainViewController.swift in Sources */,
 				43A7F51023FADD2000DF8824 /* Country.swift in Sources */,
@@ -307,7 +311,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B535JPUPAQ;
 				INFOPLIST_FILE = Weather/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -326,7 +330,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B535JPUPAQ;
 				INFOPLIST_FILE = Weather/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

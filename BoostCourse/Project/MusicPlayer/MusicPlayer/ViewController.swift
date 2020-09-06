@@ -41,6 +41,14 @@ extension ViewController: AVAudioPlayerDelegate {
         
         guard let soundAsset: NSDataAsset = NSDataAsset(name: "sound") else {
             print("음원 파일 에셋을 가져올 수 없습니다")
+            
+            /*
+            let alert = UIAlertController(title: "에러", message: "음원 파일 에셋을 가져올 수 없습니다", preferredStyle: UIAlertController.Style.alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .destructive, handler : nil)
+            alert.addAction(defaultAction)
+            present(alert, animated: false, completion: nil)
+            */
+            
             return
         }
         
@@ -115,7 +123,6 @@ extension ViewController: AVAudioPlayerDelegate {
             self.invalidateTimer()
             
         }
-        
     }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {

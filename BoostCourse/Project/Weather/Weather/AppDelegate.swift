@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Weather
 //
-//  Created by 안홍석 on 2020/02/12.
+//  Created by 안홍석
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 

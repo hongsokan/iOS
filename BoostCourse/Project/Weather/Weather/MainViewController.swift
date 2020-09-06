@@ -11,14 +11,10 @@ import UIKit
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     let customCellIdentifier: String = "customCell"
-    
     var countries: [Country] = []
-    
     var initial: String?
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +40,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.reloadData()
         
     }
-    
+}
+
+
+
+
+// MARK: TableView Delegate
+extension MainViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -52,7 +54,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // tableview 구현 시 필수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return country.count
+        //        return country.count
         return self.countries.count
     }
     
@@ -70,10 +72,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
-    
-    
-    
-    // MARK: - Navigation
+}
+
+
+
+
+// MARK: - Navigation
+extension MainViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -93,11 +98,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         nextViewController.countryKorean = cell.leftLabel?.text
-        
         nextViewController.countryInitial = cell.assetInitial
-
     }
-    
-    
 }
-
