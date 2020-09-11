@@ -213,6 +213,7 @@ extension ViewController {
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "pw"
+        pw.isSecureTextEntry = true
         pw.text = UserInformation.shared.pw
         
         pw.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
