@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
+class SecondViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -48,16 +48,15 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewWillAppear(animated)
         
         self.navigationItem.title = self.countryKorean
-        print("\(countryKorean!)")
-        print("\(countryInitial!)")
-        //        print("\(countryInitial!)")
+        print("\(countryKorean ?? "")")
+        print("\(countryInitial ?? "")")
     }
 }
 
 
 
 // MARK: - TableView Delegate
-extension SecondViewController {
+extension SecondViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -111,7 +110,7 @@ extension SecondViewController {
 
 
 // MARK: - Navigation
-extension SecondViewController {
+extension SecondViewController: UINavigationControllerDelegate {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
