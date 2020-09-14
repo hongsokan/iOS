@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class SecondViewController: UIViewController {
     
     var myAlbum: AlbumModel = AlbumModel(name: "", count: 0, collection: PHAssetCollection.init())
     
@@ -101,17 +101,17 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     /*
-    // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
-        
-        self.fetchResult = changes.fetchResultAfterChanges
-        
-        OperationQueue.main.addOperation {
-            self.secondCollectionView?.reloadSections(IndexSet(0...0))
-        }
-    }   */
+     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
+     func photoLibraryDidChange(_ changeInstance: PHChange) {
+     
+     guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+     
+     self.fetchResult = changes.fetchResultAfterChanges
+     
+     OperationQueue.main.addOperation {
+     self.secondCollectionView?.reloadSections(IndexSet(0...0))
+     }
+     }   */
     
     
     func requestCollection() {
@@ -127,97 +127,70 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    /*
-     override func setEditing(_ editing: Bool, animated: Bool) {
-     super.setEditing(editing, animated: animated)
-     
-     secondCollectionView.allowsMultipleSelection = editing
-     let indexPaths = secondCollectionView.indexPathsForVisibleItems
-     for indexPath in indexPaths {
-     let cell = secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
-     cell.isInEditingMode = editing
-     }
-     }   */
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        guard let photoViewController: PhotoViewController = segue.destination as? PhotoViewController else { return }
+        let cell: SecondCollectionViewCell = sender as! SecondCollectionViewCell
+        let indexPath = secondCollectionView.indexPath(for: cell)!
+        
+        photoViewController.asset = fetchResult.object(at: indexPath.item)
+        photoViewController.assetCollection = myAlbum.collection
+        
+        photoViewController.seletedImage = cell.photoImage?.image
+        photoViewController.dateInfo = cell.imageDate
+    }
     
     
-    @IBAction func selectingPhoto(_ sender: UIBarButtonItem) {
-        if sender.title == "선택" {
-            sender.title = "취소"
-            self.navigationItem.title = "항목 선택"
-            self.secondCollectionView.allowsMultipleSelection = true
-            selectedCells = self.secondCollectionView?.indexPathsForSelectedItems
-            for indexPath in selectedCells {
-                let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
-                cell.isInEditingMode = true
-//                if cell.isSelected {
-                
-//                }
-                deleteButton.isEnabled = true
-                actionButton.isEnabled = true
-            }
-        } else {
-            sender.title = "선택"
-            self.navigationItem.title = myAlbum.name
-            selectedCells = self.secondCollectionView?.indexPathsForSelectedItems
-            for indexPath in selectedCells {
-                let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
-                cell.isInEditingMode = false
-                deleteButton.isEnabled = false
-                actionButton.isEnabled = false
-            }
+}
+
+
+
+// MARK: PHPhotoLibraryChangeObserver
+extension SecondViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        /*
+         // The call might come on any background queue. Re-dispatch to the main queue to handle it.
+         DispatchQueue.main.sync {
+         // Check if there are changes to the displayed asset.
+         guard let details = changeInstance.changeDetails(for: asset) else { return }
+         
+         // Get the updated asset.
+         asset = details.objectAfterChanges
+         
+         // If the asset's content changes, update the image and stop any video playback.
+         if details.assetContentChanged {
+         updateImage()
+         
+         //                playerLayer?.removeFromSuperlayer()
+         //                playerLayer = nil
+         }
+         }
+         */
+        
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        
+        self.fetchResult = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.secondCollectionView?.reloadSections(IndexSet(0...0))
         }
     }
-    
-    @IBAction func actionButton(_ sender: UIBarButtonItem) {
-        let imageToShare: UIImage = UIImage(named: "default")!
-        let urlToShare: String = "http://edwith.org/boostcourse-ios"
-        let textToShare: String = "부스트코스"
-        
-        let activityViewController = UIActivityViewController(activityItems: [imageToShare, urlToShare, textToShare], applicationActivities: nil)
-        
-        activityViewController.completionWithItemsHandler = { (activity, success, items, error) in
-            if success {
-                
-            } else {
-                
-            }
-        }
-        
-        self.present(activityViewController, animated: true, completion: nil)
-    }
-    
-    @IBAction func sortingStatus(_ sender: UIBarButtonItem) {
-        
-        let fetchOptions = PHFetchOptions()
-        
-        if sender.title == "최신순" {
-            sender.title = "과거순"
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-            self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
-            OperationQueue.main.addOperation {
-                self.secondCollectionView.reloadData()
-            }
-        } else {
-            sender.title = "최신순"
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
-            OperationQueue.main.addOperation {
-                self.secondCollectionView.reloadData()
-            }
-        }
-    }
-    
-    @IBAction func deleteButton(_ sender: UIBarButtonItem) {
-        
-        
-    }
-    
-    // MARK: - CollectionView
+}
+
+
+
+
+// MARK: - CollectionView
+extension SecondViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         //        print(myAlbum.count)
-        
         return self.fetchResult.count
     }
     
@@ -270,60 +243,82 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     //    func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
     //        <#code#>
     //    }
-    
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-        guard let photoViewController: PhotoViewController = segue.destination as? PhotoViewController else { return }
-        let cell: SecondCollectionViewCell = sender as! SecondCollectionViewCell
-        let indexPath = secondCollectionView.indexPath(for: cell)!
-        
-        photoViewController.asset = fetchResult.object(at: indexPath.item)
-        photoViewController.assetCollection = myAlbum.collection
-        
-        photoViewController.seletedImage = cell.photoImage?.image
-        photoViewController.dateInfo = cell.imageDate
-    }
-    
-    
 }
 
 
 
-// MARK: PHPhotoLibraryChangeObserver
-extension SecondViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        /*
-        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
-        DispatchQueue.main.sync {
-            // Check if there are changes to the displayed asset.
-            guard let details = changeInstance.changeDetails(for: asset) else { return }
-            
-            // Get the updated asset.
-            asset = details.objectAfterChanges
-            
-            // If the asset's content changes, update the image and stop any video playback.
-            if details.assetContentChanged {
-                updateImage()
+
+// MARK: Methods
+extension SecondViewController {
+    
+    @IBAction func selectingPhoto(_ sender: UIBarButtonItem) {
+        if sender.title == "선택" {
+            sender.title = "취소"
+            self.navigationItem.title = "항목 선택"
+            self.secondCollectionView.allowsMultipleSelection = true
+            selectedCells = self.secondCollectionView?.indexPathsForSelectedItems
+            for indexPath in selectedCells {
+                let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
+                cell.isInEditingMode = true
+                //                if cell.isSelected {
                 
-//                playerLayer?.removeFromSuperlayer()
-//                playerLayer = nil
+                //                }
+                deleteButton.isEnabled = true
+                actionButton.isEnabled = true
+            }
+        } else {
+            sender.title = "선택"
+            self.navigationItem.title = myAlbum.name
+            selectedCells = self.secondCollectionView?.indexPathsForSelectedItems
+            for indexPath in selectedCells {
+                let cell = self.secondCollectionView.cellForItem(at: indexPath) as! SecondCollectionViewCell
+                cell.isInEditingMode = false
+                deleteButton.isEnabled = false
+                actionButton.isEnabled = false
             }
         }
-        */
+    }
+    
+    @IBAction func actionButton(_ sender: UIBarButtonItem) {
+        let imageToShare: UIImage = UIImage(named: "default")!
+        let urlToShare: String = "http://edwith.org/boostcourse-ios"
+        let textToShare: String = "부스트코스"
         
-        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        let activityViewController = UIActivityViewController(activityItems: [imageToShare, urlToShare, textToShare], applicationActivities: nil)
         
-        self.fetchResult = changes.fetchResultAfterChanges
-        
-        OperationQueue.main.addOperation {
-            self.secondCollectionView?.reloadSections(IndexSet(0...0))
+        activityViewController.completionWithItemsHandler = { (activity, success, items, error) in
+            if success {
+                
+            } else {
+                
+            }
         }
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func sortingStatus(_ sender: UIBarButtonItem) {
+        
+        let fetchOptions = PHFetchOptions()
+        
+        if sender.title == "최신순" {
+            sender.title = "과거순"
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
+            OperationQueue.main.addOperation {
+                self.secondCollectionView.reloadData()
+            }
+        } else {
+            sender.title = "최신순"
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            self.fetchResult = PHAsset.fetchAssets(in: myAlbum.collection, options: fetchOptions)
+            OperationQueue.main.addOperation {
+                self.secondCollectionView.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func deleteButton(_ sender: UIBarButtonItem) {
+        
+        
     }
 }

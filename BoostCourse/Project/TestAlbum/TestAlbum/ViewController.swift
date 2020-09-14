@@ -20,7 +20,7 @@ var albumList: [AlbumModel] = [AlbumModel]()
 
 
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController {
     
     let cellIdentifier: String = "cell"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -36,19 +36,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     /*
-    // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        guard let changes = changeInstance.changeDetails(for: fetchResult)
-            else {   return  }
-        
-        fetchResult = changes.fetchResultAfterChanges
-        
-        OperationQueue.main.addOperation {
-            self.collectionView?.reloadSections(IndexSet(0...0))
-        }
-    }
-    */
+     // PHPhotoLibraryChangeObserver, 상태 변화 감지 메서드 추가, 바뀌었으면 테이블뷰 다시 로드
+     func photoLibraryDidChange(_ changeInstance: PHChange) {
+     
+     guard let changes = changeInstance.changeDetails(for: fetchResult)
+     else {   return  }
+     
+     fetchResult = changes.fetchResultAfterChanges
+     
+     OperationQueue.main.addOperation {
+     self.collectionView?.reloadSections(IndexSet(0...0))
+     }
+     }
+     */
     
     // iOS 에서 사진 찍으면 저장되는 카메라롤 불러오기
     // 그 결과를 fetchResult 라는 프로퍼티로 가져온다
@@ -147,10 +147,70 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    // MARK: CollectionView
+    
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        guard let nextViewController: SecondViewController = segue.destination as? SecondViewController else { return }
+        
+        let cell: AlbumCollectionViewCell = sender as! AlbumCollectionViewCell
+        
+        nextViewController.fetchResult = self.fetchResult
+        nextViewController.myAlbum.name = cell.nameLabel!.text!
+        nextViewController.myAlbum.count = (Int)(cell.countLabel!.text!)!
+        nextViewController.myAlbum.collection = cell.assetCollection
+        
+    }
+    
+}
+
+
+// MARK: PHPhotoLibraryChangeObserver
+extension ViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        /*
+         // The call might come on any background queue. Re-dispatch to the main queue to handle it.
+         DispatchQueue.main.sync {
+         // Check if there are changes to the displayed asset.
+         guard let details = changeInstance.changeDetails(for: asset) else { return }
+         
+         // Get the updated asset.
+         asset = details.objectAfterChanges
+         
+         // If the asset's content changes, update the image and stop any video playback.
+         if details.assetContentChanged {
+         updateImage()
+         
+         //                playerLayer?.removeFromSuperlayer()
+         //                playerLayer = nil
+         }
+         }
+         */
+        
+        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+        
+        self.fetchResult = changes.fetchResultAfterChanges
+        
+        OperationQueue.main.addOperation {
+            self.collectionView?.reloadSections(IndexSet(0...0))
+        }
+    }
+}
+
+
+
+
+// MARK: CollectionView
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print("앨범 수:" + "\(albumList.count)")
+        //        print("앨범 수:" + "\(albumList.count)")
         return albumList.count
         
     }
@@ -158,7 +218,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell: AlbumCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? AlbumCollectionViewCell else { return AlbumCollectionViewCell() }
-
+        
         for i in indexPath{
             
             let asset: PHAsset = self.fetchAssets[i]
@@ -198,59 +258,5 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
         return 2 as CGFloat
-    }
-    
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-        guard let nextViewController: SecondViewController = segue.destination as? SecondViewController else { return }
-        
-        let cell: AlbumCollectionViewCell = sender as! AlbumCollectionViewCell
-        
-        nextViewController.fetchResult = self.fetchResult
-        nextViewController.myAlbum.name = cell.nameLabel!.text!
-        nextViewController.myAlbum.count = (Int)(cell.countLabel!.text!)!
-        nextViewController.myAlbum.collection = cell.assetCollection
-        
-    }
-    
-}
-
-
-// MARK: PHPhotoLibraryChangeObserver
-extension ViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        /*
-        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
-        DispatchQueue.main.sync {
-            // Check if there are changes to the displayed asset.
-            guard let details = changeInstance.changeDetails(for: asset) else { return }
-            
-            // Get the updated asset.
-            asset = details.objectAfterChanges
-            
-            // If the asset's content changes, update the image and stop any video playback.
-            if details.assetContentChanged {
-                updateImage()
-                
-//                playerLayer?.removeFromSuperlayer()
-//                playerLayer = nil
-            }
-        }
-        */
-        
-        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
-        
-        self.fetchResult = changes.fetchResultAfterChanges
-        
-        OperationQueue.main.addOperation {
-            self.collectionView?.reloadSections(IndexSet(0...0))
-        }
     }
 }

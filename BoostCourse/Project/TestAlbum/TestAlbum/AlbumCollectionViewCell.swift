@@ -17,5 +17,5 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     
     var assetCollection: PHAssetCollection!
     
-//    var album: 
+    
 }

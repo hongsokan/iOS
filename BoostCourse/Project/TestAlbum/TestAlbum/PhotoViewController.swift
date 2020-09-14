@@ -54,8 +54,8 @@ class PhotoViewController: UIViewController, UIGestureRecognizerDelegate {
         
         actionButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButton(_:)))
         
-//        favoriteButton = UIBarButtonItem(barButtonSystemItem: nil, target: self, action: #selector(favoriteButton(_:)))
-
+        //        favoriteButton = UIBarButtonItem(barButtonSystemItem: nil, target: self, action: #selector(favoriteButton(_:)))
+        
         favoriteButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(favoriteButton(_:)))
         
         favoriteButton.isEnabled = asset.canPerform(.properties)
@@ -70,7 +70,7 @@ class PhotoViewController: UIViewController, UIGestureRecognizerDelegate {
         self.addImage()
         
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(self.doPinch(_:)))
-
+        
         self.view.addGestureRecognizer(pinch)
     }
     
@@ -79,6 +79,65 @@ class PhotoViewController: UIViewController, UIGestureRecognizerDelegate {
         
         
     }
+    
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+}
+
+
+// MARK: PHPhotoLibraryChangeObserver
+extension PhotoViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
+        DispatchQueue.main.sync {
+            // Check if there are changes to the displayed asset.
+            guard let details = changeInstance.changeDetails(for: asset) else { return }
+            
+            // Get the updated asset.
+            asset = details.objectAfterChanges
+            
+            // If the asset's content changes, update the image and stop any video playback.
+            if details.assetContentChanged {
+                updateImage()
+                
+                //                playerLayer?.removeFromSuperlayer()
+                //                playerLayer = nil
+            }
+        }
+    }
+}
+
+/*
+ // MARK: PHPhotoLibraryChangeObserver
+ extension PhotoViewController: PHPhotoLibraryChangeObserver {
+ func photoLibraryDidChange(_ changeInstance: PHChange) {
+ 
+ guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
+ 
+ self.fetchResult = changes.fetchResultAfterChanges
+ 
+ OperationQueue.main.addOperation {
+ self.secondCollectionView?.reloadSections(IndexSet(0...0))
+ }
+ }
+ }
+ */
+
+
+
+// MARK: Methods
+extension PhotoViewController {
+    
     
     @objc func doPinch(_ pinch: UIPinchGestureRecognizer) {
         image.transform = image.transform.scaledBy(x: pinch.scale, y: pinch.scale)
@@ -179,72 +238,22 @@ class PhotoViewController: UIViewController, UIGestureRecognizerDelegate {
             // The handler may originate on a background queue, so
             // re-dispatch to the main queue for UI work.
             DispatchQueue.main.sync {
-//                self.progressView.progress = Float(progress)
+                //                self.progressView.progress = Float(progress)
             }
         }
         
         PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options,
                                               resultHandler: { image, _ in
                                                 // PhotoKit finished the request, so hide the progress view.
-//                                                self.progressView.isHidden = true
+                                                //                                                self.progressView.isHidden = true
                                                 
                                                 // If the request succeeded, show the image view.
                                                 guard let image = image else { return }
                                                 
                                                 // Show the image.
-//                                                self.livePhotoView.isHidden = true
+                                                //                                                self.livePhotoView.isHidden = true
                                                 self.image.isHidden = false
                                                 self.image.image = image
         })
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
-
-
-// MARK: PHPhotoLibraryChangeObserver
-extension PhotoViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        // The call might come on any background queue. Re-dispatch to the main queue to handle it.
-        DispatchQueue.main.sync {
-            // Check if there are changes to the displayed asset.
-            guard let details = changeInstance.changeDetails(for: asset) else { return }
-            
-            // Get the updated asset.
-            asset = details.objectAfterChanges
-            
-            // If the asset's content changes, update the image and stop any video playback.
-            if details.assetContentChanged {
-                updateImage()
-                
-//                playerLayer?.removeFromSuperlayer()
-//                playerLayer = nil
-            }
-        }
-    }
-}
-
-/*
-// MARK: PHPhotoLibraryChangeObserver
-extension PhotoViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        guard let changes = changeInstance.changeDetails(for: self.fetchResult) else {   return  }
-        
-        self.fetchResult = changes.fetchResultAfterChanges
-        
-        OperationQueue.main.addOperation {
-            self.secondCollectionView?.reloadSections(IndexSet(0...0))
-        }
-    }
-}
-*/
