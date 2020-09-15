@@ -1,14 +1,13 @@
 ## file
-Firebase/HowlFirebaseLogin/HowlFirebaseLogin/GoogleService-Info.plist
 
-## folder
-BoostCourse/ch2/SignUp
-BoostCourse/ch3/Weather
-BoostCourse/ch4/MyAlbum
-IOS-INTERVIEW/
-Test/
-Firebase/FirebaseLogin/FirebaseLogin/GoogleService-Info.plist
+Firebase/HowlFirebaseLogin/HowlFirebaseLogin/GoogleService-Info.plist
 Firebase/FirebaseLogin/FirebaseLogin/Podfile.lock
 Firebase/FirebaseLogin/FirebaseLogin/FirebaseLogin.xcworkspace
+Firebase/FirebaseLogin/FirebaseLogin/GoogleService-Info.plist
+
+## folder
+
+IOS-INTERVIEW/
 Firebase/FirebaseLogin/FirebaseLogin/Pods/
+
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HowlFireBaseLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zmb-C2-Ely" customClass="GIDSignInButton">
+                                <rect key="frame" x="72" y="309" width="230" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="DjY-ES-THK"/>
+                                    <constraint firstAttribute="height" constant="48" id="N8D-Jz-gVB"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="signIn:" destination="BYZ-38-t0r" eventType="valueChanged" id="cLb-3m-YIo"/>
+                                </connections>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XLN-Xd-LRB">
+                                <rect key="frame" x="72" y="197" width="230" height="48"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="MOA-KM-C2g"/>
+                                    <constraint firstAttribute="height" constant="48" id="Q2F-uD-aOq"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdm-kw-igc">
+                                <rect key="frame" x="72" y="253" width="230" height="48"/>
+                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="9ha-Ri-unu"/>
+                                    <constraint firstAttribute="width" constant="230" id="p1H-h4-LXk"/>
+                                </constraints>
+                                <state key="normal" title="Login or Signin">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A7f-hF-opH"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zE4-RK-cdR">
+                                <rect key="frame" x="72" y="141" width="230" height="48"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="7ee-IQ-zTE"/>
+                                    <constraint firstAttribute="width" constant="230" id="hbm-AU-qde"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhQ-WI-Hs8" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="72" y="365" width="230" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="4FH-nN-ZZl"/>
+                                    <constraint firstAttribute="height" constant="48" id="A7E-2w-kmv"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="signIn:" destination="BYZ-38-t0r" eventType="valueChanged" id="2Kt-7a-3cR"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Zmb-C2-Ely" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="56" id="3ni-2p-PEt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XLN-Xd-LRB" secondAttribute="trailing" constant="57" id="CId-XO-qBh"/>
+                            <constraint firstItem="mhQ-WI-Hs8" firstAttribute="top" secondItem="Zmb-C2-Ely" secondAttribute="bottom" constant="8" id="DAm-e3-TCN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fdm-kw-igc" secondAttribute="trailing" constant="57" id="EHW-a4-ol4"/>
+                            <constraint firstItem="mhQ-WI-Hs8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="56" id="OCV-Uy-GZV"/>
+                            <constraint firstItem="XLN-Xd-LRB" firstAttribute="top" secondItem="zE4-RK-cdR" secondAttribute="bottom" constant="8" id="QlS-0F-scT"/>
+                            <constraint firstItem="fdm-kw-igc" firstAttribute="top" secondItem="XLN-Xd-LRB" secondAttribute="bottom" constant="8" id="Qmt-6e-k0R"/>
+                            <constraint firstItem="Zmb-C2-Ely" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="289" id="etA-9c-ceK"/>
+                            <constraint firstItem="fdm-kw-igc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="56" id="gme-6b-igy"/>
+                            <constraint firstItem="zE4-RK-cdR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="56" id="mRq-5K-gee"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zE4-RK-cdR" secondAttribute="trailing" constant="57" id="oVZ-Vf-m7F"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zmb-C2-Ely" secondAttribute="trailing" constant="57" id="sqc-ew-RPh"/>
+                            <constraint firstItem="Zmb-C2-Ely" firstAttribute="top" secondItem="fdm-kw-igc" secondAttribute="bottom" constant="8" id="trM-YN-Aqp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mhQ-WI-Hs8" secondAttribute="trailing" constant="57" id="ucx-gG-7Js"/>
+                            <constraint firstItem="XLN-Xd-LRB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="56" id="yWu-23-Yc3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="email" destination="zE4-RK-cdR" id="PyY-pQ-5YN"/>
+                        <outlet property="facebookLoginButton" destination="mhQ-WI-Hs8" id="iHx-8O-H63"/>
+                        <outlet property="password" destination="XLN-Xd-LRB" id="QaD-9p-SDa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
