@@ -7,10 +7,34 @@
 //
 
 
+
+
+
+
+
+
+
+/*
 // 덩치
+let n = Int(readLine() ?? "") ?? 0
+var sizes = [(Int, Int)]()
+var rank = 1
 
+for _ in 0..<n {
+    let size = (readLine() ?? "").split(separator: " ").map{Int($0) ?? 0}
+    sizes.append((size[0], size[1]))
+}
 
-
+for i in 0..<n {
+    for j in 0..<n {
+        if (sizes[i].0 < sizes[j].0) && (sizes[i].1 < sizes[j].1) {
+            rank += 1
+        }
+    }
+    print(rank)
+    rank = 1
+}
+*/
 
 
 
