@@ -6,10 +6,16 @@
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
+// 체스판 다시 칠하기
+let line = (readLine() ?? "").split(separator: " ").map{Int($0) ?? 0}
+let n = line[0], m = line[1]
+var board = [String](repeating: "", count: n)
 
+for i in 0..<n {
+    board[i] = (readLine() ?? "")
+}
 
-
-
+print(board)
 
 
 
