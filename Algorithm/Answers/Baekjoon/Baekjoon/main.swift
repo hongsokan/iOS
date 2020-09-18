@@ -6,6 +6,34 @@
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
+// 영화감독 숌
+let n = Int(readLine() ?? "") ?? 0
+var i = 666
+var count = 0
+var flag = Bool()
+
+while count != n {
+    var temp = i
+    flag = false
+    
+    while temp != 0 {
+        if temp % 1000 == 666 {
+            flag = true
+            break
+        }
+        temp /= 10
+    }
+    
+    if flag { count += 1 }
+    i += 1
+}
+
+print(i-1)
+
+
+
+
+/*
 // 체스판 다시 칠하기
 let line = (readLine() ?? "").split(separator: " ").map{Int($0) ?? 0}
 let n = line[0], m = line[1]
@@ -16,7 +44,7 @@ for i in 0..<n {
 }
 
 print(board)
-
+*/
 
 
 
