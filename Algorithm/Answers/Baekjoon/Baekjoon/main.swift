@@ -6,11 +6,61 @@
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
+
+// 통계학
+// 산술평균 : N개의 수들의 합을 N으로 나눈 값
+// 중앙값 : N개의 수들을 증가하는 순서로 나열했을 경우 그 중앙에 위치하는 값
+// 최빈값 : N개의 수들 중 가장 많이 나타나는 값
+// 범위 : N개의 수들 중 최댓값과 최솟값의 차이
+import Foundation
+
+let n = Int(readLine() ?? "") ?? 0
+var numbers = [Int]()
+
+for _ in 0..<n {
+    let num = Int(readLine() ?? "") ?? 0
+    numbers.append(num)
+}
+
+func mode() {
+    var freq = 0
+    for i in 1..<8001 {
+        
+    }
+}
+
+//print()
+//print(numbers.reduce(0, +))
+//print(n)
+//print((Double(9)/Double(5)).rounded())
+
+print()
+print(Int((Double(numbers.reduce(0, +)) / Double(n)).rounded()))
+print(numbers.sorted()[numbers.count/2])
+print(numbers.sorted()[numbers.count/2 - 1])
+print((numbers.max() ?? 0) - (numbers.min() ?? 0))
+
+
+
+
+// 수 정렬하기 3
+
+
+
+/*
 // 수 정렬하기 2
+let n = Int(readLine() ?? "") ?? 0
+var numbers = [Int]()
 
+for _ in 0..<n {
+    let num = Int(readLine() ?? "") ?? 0
+    numbers.append(num)
+}
 
-
-
+for i in numbers.sorted() {
+    print(i)
+}
+*/
 
 
 
