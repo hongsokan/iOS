@@ -6,6 +6,32 @@
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
+// 수 정렬하기 2
+
+
+
+
+
+
+
+/*
+// 수 정렬하기
+let n = Int(readLine() ?? "") ?? 0
+var numbers = [Int]()
+
+for _ in 0..<n {
+    let num = Int(readLine() ?? "") ?? 0
+    numbers.append(num)
+}
+
+for i in numbers.sorted() {
+    print(i)
+}
+*/
+
+
+
+/*
 // 영화감독 숌
 let n = Int(readLine() ?? "") ?? 0
 var i = 666
@@ -29,7 +55,7 @@ while count != n {
 }
 
 print(i-1)
-
+*/
 
 
 
@@ -37,10 +63,78 @@ print(i-1)
 // 체스판 다시 칠하기
 let line = (readLine() ?? "").split(separator: " ").map{Int($0) ?? 0}
 let n = line[0], m = line[1]
-var board = [String](repeating: "", count: n)
+var board = [String]()
+
+var whiteFirst: [String] = [
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW"
+]
+
+var blackFirst: [String] = [
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB"
+]
+
+//var whiteFirst: [[String]] = [
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ],
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ],
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ],
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ]
+//]
+//
+//var blackFirst: [[String]] = [
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ],
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ],
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ],
+//    [ "WBWBWBWB" ],
+//    [ "BWBWBWBW" ]
+//]
+
+func whiteFirstChange(y: Int, x: Int) -> Int {
+    var count = 0
+    for i in y..<y+8 {
+        for j in x..<x+8 {
+            if (board[i][j] != whiteFirst[i-y][j-x]) {
+                count += 1
+            }
+        }
+    }
+    return count
+}
+
+func blackFirstChange(y: Int, x: Int) -> Int {
+    var count = 0
+    for i in y..<y+8 {
+        for j in x..<x+8 {
+            if (board[i][j] != blackFirst[i-y][j-x]) {
+                count += 1
+            }
+        }
+    }
+    return count
+}
 
 for i in 0..<n {
-    board[i] = (readLine() ?? "")
+    board[i].append(readLine() ?? "")
 }
 
 print(board)
