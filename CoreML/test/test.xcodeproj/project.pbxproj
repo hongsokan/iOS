@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,8 @@
 		4329B668251847B400DA1D6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4329B666251847B400DA1D6E /* Main.storyboard */; };
 		4329B66A251847B600DA1D6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4329B669251847B600DA1D6E /* Assets.xcassets */; };
 		4329B66D251847B600DA1D6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4329B66B251847B600DA1D6E /* LaunchScreen.storyboard */; };
+		4329B6752518495F00DA1D6E /* Fritz-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4329B6742518495F00DA1D6E /* Fritz-Info.plist */; };
+		B1528C8DA6858AB5C98F65B0 /* Pods_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C253BEB47D3D11FDB8284D2 /* Pods_test.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		4329B669251847B600DA1D6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4329B66C251847B600DA1D6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4329B66E251847B600DA1D6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4329B6742518495F00DA1D6E /* Fritz-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fritz-Info.plist"; sourceTree = "<group>"; };
+		4C253BEB47D3D11FDB8284D2 /* Pods_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEF711CD22F6956535E447B8 /* Pods-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.debug.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.debug.xcconfig"; sourceTree = "<group>"; };
+		CF9970C1DA44B4B895DDEB40 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1528C8DA6858AB5C98F65B0 /* Pods_test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				4329B65F251847B400DA1D6E /* test */,
 				4329B65E251847B400DA1D6E /* Products */,
+				EBB6C7F888AA1AE37B1AD9C7 /* Pods */,
+				E6748DD41AE78DA6196271EB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,8 +72,26 @@
 				4329B669251847B600DA1D6E /* Assets.xcassets */,
 				4329B66B251847B600DA1D6E /* LaunchScreen.storyboard */,
 				4329B66E251847B600DA1D6E /* Info.plist */,
+				4329B6742518495F00DA1D6E /* Fritz-Info.plist */,
 			);
 			path = test;
+			sourceTree = "<group>";
+		};
+		E6748DD41AE78DA6196271EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C253BEB47D3D11FDB8284D2 /* Pods_test.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EBB6C7F888AA1AE37B1AD9C7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AEF711CD22F6956535E447B8 /* Pods-test.debug.xcconfig */,
+				CF9970C1DA44B4B895DDEB40 /* Pods-test.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4329B671251847B600DA1D6E /* Build configuration list for PBXNativeTarget "test" */;
 			buildPhases = (
+				7FE6C28D682730F1656FDCAC /* [CP] Check Pods Manifest.lock */,
 				4329B659251847B400DA1D6E /* Sources */,
 				4329B65A251847B400DA1D6E /* Frameworks */,
 				4329B65B251847B400DA1D6E /* Resources */,
+				B0AAE89F84E3F5C37A4C2498 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,11 +156,54 @@
 			files = (
 				4329B66D251847B600DA1D6E /* LaunchScreen.storyboard in Resources */,
 				4329B66A251847B600DA1D6E /* Assets.xcassets in Resources */,
+				4329B6752518495F00DA1D6E /* Fritz-Info.plist in Resources */,
 				4329B668251847B400DA1D6E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7FE6C28D682730F1656FDCAC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-test-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0AAE89F84E3F5C37A4C2498 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test/Pods-test-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test/Pods-test-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-test/Pods-test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4329B659251847B400DA1D6E /* Sources */ = {
@@ -216,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -282,17 +354,19 @@
 		};
 		4329B672251847B600DA1D6E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEF711CD22F6956535E447B8 /* Pods-test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B535JPUPAQ;
 				INFOPLIST_FILE = test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ac.kr.cau.test.fritz.test;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ac.kr.cau.fritz.test;
+				PRODUCT_NAME = test;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -300,17 +374,19 @@
 		};
 		4329B673251847B600DA1D6E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF9970C1DA44B4B895DDEB40 /* Pods-test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B535JPUPAQ;
 				INFOPLIST_FILE = test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ac.kr.cau.test.fritz.test;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ac.kr.cau.fritz.test;
+				PRODUCT_NAME = test;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
