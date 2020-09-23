@@ -22,6 +22,10 @@ import VideoToolbox
 enum Styles : String, CaseIterable{
     case starryBlue
     case strong
+    case laMuse
+    case rainPrincess
+    case udnie
+    case wave
 }
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate
@@ -29,7 +33,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     let parentStack = UIStackView()
     let imageView = UIImageView()
     let modelConfigControl = UISegmentedControl(items: ["Off","CPU", "GPU", "Neural Engine"])
-    let styleTransferControl = UISegmentedControl(items: [Styles.starryBlue.rawValue,Styles.strong.rawValue])
+    let styleTransferControl = UISegmentedControl(items: [Styles.starryBlue.rawValue,
+                                                          Styles.strong.rawValue,
+                                                          Styles.laMuse.rawValue,
+                                                          Styles.rainPrincess.rawValue,
+                                                          Styles.udnie.rawValue,
+                                                          Styles.wave.rawValue
+    ])
 
     var currentModelConfig = 0
     var currentStyle = Styles.starryBlue
@@ -130,6 +140,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 s = try? StyleBlue.init(configuration: config).model
             case .strong:
                 s = try? BlueStrong.init(configuration: config).model
+            case .laMuse:
+                s = try? la_muse.init(configuration: config).model
+            case .rainPrincess:
+                s = try? rain_princess.init(configuration: config).model
+            case .udnie:
+                s = try? udnie.init(configuration: config).model
+            case .wave:
+                s = try? wave.init(configuration: config).model
             }
             
             guard let styleModel = s else{return}

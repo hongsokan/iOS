@@ -15,8 +15,12 @@
 		1E3B1A2724EDAA6300E21320 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E3B1A2524EDAA6300E21320 /* LaunchScreen.storyboard */; };
 		1E3B1A3224EDAA6300E21320 /* CreateMLVideoStyleTransferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3B1A3124EDAA6300E21320 /* CreateMLVideoStyleTransferTests.swift */; };
 		1E3B1A3D24EDAA6300E21320 /* CreateMLVideoStyleTransferUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3B1A3C24EDAA6300E21320 /* CreateMLVideoStyleTransferUITests.swift */; };
-		1E8B745F24EEDA7700741D7D /* StyleBlue.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1E8B745E24EEDA7700741D7D /* StyleBlue.mlmodel */; };
-		1E8B746124EEDAA300741D7D /* BlueStrong.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1E8B746024EEDAA300741D7D /* BlueStrong.mlmodel */; };
+		43464421251AD77500041E5F /* wave.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4346441B251AD77500041E5F /* wave.mlmodel */; };
+		43464422251AD77500041E5F /* rain_princess.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4346441C251AD77500041E5F /* rain_princess.mlmodel */; };
+		43464423251AD77500041E5F /* udnie.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4346441D251AD77500041E5F /* udnie.mlmodel */; };
+		43464424251AD77500041E5F /* StyleBlue.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4346441E251AD77500041E5F /* StyleBlue.mlmodel */; };
+		43464425251AD77500041E5F /* la_muse.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4346441F251AD77500041E5F /* la_muse.mlmodel */; };
+		43464426251AD77500041E5F /* BlueStrong.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 43464420251AD77500041E5F /* BlueStrong.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +55,12 @@
 		1E3B1A3824EDAA6300E21320 /* CreateMLVideoStyleTransferUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CreateMLVideoStyleTransferUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E3B1A3C24EDAA6300E21320 /* CreateMLVideoStyleTransferUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMLVideoStyleTransferUITests.swift; sourceTree = "<group>"; };
 		1E3B1A3E24EDAA6300E21320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E8B745E24EEDA7700741D7D /* StyleBlue.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StyleBlue.mlmodel; sourceTree = "<group>"; };
-		1E8B746024EEDAA300741D7D /* BlueStrong.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = BlueStrong.mlmodel; sourceTree = "<group>"; };
+		4346441B251AD77500041E5F /* wave.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = wave.mlmodel; sourceTree = "<group>"; };
+		4346441C251AD77500041E5F /* rain_princess.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = rain_princess.mlmodel; sourceTree = "<group>"; };
+		4346441D251AD77500041E5F /* udnie.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = udnie.mlmodel; sourceTree = "<group>"; };
+		4346441E251AD77500041E5F /* StyleBlue.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StyleBlue.mlmodel; sourceTree = "<group>"; };
+		4346441F251AD77500041E5F /* la_muse.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = la_muse.mlmodel; sourceTree = "<group>"; };
+		43464420251AD77500041E5F /* BlueStrong.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = BlueStrong.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +111,7 @@
 		1E3B1A1924EDAA6300E21320 /* CreateMLVideoStyleTransfer */ = {
 			isa = PBXGroup;
 			children = (
-				1E8B746024EEDAA300741D7D /* BlueStrong.mlmodel */,
-				1E8B745E24EEDA7700741D7D /* StyleBlue.mlmodel */,
+				43464400251AD36C00041E5F /* Resources */,
 				1E3B1A1A24EDAA6300E21320 /* AppDelegate.swift */,
 				1E3B1A1C24EDAA6300E21320 /* SceneDelegate.swift */,
 				1E3B1A1E24EDAA6300E21320 /* ViewController.swift */,
@@ -132,6 +139,19 @@
 				1E3B1A3E24EDAA6300E21320 /* Info.plist */,
 			);
 			path = CreateMLVideoStyleTransferUITests;
+			sourceTree = "<group>";
+		};
+		43464400251AD36C00041E5F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				43464420251AD77500041E5F /* BlueStrong.mlmodel */,
+				4346441F251AD77500041E5F /* la_muse.mlmodel */,
+				4346441C251AD77500041E5F /* rain_princess.mlmodel */,
+				4346441E251AD77500041E5F /* StyleBlue.mlmodel */,
+				4346441D251AD77500041E5F /* udnie.mlmodel */,
+				4346441B251AD77500041E5F /* wave.mlmodel */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +217,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Anupam Chugh";
 				TargetAttributes = {
 					1E3B1A1624EDAA6300E21320 = {
@@ -265,11 +285,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43464424251AD77500041E5F /* StyleBlue.mlmodel in Sources */,
 				1E3B1A1F24EDAA6300E21320 /* ViewController.swift in Sources */,
-				1E8B745F24EEDA7700741D7D /* StyleBlue.mlmodel in Sources */,
 				1E3B1A1B24EDAA6300E21320 /* AppDelegate.swift in Sources */,
+				43464423251AD77500041E5F /* udnie.mlmodel in Sources */,
+				43464422251AD77500041E5F /* rain_princess.mlmodel in Sources */,
+				43464425251AD77500041E5F /* la_muse.mlmodel in Sources */,
 				1E3B1A1D24EDAA6300E21320 /* SceneDelegate.swift in Sources */,
-				1E8B746124EEDAA300741D7D /* BlueStrong.mlmodel in Sources */,
+				43464421251AD77500041E5F /* wave.mlmodel in Sources */,
+				43464426251AD77500041E5F /* BlueStrong.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +374,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -410,6 +435,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -443,8 +469,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q7392R2LCV;
+				DEVELOPMENT_TEAM = B535JPUPAQ;
 				INFOPLIST_FILE = CreateMLVideoStyleTransfer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,8 +488,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q7392R2LCV;
+				DEVELOPMENT_TEAM = B535JPUPAQ;
 				INFOPLIST_FILE = CreateMLVideoStyleTransfer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
