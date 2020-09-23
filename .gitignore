@@ -5,11 +5,11 @@ Firebase/FirebaseLogin/FirebaseLogin/Podfile.lock
 Firebase/FirebaseLogin/FirebaseLogin/FirebaseLogin.xcworkspace
 Firebase/FirebaseLogin/FirebaseLogin/GoogleService-Info.plist
 
-CoreML/test/test/Fritz-Info.plist
 
 
 ## folder
 
+resources/
 IOS-INTERVIEW/
 Firebase/FirebaseLogin/FirebaseLogin/Pods/
 
