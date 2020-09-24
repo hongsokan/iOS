@@ -40,10 +40,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                                                           Styles.udnie.rawValue,
                                                           Styles.wave.rawValue
     ])
-
+    
     var currentModelConfig = 0
     var currentStyle = Styles.starryBlue
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -83,10 +83,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     func configureSession(){
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.medium
-
+        
         // search for available capture devices
         let availableDevices = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices
-
+        
         do {
             if let captureDevice = availableDevices.first {
                 captureSession.addInput(try AVCaptureDeviceInput(device: captureDevice))
@@ -104,7 +104,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         guard let connection = videoOutput.connection(with: .video) else { return }
         guard connection.isVideoOrientationSupported else { return }
-
+        
         connection.videoOrientation = .portrait
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -113,16 +113,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureSession.startRunning()
     }
     
-
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-
+        
         if currentModelConfig == 0{
             DispatchQueue.main.async(execute: {
                 self.imageView.image = CameraUtil.imageFromSampleBuffer(buffer: sampleBuffer)
             })
         }
         else{
-                        
+            
             let config = MLModelConfiguration()
             switch currentModelConfig {
             case 1:
@@ -150,14 +150,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 s = try? wave.init(configuration: config).model
             }
             
-            guard let styleModel = s else{return}
-
+            guard let styleModel = s else { return }
+            
             guard let model = try? VNCoreMLModel(for: styleModel) else { return }
             let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
                 guard let results = finishedRequest.results as? [VNPixelBufferObservation] else { return }
-
+                
                 guard let observation = results.first else { return }
-
+                
                 DispatchQueue.main.async(execute: {
                     self.imageView.image = UIImage(pixelBuffer: observation.pixelBuffer)
                 })
@@ -170,36 +170,36 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
+        super.viewDidLayoutSubviews()
         
         let topMargin = topLayoutGuide.length
         parentStack.frame = CGRect(x: 0, y: topMargin, width: view.frame.width, height: view.frame.height - topMargin).insetBy(dx: 5, dy: 5)
-
-//        if let connection =  self.previewLayer?.connection  {
-//
-//            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.portrait
-//            let previewLayerConnection : AVCaptureConnection = connection
-//
-//            if previewLayerConnection.isVideoOrientationSupported {
-//
-//                switch (orientation) {
-//                case .portrait: updatePreviewLayer(for: previewLayerConnection, to: .portrait)
-//                case .landscapeRight: updatePreviewLayer(for: previewLayerConnection, to: .landscapeRight)
-//                case .landscapeLeft: updatePreviewLayer(for: previewLayerConnection, to: .landscapeLeft)
-//                case .portraitUpsideDown: updatePreviewLayer(for: previewLayerConnection, to: .portraitUpsideDown)
-//                default: updatePreviewLayer(for: previewLayerConnection, to: .portrait)
-//
-//                }
-//            }
-//        }
+        
+        //        if let connection =  self.previewLayer?.connection  {
+        //
+        //            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.portrait
+        //            let previewLayerConnection : AVCaptureConnection = connection
+        //
+        //            if previewLayerConnection.isVideoOrientationSupported {
+        //
+        //                switch (orientation) {
+        //                case .portrait: updatePreviewLayer(for: previewLayerConnection, to: .portrait)
+        //                case .landscapeRight: updatePreviewLayer(for: previewLayerConnection, to: .landscapeRight)
+        //                case .landscapeLeft: updatePreviewLayer(for: previewLayerConnection, to: .landscapeLeft)
+        //                case .portraitUpsideDown: updatePreviewLayer(for: previewLayerConnection, to: .portraitUpsideDown)
+        //                default: updatePreviewLayer(for: previewLayerConnection, to: .portrait)
+        //
+        //                }
+        //            }
+        //        }
     }
-
-//    private func updatePreviewLayer(for connection: AVCaptureConnection, to orientation: AVCaptureVideoOrientation) {
-//        if connection.isVideoOrientationSupported {
-//            connection.videoOrientation = orientation
-//        }
-//        previewLayer.frame = view.bounds
-//    }
+    
+    //    private func updatePreviewLayer(for connection: AVCaptureConnection, to orientation: AVCaptureVideoOrientation) {
+    //        if connection.isVideoOrientationSupported {
+    //            connection.videoOrientation = orientation
+    //        }
+    //        previewLayer.frame = view.bounds
+    //    }
 }
 
 extension UIImage {
