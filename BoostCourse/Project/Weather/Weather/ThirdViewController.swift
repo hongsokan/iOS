@@ -89,7 +89,7 @@ extension ThirdViewController {
         }
         
         state.text = "\(stateToString)"
-        state.textColor = UIColor.black
+        state.textColor = UIColor.white
         state.textAlignment = NSTextAlignment.center
         state.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         
@@ -107,7 +107,7 @@ extension ThirdViewController {
         self.view.addSubview(temp)
         
         temp.text = cityTemp!
-        temp.textColor = UIColor.black
+        temp.textColor = UIColor.white
         temp.textAlignment = NSTextAlignment.center
         temp.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
         

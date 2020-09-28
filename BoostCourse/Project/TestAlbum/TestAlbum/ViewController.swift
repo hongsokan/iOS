@@ -61,26 +61,26 @@ class ViewController: UIViewController {
         
         
         [cameraRollAlbum, smartAlbumFavorites, albumRegular].forEach
-            { $0.enumerateObjects { collection, index, stop in
-                let album: PHAssetCollection = collection
-                
-                let fetchOptions2 = PHFetchOptions()
-                fetchOptions2.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-                
-                self.fetchResult = PHAsset.fetchAssets(in: album, options: fetchOptions2)
-                self.fetchAssets.append(self.fetchResult.firstObject!)
-                
-                let albumTitle: String = album.localizedTitle!
-                let albumCount = self.fetchResult.count
-                let newAlbum = AlbumModel(name: albumTitle, count: albumCount, collection: album)
-                
-                
-                print()
-                print(newAlbum.name)
-                print(newAlbum.count)
-                
-                albumList.append(newAlbum)
-                }
+        { $0.enumerateObjects { collection, index, stop in
+            let album: PHAssetCollection = collection
+            
+            let fetchOptions2 = PHFetchOptions()
+            fetchOptions2.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            
+            self.fetchResult = PHAsset.fetchAssets(in: album, options: fetchOptions2)
+            self.fetchAssets.append(self.fetchResult.firstObject!)
+            
+            let albumTitle: String = album.localizedTitle!
+            let albumCount = self.fetchResult.count
+            let newAlbum = AlbumModel(name: albumTitle, count: albumCount, collection: album)
+            
+            
+            print()
+            print(newAlbum.name)
+            print(newAlbum.count)
+            
+            albumList.append(newAlbum)
+        }
         }
     }
     
