@@ -7,6 +7,37 @@
 //
 
 
+
+
+
+
+
+
+/*
+// 좌표 정렬하기
+let n = Int(readLine() ?? "") ?? 0
+var coordinate = [(Int, Int)]()
+
+for _ in 0..<n {
+    let point = (readLine() ?? "")
+        .split(separator: " ")
+        .map{Int($0) ?? 0}
+    coordinate.append((point[0], point[1]))
+}
+
+// print(coordinate)
+// print()
+
+let result = coordinate.sorted { $0 < $1 }
+
+for (x, y) in result {
+    print("\(x) \(y)")
+}
+*/
+
+
+
+/*
 // 통계학
 // 산술평균 : N개의 수들의 합을 N으로 나눈 값
 // 중앙값 : N개의 수들을 증가하는 순서로 나열했을 경우 그 중앙에 위치하는 값
@@ -39,7 +70,7 @@ print(Int((Double(numbers.reduce(0, +)) / Double(n)).rounded()))
 print(numbers.sorted()[numbers.count/2])
 print(numbers.sorted()[numbers.count/2 - 1])
 print((numbers.max() ?? 0) - (numbers.min() ?? 0))
-
+*/
 
 
 
