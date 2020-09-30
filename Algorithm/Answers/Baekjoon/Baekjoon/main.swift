@@ -12,6 +12,47 @@
 
 
 
+/*
+// 단어 정렬
+let n = Int(readLine() ?? "") ?? 0
+var words = [String]()
+
+for _ in 0..<n {
+    let input = readLine() ?? ""
+    words.append(input)
+}
+
+words = Array(Set(words))
+
+let result = words.sorted(by: <).sorted { $0.count < $1.count }
+
+for i in result {
+    print(i)
+}
+*/
+
+
+
+/*
+// 좌표 정렬하기 2
+let n = Int(readLine() ?? "") ?? 0
+var coordinate = [(Int, Int)]()
+
+for _ in 0..<n {
+    let point = (readLine() ?? "")
+        .split(separator: " ")
+        .map{Int($0) ?? 0}
+    coordinate.append((point[1], point[0]))
+}
+
+let result = coordinate.sorted { $0 < $1 }
+
+for (x, y) in result {
+    print("\(y) \(x)")
+}
+*/
+
+
 
 /*
 // 좌표 정렬하기
