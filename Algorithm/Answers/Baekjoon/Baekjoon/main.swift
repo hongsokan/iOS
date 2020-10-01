@@ -10,6 +10,30 @@
 
 
 
+// 나이순 정렬
+let n = Int(readLine() ?? "") ?? 0
+var members = [(id: Int, age: Int, name: String)]()
+
+for i in 0..<n {
+    let line = (readLine() ?? "").split(separator: " ").map{String($0)}
+    let age = Int(line[0]) ?? 0
+    let name = line[1]
+    members.append((i, age, name))
+}
+
+members.sort { (first, second) -> Bool in
+    if first.age == second.age {
+        return first.id < second.id
+    }
+    return first.age < second.age
+}
+
+for i in members {
+    print(i.age, i.name)
+}
+
+
+
 
 
 /*
