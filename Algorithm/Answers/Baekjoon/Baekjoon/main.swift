@@ -9,7 +9,7 @@
 
 
 
-
+/*
 // 나이순 정렬
 let n = Int(readLine() ?? "") ?? 0
 var members = [(id: Int, age: Int, name: String)]()
@@ -31,8 +31,7 @@ members.sort { (first, second) -> Bool in
 for i in members {
     print(i.age, i.name)
 }
-
-
+*/
 
 
 
@@ -102,6 +101,7 @@ for (x, y) in result {
 
 
 
+
 /*
 // 통계학
 // 산술평균 : N개의 수들의 합을 N으로 나눈 값
@@ -110,31 +110,28 @@ for (x, y) in result {
 // 범위 : N개의 수들 중 최댓값과 최솟값의 차이
 import Foundation
 
-let n = Int(readLine() ?? "") ?? 0
-var numbers = [Int]()
+let n = Int(readLine()!)!
+var array = [Int]()
+var sum = 0
+var count = [Int: Int]()
+var mode = 0
 
 for _ in 0..<n {
-    let num = Int(readLine() ?? "") ?? 0
-    numbers.append(num)
+    let input = Int(readLine() ?? "") ?? 0
+    sum += input
+    count[input] = ( count[input] != nil ? count[input]! : 0 ) + 1
+    mode = mode < count[input]! ? count[input]! : mode
+    array.append(input)
 }
 
-func mode() {
-    var freq = 0
-    for i in 1..<8001 {
-        
-    }
-}
+array.sort()
+let filtered = count.filter{ $0.value == mode }
+let countSorted = filtered.sorted{ $0.key < $1.key }
 
-//print()
-//print(numbers.reduce(0, +))
-//print(n)
-//print((Double(9)/Double(5)).rounded())
-
-print()
-print(Int((Double(numbers.reduce(0, +)) / Double(n)).rounded()))
-print(numbers.sorted()[numbers.count/2])
-print(numbers.sorted()[numbers.count/2 - 1])
-print((numbers.max() ?? 0) - (numbers.min() ?? 0))
+print(Int(round(Double(sum) / Double(n))))
+print(array[n / 2])
+print(countSorted[countSorted.count > 1 ? 1 : 0].key)
+print((array.last ?? 0) - (array.first ?? 0))
 */
 
 
