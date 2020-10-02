@@ -8,6 +8,20 @@
 
 
 
+// N과 M(1)
+let line = (readLine() ?? "")
+    .split(separator: " ")
+    .map {Int($0) ?? 0}
+let n = line[0], m = line[1]
+
+
+
+
+
+
+
+
+
 
 /*
 // 나이순 정렬
