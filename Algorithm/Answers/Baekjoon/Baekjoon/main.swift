@@ -13,9 +13,29 @@ let line = (readLine() ?? "")
     .split(separator: " ")
     .map {Int($0) ?? 0}
 let n = line[0], m = line[1]
+var array = [Int]()
+var visited = [Bool]()
 
+func dfs(count: Int) {
+    if (count == m) {
+        for i in 0..<m {
+            print(array[i])
+        }
+        print()
+        return
+    }
+    
+    for i in 1...n {
+        if (!visited[i]) {
+            visited[i] = true
+            array[count] = i
+            dfs(count: count + 1)
+            visited[i] = false
+        }
+    }
+}
 
-
+dfs(count: 0)
 
 
 
