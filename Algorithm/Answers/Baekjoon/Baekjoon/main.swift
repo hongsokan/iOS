@@ -14,24 +14,23 @@ let line = (readLine() ?? "")
     .map {Int($0) ?? 0}
 let n = line[0], m = line[1]
 var array = [Int]()
-var visited = [Bool]()
+var visited = Array(repeating: false, count: 9)
 
 func dfs(count: Int) {
     if (count == m) {
-        for i in 0..<m {
+        for i in 0..<array.count {
             print(array[i])
         }
-        print()
         return
     }
     
     for i in 1...n {
-        if (!visited[i]) {
-            visited[i] = true
-            array[count] = i
-            dfs(count: count + 1)
-            visited[i] = false
-        }
+        if (visited[i] == true) { continue }
+        visited[i] = true
+        array.append(i)
+        dfs(count: count + 1)
+        visited[i] = false
+        array.removeLast()
     }
 }
 
