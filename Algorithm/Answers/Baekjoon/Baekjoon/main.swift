@@ -6,8 +6,14 @@
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
+// N과 M(2)
 
 
+
+
+
+
+/*
 // N과 M(1)
 let line = (readLine() ?? "")
     .split(separator: " ")
@@ -35,10 +41,7 @@ func dfs(count: Int) {
 }
 
 dfs(count: 0)
-
-
-
-
+*/
 
 
 

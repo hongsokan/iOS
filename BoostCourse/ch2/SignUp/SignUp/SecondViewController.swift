@@ -46,8 +46,8 @@ extension SecondViewController {
     
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
-        UserInformation.shared.id = ""
-        UserInformation.shared.pw = ""
+        UserInformation.shared.id = nil
+        UserInformation.shared.pw = nil
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -60,7 +60,7 @@ extension SecondViewController {
         guard let pwInput = pwField.text, !pwInput.isEmpty else { return }
         guard let pwCheck = pwCheckField.text, !pwCheck.isEmpty else { return }
         
-        if pwInput == pwCheck {
+        if (pwInput == pwCheck) {
             
             UserInformation.shared.id = idField.text
             UserInformation.shared.pw = pwField.text
@@ -70,12 +70,9 @@ extension SecondViewController {
             print("다음 페이지로")
             
             let thirdStoryboard = UIStoryboard(name: "ThirdViewController", bundle: nil)
-            
             let thirdVC = thirdStoryboard.instantiateViewController(withIdentifier: "thirdVC")
-            
             self.navigationController?.pushViewController(thirdVC, animated: true)
         }
-            
         else {
             print("pw != check, 다시 입력")
         }

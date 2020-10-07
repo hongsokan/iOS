@@ -28,6 +28,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        UserInformation.shared.id = nil
+        UserInformation.shared.pw = nil
+        
         self.addViews()
     }
     
@@ -56,13 +59,6 @@ extension ViewController {
         guard let idInput = idField.text, !idInput.isEmpty else { return }
         guard let pwInput = pwField.text, !pwInput.isEmpty else { return }
         
-        /*
-        // UserInfo Model 이 해당 유저를 가지고 있는지 검사
-        let loginSuccess: Bool = userModel.isUser(id: idInput, pw: pwInput)
-        */
- 
-        // if loginSuccess == true {
-        
         if (idField.text == UserInformation.shared.id) && (pwField.text == UserInformation.shared.pw) {
  
             print("로그인 성공")
@@ -73,12 +69,12 @@ extension ViewController {
             
             // 네비게이션 추가
             let naviController = UINavigationController(rootViewController: music)
-            
             self.present(naviController, animated: true, completion: nil)
             
-            
         } else {
-            // print("실패")
+            
+            print("로그인 실패")
+            
             // 실패 시 애니메이션 효과 추가
             UIView.animate(withDuration: 0.2, animations: {
                 self.idField.frame.origin.x -= 10

@@ -54,11 +54,17 @@ extension ThirdViewController {
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         
+        UserInformation.shared.id = nil
+        UserInformation.shared.pw = nil
+        
         self.dismiss(animated: true, completion: nil)
     }
     
     
     @IBAction func touchUpPrevButton(_ sender: UIButton) {
+        
+        UserInformation.shared.id = nil
+        UserInformation.shared.pw = nil
         
         self.navigationController?.popViewController(animated: true)
     }
