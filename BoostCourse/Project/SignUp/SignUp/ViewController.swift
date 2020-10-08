@@ -28,9 +28,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        UserInformation.shared.id = nil
-        UserInformation.shared.pw = nil
-        
         self.addViews()
     }
     
@@ -38,8 +35,19 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        idField.text = UserInformation.shared.id
-        // pwField.text = UserInformation.shared.pw
+//        print(UserInformation.shared.id)
+//        print(UserInformation.shared.pw)
+//
+//        idField.text = UserInformation.shared.id
+//        pwField.text = UserInformation.shared.pw
+        
+        if UserInformation.shared.id != nil {
+            idField.text = UserInformation.shared.id!
+        }
+        
+        if UserInformation.shared.pw != nil {
+            pwField.text = UserInformation.shared.pw!
+        }
     }
 }
 

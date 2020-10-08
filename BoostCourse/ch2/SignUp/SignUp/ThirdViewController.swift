@@ -82,6 +82,7 @@ extension ThirdViewController {
             print("ThirdVC -> MainVC")
             print("가입 완료")
             
+            
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -197,8 +198,8 @@ extension ThirdViewController {
         birthPick.addTarget(self, action: #selector(self.didDatePickerValueChanged(_:)), for: UIControl.Event.valueChanged)
         
         birthPick.topAnchor.constraint(equalTo: self.birthLabel.bottomAnchor, constant: 32).isActive = true
-        birthPick.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 32).isActive = true
-        birthPick.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -32).isActive = true
+        birthPick.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
+        birthPick.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
         birthPick.heightAnchor.constraint(equalTo: birthPick.widthAnchor, multiplier: 1).isActive = true
         
         self.birthPicker = birthPick
