@@ -22,6 +22,7 @@ class SecondViewController: UIViewController {
         let picker: UIImagePickerController = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
+        
         return picker
     }()
     
@@ -62,8 +63,8 @@ extension SecondViewController {
         
         if (pwInput == pwCheck) {
             
-            UserInformation.shared.id = idField.text
-            UserInformation.shared.pw = pwField.text
+            UserInformation.shared.id = idField.text ?? nil
+            UserInformation.shared.pw = pwField.text ?? nil
             
             print()
             print("SecondVC -> ThirdVC")
@@ -71,6 +72,7 @@ extension SecondViewController {
             
             let thirdStoryboard = UIStoryboard(name: "ThirdViewController", bundle: nil)
             let thirdVC = thirdStoryboard.instantiateViewController(withIdentifier: "thirdVC")
+            
             self.navigationController?.pushViewController(thirdVC, animated: true)
         }
         else {
@@ -167,7 +169,7 @@ extension SecondViewController {
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "pw"
-        pw.isSecureTextEntry = true
+        // pw.isSecureTextEntry = true
         
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
@@ -205,7 +207,8 @@ extension SecondViewController {
         text.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
         text.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
         text.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
-        text.heightAnchor.constraint(equalTo: text.widthAnchor, multiplier: 1).isActive = true
+        text.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -64).isActive = true
+        // text.heightAnchor.constraint(equalTo: text.widthAnchor, multiplier: 1).isActive = true
         
         self.textView = text
     }

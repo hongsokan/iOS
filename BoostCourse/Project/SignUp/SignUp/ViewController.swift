@@ -31,22 +31,21 @@ class ViewController: UIViewController {
         self.addViews()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        print(UserInformation.shared.id)
-//        print(UserInformation.shared.pw)
-//
-//        idField.text = UserInformation.shared.id
-//        pwField.text = UserInformation.shared.pw
+        // print("id: " + "\(UserInformation.shared.id)")
+        // print("pw: " + "\(UserInformation.shared.pw)")
+
+        // idField.text = UserInformation.shared.id
+        // pwField.text = UserInformation.shared.pw
         
         if UserInformation.shared.id != nil {
-            idField.text = UserInformation.shared.id!
+            idField.text = UserInformation.shared.id
         }
         
         if UserInformation.shared.pw != nil {
-            pwField.text = UserInformation.shared.pw!
+            pwField.text = UserInformation.shared.pw
         }
     }
 }

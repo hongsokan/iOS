@@ -33,6 +33,16 @@ class ThirdViewController: UIViewController {
         self.addViewsWithCode()
     }
     
+    /*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination
+        
+        guard let main = destination as? ViewController else { return }
+        
+        main.idField.text = UserInformation.shared.id
+        main.pwField.text = UserInformation.shared.pw
+    }
+    */
 }
 
 
@@ -54,8 +64,8 @@ extension ThirdViewController {
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         
-        UserInformation.shared.id = nil
-        UserInformation.shared.pw = nil
+        UserInformation.shared.id = ""
+        UserInformation.shared.pw = ""
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -63,8 +73,8 @@ extension ThirdViewController {
     
     @IBAction func touchUpPrevButton(_ sender: UIButton) {
         
-        UserInformation.shared.id = nil
-        UserInformation.shared.pw = nil
+        UserInformation.shared.id = ""
+        UserInformation.shared.pw = ""
         
         self.navigationController?.popViewController(animated: true)
     }
@@ -76,14 +86,24 @@ extension ThirdViewController {
         guard let phoneInput = phoneField.text, !phoneInput.isEmpty else { return }
         guard let birthSelected = birthDisplay.text, !birthSelected.isEmpty else { return }
         
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let mainVC = mainStoryboard.instantiateViewController(withIdentifier: "mainVC") as? ViewController else { return }
+        
+        if UserInformation.shared.id != nil {
+            mainVC.idField?.text = UserInformation.shared.id
+        }
+        
+        if UserInformation.shared.pw != nil {
+            mainVC.pwField?.text = UserInformation.shared.pw
+        }
+        
         if birthDisplay.text != "MM-dd-yyyy" {
             
             print()
             print("ThirdVC -> MainVC")
             print("가입 완료")
             
-            
-            self.dismiss(animated: true, completion: nil)
+            present(mainVC, animated: true, completion: nil)
         }
     }
     
