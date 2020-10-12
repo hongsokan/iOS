@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var pwField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
@@ -158,6 +159,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 extension ViewController {
     
     func addViews() {
+        self.addView()
         self.addImageView()
         self.addIdTextField()
         self.addPwTextField()
@@ -165,12 +167,27 @@ extension ViewController {
         self.addSignUpButton()
     }
     
+    func addView() {
+        let view: UIView = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(view)
+        
+        view.backgroundColor = .yellow
+        
+        view.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        view.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
+        view.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+        
+        self.uiView = view
+    }
     
     func addImageView() {
         let image: UIImageView = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(image)
+        self.uiView.addSubview(image)
         
         image.backgroundColor = .systemGray
         
@@ -178,9 +195,9 @@ extension ViewController {
         image.isUserInteractionEnabled = true
         image.addGestureRecognizer(clickImageView)
         
-        image.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        image.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -120).isActive = true
-        image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
+        image.centerXAnchor.constraint(equalTo: self.uiView.centerXAnchor).isActive = true
+        image.topAnchor.constraint(greaterThanOrEqualTo: self.uiView.topAnchor, constant: 0).isActive = true
+        image.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.5).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
         self.imageView = image
@@ -199,10 +216,10 @@ extension ViewController {
         
         id.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
-        id.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50.0).isActive = true
-        id.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50.0).isActive = true
+        id.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor).isActive = true
+        id.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor).isActive = true
         id.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        id.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 50).isActive = true
+        id.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 32).isActive = true
         
         self.idField = id
     }
@@ -221,8 +238,8 @@ extension ViewController {
         
         pw.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
-        pw.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50.0).isActive = true
-        pw.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50.0).isActive = true
+        pw.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor).isActive = true
+        pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor).isActive = true
         pw.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         pw.topAnchor.constraint(equalTo: self.idField.bottomAnchor, constant: 16).isActive = true
         
@@ -242,7 +259,7 @@ extension ViewController {
         
         signin.backgroundColor = .systemBlue
         
-        signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
+        signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 32).isActive = true
         signin.leadingAnchor.constraint(equalTo: pwField.leadingAnchor, constant: 16).isActive = true
         signin.trailingAnchor.constraint(equalTo: pwField.centerXAnchor, constant: -16).isActive = true
         
@@ -263,7 +280,7 @@ extension ViewController {
         
         signup.backgroundColor = .systemBlue
         
-        signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 50).isActive = true
+        signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 32).isActive = true
         signup.trailingAnchor.constraint(equalTo: pwField.trailingAnchor, constant: -16).isActive = true
         signup.leadingAnchor.constraint(equalTo: pwField.centerXAnchor, constant: 16).isActive = true
         
