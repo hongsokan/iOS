@@ -41,14 +41,14 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if UserInformation.shared.id != nil {
-            idField.text = UserInformation.shared.id
+            idField?.text = UserInformation.shared.id
         }
         
         if UserInformation.shared.pw != nil {
-            pwField.text = UserInformation.shared.pw
+            pwField?.text = UserInformation.shared.pw
         }
         
-        print("\(UserInformation.shared.description)")
+        // print("\(UserInformation.shared.description)")
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -119,6 +119,9 @@ extension ViewController {
         print("MainVC -> SecondVC")
         self.present(navigationController, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func unwindToMain (segue: UIStoryboardSegue) {}
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -201,7 +204,8 @@ extension ViewController {
         image.addGestureRecognizer(clickImageView)
         
         image.centerXAnchor.constraint(equalTo: self.uiView.centerXAnchor).isActive = true
-        image.topAnchor.constraint(greaterThanOrEqualTo: self.uiView.topAnchor, constant: 0).isActive = true
+        image.bottomAnchor.constraint(equalTo: self.uiView.centerYAnchor).isActive = true
+        // image.topAnchor.constraint(greaterThanOrEqualTo: self.uiView.topAnchor, constant: 0).isActive = true
         image.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.5).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
@@ -213,7 +217,7 @@ extension ViewController {
         let id: UITextField = UITextField()
         id.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(id)
+        self.uiView.addSubview(id)
         
         id.borderStyle = UITextField.BorderStyle.roundedRect
         id.placeholder = "id"
@@ -223,7 +227,7 @@ extension ViewController {
         
         id.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor).isActive = true
         id.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor).isActive = true
-        id.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        id.centerXAnchor.constraint(equalTo: self.uiView.centerXAnchor).isActive = true
         id.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 32).isActive = true
         
         self.idField = id
@@ -234,7 +238,7 @@ extension ViewController {
         let pw: UITextField = UITextField()
         pw.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(pw)
+        self.uiView.addSubview(pw)
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "pw"
@@ -245,7 +249,7 @@ extension ViewController {
         
         pw.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor).isActive = true
-        pw.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        pw.centerXAnchor.constraint(equalTo: self.uiView.centerXAnchor).isActive = true
         pw.topAnchor.constraint(equalTo: self.idField.bottomAnchor, constant: 16).isActive = true
         
         self.pwField = pw
@@ -256,7 +260,7 @@ extension ViewController {
         let signin: UIButton = UIButton(type: UIButton.ButtonType.custom)
         signin.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(signin)
+        self.uiView.addSubview(signin)
         
         signin.setTitle("SignIn", for: UIControl.State.normal)
         
@@ -276,7 +280,7 @@ extension ViewController {
         let signup: UIButton = UIButton(type: UIButton.ButtonType.custom)
         signup.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(signup)
+        self.uiView.addSubview(signup)
         
         signup.setTitle("SignUp", for: UIControl.State.normal)
         

@@ -31,6 +31,7 @@ class ThirdViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,6 +42,16 @@ class ThirdViewController: UIViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destination = segue.destination as! ViewController
+        
+        if (UserInformation.shared.id != nil) && (UserInformation.shared.pw != nil) {
+            destination.idField?.text = UserInformation.shared.id
+            destination.pwField?.text = UserInformation.shared.pw
+        }
     }
 }
 
@@ -87,26 +98,16 @@ extension ThirdViewController {
         guard let phoneInput = phoneField.text, !phoneInput.isEmpty else { return }
         guard let birthSelected = birthDisplay.text, !birthSelected.isEmpty else { return }
         
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let mainVC = mainStoryboard.instantiateViewController(withIdentifier: "mainVC") as? ViewController else { return }
-        
-        if UserInformation.shared.id != nil {
-            mainVC.idField?.text = UserInformation.shared.id
-        }
-        
-        if UserInformation.shared.pw != nil {
-            mainVC.pwField?.text = UserInformation.shared.pw
-        }
         
         if (!phoneInput.isEmpty) && (birthSelected != "MM-dd-yyyy") {
-            
-            print()
-            print("가입 완료")
             
             UserInformation.shared.phone = phoneInput
             UserInformation.shared.birth = birthSelected
             
-            present(mainVC, animated: true, completion: nil)
+            print()
+            print("가입 완료")
+            
+            performSegue(withIdentifier: "unwindToMain", sender: self)
         }
     }
     

@@ -30,17 +30,9 @@ class MusicViewController: UIViewController {
         self.initializePlayer()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight {
-            
-            self.playerView.center = self.view.center
-        }
-    }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .allButUpsideDown
+        return .portrait
     }
 }
 

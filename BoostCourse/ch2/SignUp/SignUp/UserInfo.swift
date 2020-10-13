@@ -18,6 +18,7 @@ class UserInformation {
     var phone: String?
     var birth: String?
     
+    
     var description: String {
         return "UserInformation : " +
             "\n" +
