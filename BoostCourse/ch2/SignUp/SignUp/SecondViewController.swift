@@ -10,7 +10,9 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
+    @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var pwField: UITextField!
     @IBOutlet weak var pwCheckField: UITextField!
@@ -31,7 +33,16 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.addViewsWithCode()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.addViews()
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
     }
 }
 
@@ -115,14 +126,30 @@ extension SecondViewController: UIImagePickerControllerDelegate, UINavigationCon
 // MARK: SecondViewController Views
 extension SecondViewController {
     
-    func addViewsWithCode() {
+    func addViews() {
+        self.addUIView()
         self.addImageView()
         self.addIdInputField()
         self.addPwInputField()
         self.addPwCheckField()
+        self.addStackView()
         self.addTextView()
         self.addCancelButton()
         self.addNextButton()
+    }
+    
+    func addUIView() {
+        let view: UIView = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(view)
+        
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        self.uiView = view
     }
     
     func addImageView() {
@@ -137,9 +164,9 @@ extension SecondViewController {
         let clickImageView = UITapGestureRecognizer(target: self, action: #selector(self.touchUpImage(_:)))
         image.addGestureRecognizer(clickImageView)
         
-        image.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
-        image.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
-        image.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        image.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 8).isActive = true
+        image.topAnchor.constraint(equalTo: self.uiView.topAnchor, constant: 32).isActive = true
+        image.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.3).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
         self.imageView = image
@@ -149,14 +176,15 @@ extension SecondViewController {
         let id: UITextField = UITextField()
         id.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(id)
+        self.uiView.addSubview(id)
         
         id.borderStyle = UITextField.BorderStyle.roundedRect
         id.placeholder = "id"
         
+        
         id.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
-        id.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
-        id.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
+        id.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
+        // id.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
         
         self.idField = id
     }
@@ -165,15 +193,15 @@ extension SecondViewController {
         let pw: UITextField = UITextField()
         pw.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(pw)
+        self.uiView.addSubview(pw)
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "pw"
-        // pw.isSecureTextEntry = true
+        pw.isSecureTextEntry = true
         
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
-        pw.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
-        pw.topAnchor.constraint(equalTo: idField.bottomAnchor, constant: 8).isActive = true
+        pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
+        // pw.topAnchor.constraint(equalTo: idField.bottomAnchor, constant: 8).isActive = true
         
         self.pwField = pw
     }
@@ -182,17 +210,35 @@ extension SecondViewController {
         let pw: UITextField = UITextField()
         pw.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(pw)
+        self.uiView.addSubview(pw)
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "check pw"
         pw.isSecureTextEntry = true
         
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
-        pw.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
-        pw.topAnchor.constraint(equalTo: pwField.bottomAnchor, constant: 8).isActive = true
+        pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
+        // pw.topAnchor.constraint(equalTo: pwField.bottomAnchor, constant: 8).isActive = true
         
         self.pwCheckField = pw
+    }
+    
+    func addStackView() {
+        let stack: UIStackView = UIStackView(arrangedSubviews: [self.idField, self.pwField, self.pwCheckField])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.uiView.addSubview(stack)
+        
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillEqually
+        
+        stack.topAnchor.constraint(equalTo: self.imageView.topAnchor).isActive = true
+        stack.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor).isActive = true
+        stack.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 8).isActive = true
+        stack.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
+        
+        self.stackView = stack
     }
     
     func addTextView() {
@@ -204,8 +250,8 @@ extension SecondViewController {
         text.isEditable = true
         text.backgroundColor = .systemYellow
         
-        text.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
-        text.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
+        text.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 8).isActive = true
+        text.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
         text.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
         text.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -64).isActive = true
         // text.heightAnchor.constraint(equalTo: text.widthAnchor, multiplier: 1).isActive = true
@@ -226,8 +272,9 @@ extension SecondViewController {
         
         cancel.backgroundColor = .systemBlue
         
-        cancel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80).isActive = true
-        cancel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        // cancel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80).isActive = true
+        cancel.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 16).isActive = true
+        cancel.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.45).isActive = true
         cancel.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 16).isActive = true
         
         self.cancelButton = cancel
@@ -249,8 +296,9 @@ extension SecondViewController {
         
         next.backgroundColor = .systemBlue
         
-        next.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80).isActive = true
-        next.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        // next.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80).isActive = true
+        next.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -16).isActive = true
+        next.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.45).isActive = true
         next.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 16).isActive = true
         
         self.nextButton = next

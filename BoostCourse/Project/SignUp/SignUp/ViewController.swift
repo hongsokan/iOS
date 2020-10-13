@@ -27,19 +27,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         self.addViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // print("id: " + "\(UserInformation.shared.id)")
-        // print("pw: " + "\(UserInformation.shared.pw)")
-
-        // idField.text = UserInformation.shared.id
-        // pwField.text = UserInformation.shared.pw
         
         if UserInformation.shared.id != nil {
             idField.text = UserInformation.shared.id
@@ -48,6 +47,12 @@ class ViewController: UIViewController {
         if UserInformation.shared.pw != nil {
             pwField.text = UserInformation.shared.pw
         }
+        
+        print("\(UserInformation.shared.description)")
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
     }
 }
 
@@ -173,7 +178,7 @@ extension ViewController {
         
         self.view.addSubview(view)
         
-        view.backgroundColor = .yellow
+        // view.backgroundColor = .yellow
         
         view.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         view.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true

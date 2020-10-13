@@ -14,7 +14,17 @@ class UserInformation {
     
     var id: String?
     var pw: String?
+    var text: String?
+    var phone: String?
+    var birth: String?
     
+    var description: String {
+        return "UserInformation : " +
+            "\n" +
+            "id pw text phone birth" +
+            "\n" +
+            "\(id ?? "x") \(pw ?? "x") \(text ?? "x") \(phone ?? "x") \(birth ?? "x")"
+    }
     
     /*
     struct User {

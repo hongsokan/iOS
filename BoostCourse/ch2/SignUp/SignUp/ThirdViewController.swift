@@ -10,6 +10,7 @@ import UIKit
 
 class ThirdViewController: UIViewController {
     
+    @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var phoneField: UITextField!
     @IBOutlet weak var birthLabel: UILabel!
@@ -30,7 +31,16 @@ class ThirdViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.addViewsWithCode()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.addViews()
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
     }
 }
 
@@ -55,6 +65,7 @@ extension ThirdViewController {
         
         UserInformation.shared.id = nil
         UserInformation.shared.pw = nil
+        UserInformation.shared.text = nil
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -64,6 +75,7 @@ extension ThirdViewController {
         
         UserInformation.shared.id = nil
         UserInformation.shared.pw = nil
+        UserInformation.shared.text = nil
         
         self.navigationController?.popViewController(animated: true)
     }
@@ -86,10 +98,13 @@ extension ThirdViewController {
             mainVC.pwField?.text = UserInformation.shared.pw
         }
         
-        if birthDisplay.text != "MM-dd-yyyy" {
+        if (!phoneInput.isEmpty) && (birthSelected != "MM-dd-yyyy") {
             
             print()
             print("가입 완료")
+            
+            UserInformation.shared.phone = phoneInput
+            UserInformation.shared.birth = birthSelected
             
             present(mainVC, animated: true, completion: nil)
         }
@@ -107,7 +122,8 @@ extension ThirdViewController {
 // MARK: ThirdViewController Views
 extension ThirdViewController {
     
-    func addViewsWithCode() {
+    func addViews() {
+        self.addUIView()
         self.addPhoneLabel()
         self.addPhoneField()
         self.addBirthLabel()
@@ -118,6 +134,19 @@ extension ThirdViewController {
         self.addDoneButton()
     }
     
+    func addUIView() {
+        let view: UIView = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(view)
+        
+        view.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        self.uiView = view
+    }
     
     func addPhoneLabel() {
         let phone: UILabel = UILabel()
@@ -130,9 +159,9 @@ extension ThirdViewController {
         phone.textAlignment = NSTextAlignment.center
         phone.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         
-        phone.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
-        phone.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
-        phone.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        phone.topAnchor.constraint(equalTo: self.uiView.topAnchor, constant: 32).isActive = true
+        phone.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 8).isActive = true
+        phone.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.3).isActive = true
         
         self.phoneLabel = phone
     }
@@ -149,8 +178,8 @@ extension ThirdViewController {
         phoneField.placeholder = "phone number"
         
         phoneField.topAnchor.constraint(equalTo: self.phoneLabel.bottomAnchor, constant: 8).isActive = true
-        phoneField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24).isActive = true
-        phoneField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24).isActive = true
+        phoneField.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 32).isActive = true
+        phoneField.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -32).isActive = true
         
         self.phoneField = phoneField
     }
@@ -168,8 +197,8 @@ extension ThirdViewController {
         birth.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         
         birth.topAnchor.constraint(equalTo: self.phoneField.bottomAnchor, constant: 32).isActive = true
-        birth.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
-        birth.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        birth.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 8).isActive = true
+        birth.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.3).isActive = true
         
         self.birthLabel = birth
     }
@@ -187,8 +216,8 @@ extension ThirdViewController {
         birthDisplay.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         
         birthDisplay.topAnchor.constraint(equalTo: self.phoneField.bottomAnchor, constant: 32).isActive = true
-        birthDisplay.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16).isActive = true
-        birthDisplay.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        birthDisplay.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
+        birthDisplay.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.3).isActive = true
         
         self.birthDisplay = birthDisplay
     }
@@ -202,12 +231,16 @@ extension ThirdViewController {
         
         // datePicker 날짜까지만 나오게 세팅
         birthPick.datePickerMode = UIDatePicker.Mode.date
+        birthPick.sizeToFit()
+        
+        if #available(iOS 14, *) {
+            birthPick.preferredDatePickerStyle = .wheels
+        }
         
         birthPick.addTarget(self, action: #selector(self.didDatePickerValueChanged(_:)), for: UIControl.Event.valueChanged)
         
-        birthPick.topAnchor.constraint(equalTo: self.birthLabel.bottomAnchor, constant: 32).isActive = true
-        birthPick.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
-        birthPick.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
+        birthPick.topAnchor.constraint(equalTo: self.birthLabel.bottomAnchor, constant: 16).isActive = true
+        birthPick.widthAnchor.constraint(equalTo: self.uiView.widthAnchor).isActive = true
         birthPick.heightAnchor.constraint(equalTo: birthPick.widthAnchor, multiplier: 1).isActive = true
         
         self.birthPicker = birthPick
@@ -226,9 +259,9 @@ extension ThirdViewController {
         
         cancel.addTarget(self, action: #selector(self.touchUpCancelButton(_:)), for: UIControl.Event.touchUpInside)
         
-        cancel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 32).isActive = true
-        cancel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
-        cancel.topAnchor.constraint(equalTo: self.birthPicker.bottomAnchor, constant: 32).isActive = true
+        cancel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8).isActive = true
+        cancel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        cancel.topAnchor.constraint(equalTo: self.birthPicker.bottomAnchor, constant: 16).isActive = true
         
         self.cancelButton = cancel
     }
@@ -246,8 +279,8 @@ extension ThirdViewController {
         prev.addTarget(self, action: #selector(self.touchUpPrevButton(_:)), for: UIControl.Event.touchUpInside)
         
         prev.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        prev.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
-        prev.topAnchor.constraint(equalTo: self.birthPicker.bottomAnchor, constant: 32).isActive = true
+        prev.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        prev.topAnchor.constraint(equalTo: self.birthPicker.bottomAnchor, constant: 16).isActive = true
         
         self.prevButton = prev
     }
@@ -264,9 +297,9 @@ extension ThirdViewController {
         
         done.addTarget(self, action: #selector(self.touchUpDoneButton(_:)), for: UIControl.Event.touchUpInside)
         
-        done.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -32).isActive = true
-        done.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
-        done.topAnchor.constraint(equalTo: self.birthPicker.bottomAnchor, constant: 32).isActive = true
+        done.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8).isActive = true
+        done.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        done.topAnchor.constraint(equalTo: self.birthPicker.bottomAnchor, constant: 16).isActive = true
         
         self.doneButton = done
     }
