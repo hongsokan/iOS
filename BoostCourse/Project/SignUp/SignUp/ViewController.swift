@@ -175,6 +175,7 @@ extension ViewController {
         self.addSignUpButton()
     }
     
+    
     func addView() {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -191,6 +192,7 @@ extension ViewController {
         self.uiView = view
     }
     
+    
     func addImageView() {
         let image: UIImageView = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -205,7 +207,6 @@ extension ViewController {
         
         image.centerXAnchor.constraint(equalTo: self.uiView.centerXAnchor).isActive = true
         image.bottomAnchor.constraint(equalTo: self.uiView.centerYAnchor).isActive = true
-        // image.topAnchor.constraint(greaterThanOrEqualTo: self.uiView.topAnchor, constant: 0).isActive = true
         image.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.5).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         

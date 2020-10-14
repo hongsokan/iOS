@@ -91,6 +91,61 @@ extension SecondViewController {
         }
     }
     
+    /*
+    // 이미지 선택하면 next 버튼 활성 여부 체크
+    @objc func isImageSelected(imageView: UIImageView) -> Bool {
+        if (self.imageView.image != nil) {
+            return true
+        }
+        return false
+    }
+    
+    // id, pw, pwCheck 3가지 TextField 입력하면 next 버튼 활성 여부 체크
+    @objc func isTextFieldHasText(textField: UITextField) -> Bool {
+        if (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) {
+            return true
+        }
+        return false
+    }
+    
+    // textView 입력하면 next 버튼 활성 여부 체크
+    @objc func isTextViewHasText(textView: UITextView) -> Bool {
+        if (self.textView.hasText) {
+            return true
+        }
+        return false
+    }
+    */
+    
+    
+    // 이미지 선택하면 next 버튼 활성 여부 체크
+    @IBAction func imageSelected(_ sender: UIImageView) {
+        if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
+            cancelButton.backgroundColor = .systemBlue
+            cancelButton.isEnabled = true
+        }
+    }
+    
+    // id, pw, pwCheck 3가지 TextField 입력하면 next 버튼 활성 여부 체크
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
+        if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
+            cancelButton.backgroundColor = .systemBlue
+            cancelButton.isEnabled = true
+        }
+    }
+    
+    // textView 입력하면 next 버튼 활성 여부 체크
+    @IBAction func textViewFilled(_ sender: UITextView) {
+        if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
+            cancelButton.backgroundColor = .systemBlue
+            cancelButton.isEnabled = true
+        }
+        
+        /*
+        cancelButton.isEnabled = (self.imageView.image != nil) && (self.idField.text != nil) && (self.pwField.text != nil) && (self.pwCheckField.text != nil) && (self.textView.text != nil)
+        */
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.view.endEditing(true)
@@ -181,6 +236,7 @@ extension SecondViewController {
         id.borderStyle = UITextField.BorderStyle.roundedRect
         id.placeholder = "id"
         
+        id.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         id.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         id.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
@@ -199,6 +255,8 @@ extension SecondViewController {
         pw.placeholder = "pw"
         pw.isSecureTextEntry = true
         
+        pw.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
         // pw.topAnchor.constraint(equalTo: idField.bottomAnchor, constant: 8).isActive = true
@@ -215,6 +273,8 @@ extension SecondViewController {
         pw.borderStyle = UITextField.BorderStyle.roundedRect
         pw.placeholder = "check pw"
         pw.isSecureTextEntry = true
+        
+        pw.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
@@ -294,7 +354,9 @@ extension SecondViewController {
         
         next.addTarget(self, action: #selector(self.touchUpNextButton(_:)), for: UIControl.Event.touchUpInside)
         
-        next.backgroundColor = .systemBlue
+        next.isEnabled = false
+        next.backgroundColor = .systemGray
+        
         
         // next.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80).isActive = true
         next.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -16).isActive = true
