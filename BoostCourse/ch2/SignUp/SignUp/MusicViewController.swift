@@ -22,6 +22,7 @@ class MusicViewController: UIViewController {
     @IBOutlet var progressSlider: UISlider!
     @IBOutlet var cancelButton: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -203,6 +204,7 @@ extension MusicViewController {
         self.addCancelButton()
     }
     
+    
     func addUIView() {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -216,6 +218,7 @@ extension MusicViewController {
         
         self.playerView = view
     }
+    
     
     func addPlayPauseButton() {
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
@@ -236,6 +239,7 @@ extension MusicViewController {
         self.playPauseButton = button
     }
     
+    
     func addTimeLabel() {
         let timeLabel: UILabel = UILabel()
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -252,6 +256,7 @@ extension MusicViewController {
         self.timeLabel = timeLabel
         self.updateTimeLabelText(time: 0)
     }
+    
     
     func addProgressSlider() {
         let slider: UISlider = UISlider()

@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var signinButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
+    
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
         picker.sourceType = .photoLibrary
@@ -31,14 +32,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.addViews()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         if UserInformation.shared.id != nil {
             idField?.text = UserInformation.shared.id
@@ -47,9 +45,8 @@ class ViewController: UIViewController {
         if UserInformation.shared.pw != nil {
             pwField?.text = UserInformation.shared.pw
         }
-        
-        // print("\(UserInformation.shared.description)")
     }
+    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -116,7 +113,7 @@ extension ViewController {
         let navigationController = UINavigationController(rootViewController: secondVC)
         navigationController.setNavigationBarHidden(true, animated: true)
         
-        print("MainVC -> SecondVC")
+        // print("MainVC -> SecondVC")
         self.present(navigationController, animated: true, completion: nil)
     }
     
@@ -182,8 +179,6 @@ extension ViewController {
         
         self.view.addSubview(view)
         
-        // view.backgroundColor = .yellow
-        
         view.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         view.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
@@ -221,8 +216,7 @@ extension ViewController {
         self.uiView.addSubview(id)
         
         id.borderStyle = UITextField.BorderStyle.roundedRect
-        id.placeholder = "id"
-        id.text = UserInformation.shared.id
+        id.placeholder = "ID"
         
         id.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
@@ -242,9 +236,8 @@ extension ViewController {
         self.uiView.addSubview(pw)
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
-        pw.placeholder = "pw"
+        pw.placeholder = "Password"
         pw.isSecureTextEntry = true
-        pw.text = UserInformation.shared.pw
         
         pw.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         
@@ -267,7 +260,8 @@ extension ViewController {
         
         signin.addTarget(self, action: #selector(self.touchUpSignInButton(_:)), for: UIControl.Event.touchUpInside)
         
-        signin.backgroundColor = .systemBlue
+        signin.backgroundColor = .none
+        signin.setTitleColor(.systemBlue, for: .normal)
         
         signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 32).isActive = true
         signin.leadingAnchor.constraint(equalTo: pwField.leadingAnchor, constant: 16).isActive = true
@@ -288,7 +282,9 @@ extension ViewController {
         signup.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
         signup.addTarget(self, action: #selector(self.touchUpSignUpButton(_:)), for: UIControl.Event.touchUpInside)
         
-        signup.backgroundColor = .systemBlue
+        signup.backgroundColor = .none
+        signup.setTitleColor(.systemRed, for: .normal)
+        
         
         signup.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 32).isActive = true
         signup.trailingAnchor.constraint(equalTo: pwField.trailingAnchor, constant: -16).isActive = true

@@ -20,11 +20,11 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
+    
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
-        
         return picker
     }()
     
@@ -35,11 +35,31 @@ class SecondViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.addViews()
+        
+        textView.delegate = self
+        
+        if UserInformation.shared.id != nil {
+            idField.text = UserInformation.shared.id
+        }
+        
+        if UserInformation.shared.pw != nil {
+            pwField.text = UserInformation.shared.pw
+        }
+        
+        if UserInformation.shared.pw != nil {
+            pwCheckField.text = UserInformation.shared.pw
+        }
+        
+        if UserInformation.shared.text != nil {
+            textView.text = UserInformation.shared.text
+        }
     }
+    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -60,6 +80,9 @@ extension SecondViewController {
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         UserInformation.shared.id = nil
         UserInformation.shared.pw = nil
+        UserInformation.shared.text = nil
+        UserInformation.shared.phone = nil
+        UserInformation.shared.birth = nil
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -76,10 +99,11 @@ extension SecondViewController {
             
             UserInformation.shared.id = idField.text ?? nil
             UserInformation.shared.pw = pwField.text ?? nil
+            UserInformation.shared.text = textView.text ?? nil
             
-            print()
-            print("SecondVC -> ThirdVC")
-            print("다음 페이지로")
+            // print()
+            // print("SecondVC -> ThirdVC")
+            // print("다음 페이지로")
             
             let thirdStoryboard = UIStoryboard(name: "ThirdViewController", bundle: nil)
             let thirdVC = thirdStoryboard.instantiateViewController(withIdentifier: "thirdVC")
@@ -87,63 +111,40 @@ extension SecondViewController {
             self.navigationController?.pushViewController(thirdVC, animated: true)
         }
         else {
-            print("pw != check, 다시 입력")
+            print("Password != Password Check, 다시 입력")
+            
+            let message: String = "Password와 Password Check이 일치하지 않습니다."
+            
+            let alert: UIAlertController = UIAlertController(title: "알림", message: message, preferredStyle: UIAlertController.Style.alert)
+            
+            let okAction: UIAlertAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default) { (action: UIAlertAction) -> Void in
+                
+                self.navigationController?.popViewController(animated: false)
+            }
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: false, completion: nil)
         }
     }
-    
-    /*
-    // 이미지 선택하면 next 버튼 활성 여부 체크
-    @objc func isImageSelected(imageView: UIImageView) -> Bool {
-        if (self.imageView.image != nil) {
-            return true
-        }
-        return false
-    }
-    
-    // id, pw, pwCheck 3가지 TextField 입력하면 next 버튼 활성 여부 체크
-    @objc func isTextFieldHasText(textField: UITextField) -> Bool {
-        if (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) {
-            return true
-        }
-        return false
-    }
-    
-    // textView 입력하면 next 버튼 활성 여부 체크
-    @objc func isTextViewHasText(textView: UITextView) -> Bool {
-        if (self.textView.hasText) {
-            return true
-        }
-        return false
-    }
-    */
     
     
     // 이미지 선택하면 next 버튼 활성 여부 체크
     @IBAction func imageSelected(_ sender: UIImageView) {
         if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
-            cancelButton.backgroundColor = .systemBlue
-            cancelButton.isEnabled = true
+            nextButton.setTitleColor(.systemBlue, for: .normal)
+            nextButton.isUserInteractionEnabled = true
         }
+        // print("check if image selected")
     }
+    
     
     // id, pw, pwCheck 3가지 TextField 입력하면 next 버튼 활성 여부 체크
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
-            cancelButton.backgroundColor = .systemBlue
-            cancelButton.isEnabled = true
+            nextButton.setTitleColor(.systemBlue, for: .normal)
+            nextButton.isUserInteractionEnabled = true
         }
-    }
-    
-    // textView 입력하면 next 버튼 활성 여부 체크
-    @IBAction func textViewFilled(_ sender: UITextView) {
-        if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
-            cancelButton.backgroundColor = .systemBlue
-            cancelButton.isEnabled = true
-        }
-        
-        /*
-        cancelButton.isEnabled = (self.imageView.image != nil) && (self.idField.text != nil) && (self.pwField.text != nil) && (self.pwCheckField.text != nil) && (self.textView.text != nil)
-        */
+        // print("check if textField changed")
     }
     
     
@@ -163,15 +164,31 @@ extension SecondViewController: UIImagePickerControllerDelegate, UINavigationCon
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     // 선택화면
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.imageView.image = originalImage
+            imageSelected(self.imageView)
         }
         
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+
+// MARK: textView 델리데이트
+extension SecondViewController: UITextViewDelegate {
+    
+    // textView 입력하면 next 버튼 활성 여부 체크
+    func textViewDidChange(_ textView: UITextView) {
+        if (self.imageView.image != nil) && (self.idField.hasText) && (self.pwField.hasText) && (self.pwCheckField.hasText) && (self.textView.hasText) {
+            nextButton.setTitleColor(.systemBlue, for: .normal)
+            nextButton.isUserInteractionEnabled = true
+        }
+        // print("check if textView changed")
     }
 }
 
@@ -234,13 +251,12 @@ extension SecondViewController {
         self.uiView.addSubview(id)
         
         id.borderStyle = UITextField.BorderStyle.roundedRect
-        id.placeholder = "id"
+        id.placeholder = "ID"
         
         id.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         id.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         id.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
-        // id.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
         
         self.idField = id
     }
@@ -252,14 +268,13 @@ extension SecondViewController {
         self.uiView.addSubview(pw)
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
-        pw.placeholder = "pw"
+        pw.placeholder = "Password"
         pw.isSecureTextEntry = true
         
         pw.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
-        // pw.topAnchor.constraint(equalTo: idField.bottomAnchor, constant: 8).isActive = true
         
         self.pwField = pw
     }
@@ -271,14 +286,13 @@ extension SecondViewController {
         self.uiView.addSubview(pw)
         
         pw.borderStyle = UITextField.BorderStyle.roundedRect
-        pw.placeholder = "check pw"
+        pw.placeholder = "Password Check"
         pw.isSecureTextEntry = true
         
         pw.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         pw.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
-        // pw.topAnchor.constraint(equalTo: pwField.bottomAnchor, constant: 8).isActive = true
         
         self.pwCheckField = pw
     }
@@ -309,30 +323,29 @@ extension SecondViewController {
         
         text.isEditable = true
         text.backgroundColor = .systemYellow
+        text.layer.cornerRadius = 10
+        text.clipsToBounds = true
         
         text.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 8).isActive = true
         text.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -8).isActive = true
         text.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
         text.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -64).isActive = true
-        // text.heightAnchor.constraint(equalTo: text.widthAnchor, multiplier: 1).isActive = true
         
         self.textView = text
     }
     
     func addCancelButton() {
         let cancel: UIButton = UIButton(type: UIButton.ButtonType.custom)
-        
         cancel.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(cancel)
         
-        cancel.setTitle("Cancel", for: UIControl.State.normal)
+        cancel.backgroundColor = .none
+        cancel.setTitle("취소", for: UIControl.State.normal)
+        cancel.setTitleColor(.systemRed, for: .normal)
         
         cancel.addTarget(self, action: #selector(self.touchUpCancelButton(_:)), for: UIControl.Event.touchUpInside)
         
-        cancel.backgroundColor = .systemBlue
-        
-        // cancel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80).isActive = true
         cancel.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 16).isActive = true
         cancel.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.45).isActive = true
         cancel.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 16).isActive = true
@@ -343,22 +356,17 @@ extension SecondViewController {
     
     func addNextButton() {
         let next: UIButton = UIButton(type: UIButton.ButtonType.custom)
-        
         next.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(next)
         
-        
-        next.setTitle("Next", for: UIControl.State.normal)
-        
+        next.backgroundColor = .none
+        next.setTitle("다음", for: UIControl.State.normal)
+        next.setTitleColor(.systemGray, for: .normal)
+        next.isUserInteractionEnabled = false
         
         next.addTarget(self, action: #selector(self.touchUpNextButton(_:)), for: UIControl.Event.touchUpInside)
         
-        next.isEnabled = false
-        next.backgroundColor = .systemGray
-        
-        
-        // next.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80).isActive = true
         next.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor, constant: -16).isActive = true
         next.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.45).isActive = true
         next.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 16).isActive = true

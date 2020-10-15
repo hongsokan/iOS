@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class UserInformation {
     
     static let shared: UserInformation = UserInformation()
@@ -18,7 +19,6 @@ class UserInformation {
     var phone: String?
     var birth: String?
     
-    
     var description: String {
         return "UserInformation : " +
             "\n" +
@@ -26,6 +26,18 @@ class UserInformation {
             "\n" +
             "\(id ?? "x") \(pw ?? "x") \(text ?? "x") \(phone ?? "x") \(birth ?? "x")"
     }
+    
+    
+    /*
+    init(id: String?, pw: String?, text: String?, phone: String?, birth: String?) {
+        self.id = id
+        self.pw = pw
+        self.text = text
+        self.phone = phone
+        self.birth = birth
+    }
+    */
+    
     
     /*
     struct User {

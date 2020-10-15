@@ -20,6 +20,7 @@ class ThirdViewController: UIViewController {
     @IBOutlet weak var prevButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     
+    
     let dateFormatter: DateFormatter = {
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "MM-dd-yyyy"
@@ -30,19 +31,28 @@ class ThirdViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.addViews()
+        
+        if UserInformation.shared.phone != nil {
+            phoneField.text = UserInformation.shared.phone
+        }
+        
+        if UserInformation.shared.birth != nil {
+            birthDisplay.text = UserInformation.shared.birth
+        }
     }
+    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -51,6 +61,7 @@ class ThirdViewController: UIViewController {
         if (UserInformation.shared.id != nil) && (UserInformation.shared.pw != nil) {
             destination.idField?.text = UserInformation.shared.id
             destination.pwField?.text = UserInformation.shared.pw
+            
         }
     }
 }
@@ -77,6 +88,8 @@ extension ThirdViewController {
         UserInformation.shared.id = nil
         UserInformation.shared.pw = nil
         UserInformation.shared.text = nil
+        UserInformation.shared.phone = nil
+        UserInformation.shared.birth = nil
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -84,9 +97,8 @@ extension ThirdViewController {
     
     @IBAction func touchUpPrevButton(_ sender: UIButton) {
         
-        UserInformation.shared.id = nil
-        UserInformation.shared.pw = nil
-        UserInformation.shared.text = nil
+        UserInformation.shared.phone = phoneField.text
+        UserInformation.shared.birth = birthDisplay.text
         
         self.navigationController?.popViewController(animated: true)
     }
@@ -98,7 +110,6 @@ extension ThirdViewController {
         guard let phoneInput = phoneField.text, !phoneInput.isEmpty else { return }
         guard let birthSelected = birthDisplay.text, !birthSelected.isEmpty else { return }
         
-        
         if (!phoneInput.isEmpty) && (birthSelected != "MM-dd-yyyy") {
             
             UserInformation.shared.phone = phoneInput
@@ -106,9 +117,19 @@ extension ThirdViewController {
             
             print()
             print("가입 완료")
+            print("\(UserInformation.shared.description)")
             
             performSegue(withIdentifier: "unwindToMain", sender: self)
         }
+    }
+    
+    
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
+        if (self.phoneField.hasText) && (self.birthDisplay.text != "MM-dd-yyyy") {
+            doneButton.setTitleColor(.systemBlue, for: .normal)
+            doneButton.isUserInteractionEnabled = true
+        }
+        // print("check if textField changed")
     }
     
     
@@ -135,6 +156,7 @@ extension ThirdViewController {
         self.addDoneButton()
     }
     
+    
     func addUIView() {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -148,6 +170,7 @@ extension ThirdViewController {
         
         self.uiView = view
     }
+    
     
     func addPhoneLabel() {
         let phone: UILabel = UILabel()
@@ -175,8 +198,10 @@ extension ThirdViewController {
         self.view.addSubview(phoneField)
         
         phoneField.borderStyle = UITextField.BorderStyle.roundedRect
-        phoneField.keyboardType = .default
-        phoneField.placeholder = "phone number"
+        phoneField.keyboardType = .numbersAndPunctuation
+        phoneField.placeholder = "Number"
+        
+        phoneField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         phoneField.topAnchor.constraint(equalTo: self.phoneLabel.bottomAnchor, constant: 8).isActive = true
         phoneField.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor, constant: 32).isActive = true
@@ -245,7 +270,6 @@ extension ThirdViewController {
         birthPick.heightAnchor.constraint(equalTo: birthPick.widthAnchor, multiplier: 1).isActive = true
         
         self.birthPicker = birthPick
-        
     }
     
     
@@ -255,8 +279,9 @@ extension ThirdViewController {
         
         self.view.addSubview(cancel)
         
-        cancel.setTitle("Cancel", for: UIControl.State.normal)
-        cancel.backgroundColor = .systemBlue
+        cancel.setTitle("취소", for: UIControl.State.normal)
+        cancel.setTitleColor(.systemRed, for: .normal)
+        cancel.backgroundColor = .none
         
         cancel.addTarget(self, action: #selector(self.touchUpCancelButton(_:)), for: UIControl.Event.touchUpInside)
         
@@ -274,8 +299,9 @@ extension ThirdViewController {
         
         self.view.addSubview(prev)
         
-        prev.setTitle("Prev", for: UIControl.State.normal)
-        prev.backgroundColor = .systemBlue
+        prev.setTitle("이전", for: UIControl.State.normal)
+        prev.setTitleColor(.systemPink, for: .normal)
+        prev.backgroundColor = .none
         
         prev.addTarget(self, action: #selector(self.touchUpPrevButton(_:)), for: UIControl.Event.touchUpInside)
         
@@ -293,8 +319,10 @@ extension ThirdViewController {
         
         self.view.addSubview(done)
         
-        done.setTitle("Done", for: UIControl.State.normal)
-        done.backgroundColor = .systemBlue
+        done.setTitle("완료", for: UIControl.State.normal)
+        done.setTitleColor(.systemGray, for: .normal)
+        done.backgroundColor = .none
+        done.isUserInteractionEnabled = false
         
         done.addTarget(self, action: #selector(self.touchUpDoneButton(_:)), for: UIControl.Event.touchUpInside)
         
