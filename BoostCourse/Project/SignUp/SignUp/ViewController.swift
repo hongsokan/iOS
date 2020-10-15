@@ -194,8 +194,9 @@ extension ViewController {
         
         self.uiView.addSubview(image)
         
-        image.backgroundColor = .systemGray
-        
+        image.backgroundColor = .none
+        image.image = UIImage(named: "icon")
+        image.sizeToFit()
         let clickImageView = UITapGestureRecognizer(target: self, action: #selector(self.touchUpImage(_:)))
         image.isUserInteractionEnabled = true
         image.addGestureRecognizer(clickImageView)
