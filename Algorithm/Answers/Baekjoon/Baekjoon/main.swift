@@ -7,6 +7,39 @@
 //
 
 // N과 M(2)
+let line = (readLine() ?? "")
+    .split(separator: " ")
+    .map {Int($0) ?? 0}
+let n = line[0], m = line[1]
+var array = [Int]()
+var visited = Array(repeating: false, count: 9)
+
+// count: 원소의 개수
+func dfs(count: Int) {
+    if (count == m) {
+        for i in 0..<array.count {
+            print(array[i])
+        }
+        return
+    }
+    
+    // 시작점은 1부터
+    for i in 1...n {
+        if (visited[i] == true) { continue }
+        print("i = \(i)")
+        visited[i] = true
+        array.append(i)
+        print(visited)
+        print(array)
+        dfs(count: count + 1)
+        visited[i] = false
+        array.removeLast()
+        print(visited)
+        print(array)
+    }
+}
+
+dfs(count: 0)
 
 
 
