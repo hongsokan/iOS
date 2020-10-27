@@ -6,6 +6,7 @@
 //  Copyright © 2020 안홍석. All rights reserved.
 //
 
+
 // N과 M(2)
 let line = (readLine() ?? "")
     .split(separator: " ")
@@ -26,16 +27,16 @@ func dfs(count: Int) {
     // 시작점은 1부터
     for i in 1...n {
         if (visited[i] == true) { continue }
-        print("i = \(i)")
+        // print("i = \(i)")
         visited[i] = true
         array.append(i)
-        print(visited)
-        print(array)
+        // print(visited)
+        // print(array)
         dfs(count: count + 1)
         visited[i] = false
         array.removeLast()
-        print(visited)
-        print(array)
+        // print(visited)
+        // print(array)
     }
 }
 
