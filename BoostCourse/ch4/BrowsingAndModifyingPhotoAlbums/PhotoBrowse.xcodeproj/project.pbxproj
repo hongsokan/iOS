@@ -109,10 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				118FE1151CEF0525004F2F51 /* AppDelegate.swift */,
-				118FE1191CEF0525004F2F51 /* AssetGridViewController.swift */,
-				11E1BB9D1CF137450057E18F /* AssetViewController.swift */,
-				11E1BB9A1CF1371A0057E18F /* GridViewCell.swift */,
 				118FE1171CEF0525004F2F51 /* MasterViewController.swift */,
+				118FE1191CEF0525004F2F51 /* AssetGridViewController.swift */,
+				11E1BB9A1CF1371A0057E18F /* GridViewCell.swift */,
+				11E1BB9D1CF137450057E18F /* AssetViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
