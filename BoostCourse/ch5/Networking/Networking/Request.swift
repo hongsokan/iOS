@@ -14,6 +14,7 @@ func requestFriends() {
     
     guard let url: URL = URL(string: "https://randomuser.me/api/?results=20&inc=name,email,picture") else { return }
     
+    // session 만들고, dataTask로 데이터 요청, resume()으로 실행
     let session: URLSession = URLSession(configuration: .default)
     
     // dataTask는 url로 요청, 서버로부터 응답이 오면 클로저 실행, 클로저는 백그라운드에서 실행
