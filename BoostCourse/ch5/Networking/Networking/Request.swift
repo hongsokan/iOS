@@ -34,7 +34,8 @@ func requestFriends() {
         do {
             let apiResponse: APIResponse = try JSONDecoder().decode(APIResponse.self, from: data)
             
-            // Notification 처리
+            // Notification 처리 - post
+            // post를 통해 ViewController로 전송 - didReceiveFriendsNotification
             /*
             self.friends = apiResponse.results
             

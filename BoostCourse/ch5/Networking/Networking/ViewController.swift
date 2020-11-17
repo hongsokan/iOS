@@ -21,7 +21,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         cell.textLabel?.text = friend.name.full
         cell.detailTextLabel?.text = friend.email
-        cell.imageView?.image = nil
+        
+        // 이미지를 비워두는 것보다 플레이스홀더 용 이미지를 세팅하는 것이 좋다
+        // cell.imageView?.image = nil
+        cell.imageView?.image = UIImage(named: "default.png")
         
         /*
         // 비동기 처리하여 이미지 다운로드 필요
@@ -37,8 +40,9 @@ class ViewController: UIViewController, UITableViewDataSource {
             guard let imageData: Data = try? Data(contentsOf: imageURL) else { return }
             
             DispatchQueue.main.async {
+                // cell 에서 세팅된 index와 다운로드 된 이미지의 index가 다를 수도 있다
                 if let index: IndexPath = tableView.indexPath(for: cell) {
-                    if index.row == indexPath.row {
+                    if index.row == indexPath.row { // index가 같도록 처리
                         cell.imageView?.image = UIImage(data: imageData)
                     }
                 }
@@ -71,6 +75,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         self.friends = friends
         
+        // post하는 쪽에서 메인스레드 처리하였기 때문에 받는 쪽에서도 메인 스레드 처리 필요
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
