@@ -45,7 +45,7 @@ class ViewController: UIViewController {
 
 
 // MARK: - Method
-extension ViewController: AVAudioPlayerDelegate {
+extension ViewController {
     
     // 뮤직플레이어를 초기화하는 메서드
     func initializePlayer() {
@@ -255,7 +255,7 @@ extension ViewController {
 
 // MARK: AVAudioPlayerDelegate
 // 어떤 상황이 발생할 때마다 미리 약속해두었던 메서드들을 수행
-extension ViewController {
+extension ViewController: AVAudioPlayerDelegate {
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         
