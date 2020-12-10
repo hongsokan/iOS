@@ -16,30 +16,25 @@ class ViewController: UIViewController {
     var player: AVAudioPlayer!
     var timer: Timer!
     
+    var playerView = UIView()
+    var playPauseButton = UIButton()
+    var timeLabel = UILabel()
+    var progressSlider = UISlider()
+    
+    /*
     // MARK: IBOutlet
     @IBOutlet var playerView: UIView!
     @IBOutlet var playPauseButton: UIButton!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var progressSlider: UISlider!
-    
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.addViewsWithCode()
+        self.addViews()
         self.initializePlayer()
-        
-    }
-    
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight {
-            
-            self.playerView.center = self.view.center
-        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -173,7 +168,7 @@ extension ViewController: AVAudioPlayerDelegate {
 // MARK: View
 extension ViewController {
     
-    func addViewsWithCode() {
+    func addViews() {
         self.addUIView()
         self.addPlayPauseButton()
         self.addTimeLabel()
@@ -186,10 +181,15 @@ extension ViewController {
         
         self.view.addSubview(view)
         
-        view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 1).isActive = true
-        view.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 1).isActive = true
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+//        view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//        view.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 1).isActive = true
+//        view.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 1).isActive = true
         
         self.playerView = view
     }
@@ -206,9 +206,12 @@ extension ViewController {
         button.addTarget(self, action: #selector(self.touchUpPlayPauseButton(_:)), for: UIControl.Event.touchUpInside)
         
         button.centerXAnchor.constraint(equalTo: self.playerView.centerXAnchor).isActive = true
-        NSLayoutConstraint(item: button, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.playerView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.6, constant: 0).isActive = true
-        button.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.5).isActive = true
-        button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: 1).isActive = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.playerView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.7, constant: 0).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        
+//        button.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.5).isActive = true
+//        button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: 1).isActive = true
         
         self.playPauseButton = button
     }
