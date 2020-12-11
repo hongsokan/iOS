@@ -15,42 +15,19 @@ class MusicViewController: UIViewController {
     var player: AVAudioPlayer!
     var timer: Timer!
     
-    // IBOutlets
-    private var playerView: UIView!
-    private var playPauseButton: UIButton!
-    private var timeLabel: UILabel!
-    private var progressSlider: UISlider!
-    private var cancelButton: UIButton!
+    var playerView: UIView!
+    var playPauseButton: UIButton!
+    var timeLabel: UILabel!
+    var progressSlider: UISlider!
+    var cancelButton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.addViewsWithCode()
+        self.addViews()
         self.initializePlayer()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if UIApplication.shared.windows.first?
-            .windowScene?.interfaceOrientation.isLandscape == true {
-            
-            if self.playPauseButton != nil {
-                playPauseButton.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.5).isActive = false
-                playPauseButton.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.2).isActive = true
-            }
-        }
-        
-        if UIApplication.shared.windows.first?
-            .windowScene?.interfaceOrientation.isPortrait == true {
-            
-            if self.playPauseButton != nil {
-                playPauseButton.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.2).isActive = false
-                playPauseButton.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.5).isActive = true
-            }
-        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -65,7 +42,7 @@ class MusicViewController: UIViewController {
 extension MusicViewController {
     
     @objc func touchCancel(_ sender: UIButton) {
-        self.invalidateTimer()
+        // self.invalidateTimer()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -218,7 +195,7 @@ extension MusicViewController: AVAudioPlayerDelegate {
 // MARK: Views
 extension MusicViewController {
     
-    func addViewsWithCode() {
+    func addViews() {
         self.addUIView()
         self.addPlayPauseButton()
         self.addTimeLabel()
@@ -226,21 +203,19 @@ extension MusicViewController {
         self.addCancelButton()
     }
     
-    
     func addUIView() {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(view)
         
-        view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 1).isActive = true
-        view.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 1).isActive = true
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
         self.playerView = view
     }
-    
     
     func addPlayPauseButton() {
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
@@ -254,13 +229,12 @@ extension MusicViewController {
         button.addTarget(self, action: #selector(self.touchUpPlayPauseButton(_:)), for: UIControl.Event.touchUpInside)
         
         button.centerXAnchor.constraint(equalTo: self.playerView.centerXAnchor).isActive = true
-        NSLayoutConstraint(item: button, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.playerView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.6, constant: 0).isActive = true
-        button.widthAnchor.constraint(equalTo: self.playerView.widthAnchor, multiplier: 0.5).isActive = true
-        button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: 1).isActive = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.playerView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 0.7, constant: 0).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         self.playPauseButton = button
     }
-    
     
     func addTimeLabel() {
         let timeLabel: UILabel = UILabel()
@@ -278,7 +252,6 @@ extension MusicViewController {
         self.timeLabel = timeLabel
         self.updateTimeLabelText(time: 0)
     }
-    
     
     func addProgressSlider() {
         let slider: UISlider = UISlider()
@@ -308,11 +281,11 @@ extension MusicViewController {
         cancel.setTitle("Cancel", for: UIControl.State.normal)
         cancel.addTarget(self, action: #selector(self.touchCancel(_:)), for: UIControl.Event.touchUpInside)
         
-        cancel.backgroundColor = .systemBlue
+        cancel.backgroundColor = .none
+        cancel.setTitleColor(.systemBlue, for: .normal)
         
-        cancel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        cancel.topAnchor.constraint(equalTo: self.progressSlider.bottomAnchor, constant: 32).isActive = true
-        cancel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true
+        cancel.centerXAnchor.constraint(equalTo: self.playerView.centerXAnchor).isActive = true
+        cancel.topAnchor.constraint(equalTo: self.progressSlider.bottomAnchor, constant: 16).isActive = true
         
         self.cancelButton = cancel
     }

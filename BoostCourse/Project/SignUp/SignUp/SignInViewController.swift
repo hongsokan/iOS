@@ -11,15 +11,12 @@ import UIKit
 class SignInViewController: UIViewController {
     
     private weak var uiView: UIView!
+    var uiViewConstraint = NSLayoutConstraint()
     weak var idField: UITextField!
     weak var pwField: UITextField!
     private weak var imageView: UIImageView!
     private weak var signinButton: UIButton!
     private weak var signupButton: UIButton!
-    
-    // ThirdVC 에서 회원가입 완료를 하면 받아올 아이디와 비밀번호
-    var id: String?
-    var pw: String?
     
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
@@ -53,20 +50,16 @@ class SignInViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        if UIApplication.shared.windows.first?
-            .windowScene?.interfaceOrientation.isPortrait == true {
-            if self.imageView != nil {
-                self.imageView.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.5).isActive = false
-                self.imageView.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.3).isActive = true
-            }
-        }
-        
-        if UIApplication.shared.windows.first?
-            .windowScene?.interfaceOrientation.isLandscape == true {
-            if self.imageView != nil {
-                self.imageView.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.3).isActive = false
-                self.imageView.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.5).isActive = true
-            }
+        if UIDevice.current.orientation.isPortrait {
+            // print("portrait")
+            uiViewConstraint.isActive = false
+            uiViewConstraint = self.uiView.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor)
+            uiViewConstraint.isActive = true
+        } else if UIDevice.current.orientation.isLandscape {
+            // print("landscape")
+            uiViewConstraint.isActive = false
+            uiViewConstraint = self.uiView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0)
+            uiViewConstraint.isActive = true
         }
     }
     
@@ -93,7 +86,6 @@ extension SignInViewController {
         guard let pwInput = pwField.text, !pwInput.isEmpty else { return }
         
         if (idField.text == UserInformation.shared.id) && (pwField.text == UserInformation.shared.pw) {
- 
             print("로그인 성공")
             
             // 로그인 성공 시 다음 화면으로
@@ -105,7 +97,6 @@ extension SignInViewController {
             self.present(naviController, animated: true, completion: nil)
             
         } else {
-            
             print("로그인 실패")
             
             // 실패 시 애니메이션 효과 추가
@@ -141,7 +132,11 @@ extension SignInViewController {
     }
     
     
-    @IBAction func unwindToMain (segue: UIStoryboardSegue) {}
+    @IBAction func unwindToMain (segue: UIStoryboardSegue) {
+        if (idField.text == UserInformation.shared.id) && (pwField.text == UserInformation.shared.pw) {
+            signinButton.setTitleColor(.systemBlue, for: .normal)
+        }
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -152,6 +147,12 @@ extension SignInViewController {
     @objc func didEndOnExit(_ sender: UITextField) {
         if idField.isFirstResponder {
             pwField.becomeFirstResponder()
+        }
+    }
+    
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        if (idField.text == UserInformation.shared.id) && (pwField.text == UserInformation.shared.pw) {
+            signinButton.setTitleColor(.systemBlue, for: .normal)
         }
     }
 }
@@ -194,7 +195,7 @@ extension SignInViewController {
         self.addSignInButton()
         self.addSignUpButton()
     }
-
+    
     
     func addView() {
         let view: UIView = UIView()
@@ -205,8 +206,8 @@ extension SignInViewController {
         view.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         view.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.7).isActive = true
-        view.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
- 
+        view.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+        
         self.uiView = view
     }
     
@@ -219,14 +220,10 @@ extension SignInViewController {
         
         image.backgroundColor = .none
         image.image = UIImage(named: "icon")
-        image.sizeToFit()
-        let clickImageView = UITapGestureRecognizer(target: self, action: #selector(self.touchUpImage(_:)))
-        image.isUserInteractionEnabled = true
-        image.addGestureRecognizer(clickImageView)
         
         image.centerXAnchor.constraint(equalTo: self.uiView.centerXAnchor).isActive = true
-        image.bottomAnchor.constraint(equalTo: self.uiView.centerYAnchor).isActive = true
-        image.widthAnchor.constraint(equalTo: self.uiView.widthAnchor, multiplier: 0.5).isActive = true
+        image.topAnchor.constraint(equalTo: self.uiView.topAnchor, constant: 32).isActive = true
+        image.widthAnchor.constraint(equalToConstant: 150).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1).isActive = true
         
         self.imageView = image
@@ -243,6 +240,7 @@ extension SignInViewController {
         id.placeholder = "ID"
         
         id.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
+        id.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         id.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor).isActive = true
         id.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor).isActive = true
@@ -264,6 +262,7 @@ extension SignInViewController {
         pw.isSecureTextEntry = true
         
         pw.addTarget(self, action: #selector(didEndOnExit(_:)), for: UIControl.Event.editingDidEndOnExit)
+        pw.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         pw.leadingAnchor.constraint(equalTo: self.uiView.leadingAnchor).isActive = true
         pw.trailingAnchor.constraint(equalTo: self.uiView.trailingAnchor).isActive = true
@@ -285,7 +284,7 @@ extension SignInViewController {
         signin.addTarget(self, action: #selector(self.touchUpSignInButton(_:)), for: UIControl.Event.touchUpInside)
         
         signin.backgroundColor = .none
-        signin.setTitleColor(.systemBlue, for: .normal)
+        signin.setTitleColor(.systemGray, for: .normal)
         
         signin.topAnchor.constraint(equalTo: self.pwField.bottomAnchor, constant: 32).isActive = true
         signin.leadingAnchor.constraint(equalTo: pwField.leadingAnchor, constant: 16).isActive = true

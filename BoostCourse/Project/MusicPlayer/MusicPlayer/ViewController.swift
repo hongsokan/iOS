@@ -165,7 +165,7 @@ extension ViewController {
 
 
 
-// MARK: View
+// MARK: Views
 extension ViewController {
     
     func addViews() {
