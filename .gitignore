@@ -1,19 +1,10 @@
 ## file
 
-Firebase/HowlFirebaseLogin/Podfile.lock
-Firebase/HowlFirebaseLogin/HowlFirebaseLogin.xcworkspace
-Firebase/HowlFirebaseLogin/HowlFirebaseLogin/GoogleService-Info.plist
-Firebase/HowlTalk/Podfile.lock
-Firebase/HowlTalk/HowlTalk.xcworkspace
-Firebase/HowlTalk/HowlTalk/GoogleService-Info.plist
-Firebase/FirebaseLogin/Podfile.lock
-Firebase/FirebaseLogin/FirebaseLogin.xcworkspace
-Firebase/FirebaseLogin/FirebaseLogin/GoogleService-Info.plist
-
 
 
 ## folder
 
 resources/
-
+Firebase/
+CoreML/
 
